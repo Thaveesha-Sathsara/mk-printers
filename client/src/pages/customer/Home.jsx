@@ -1,4 +1,5 @@
 import { ArrowRight, Image as ImageIcon, Sparkles, Printer } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   const categories = [
@@ -32,9 +33,9 @@ export default function Home() {
             <button className="bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg shadow-white/10 flex items-center justify-center gap-2">
               Start Designing <ArrowRight className="h-5 w-5" />
             </button>
-            <button className="bg-gray-800/50 backdrop-blur-md text-white border border-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors flex items-center justify-center">
+            <Link to="/products" className="bg-gray-800/50 backdrop-blur-md text-white border border-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors flex items-center justify-center">
               Explore Products
-            </button>
+            </Link>
           </div>
         </div>
       </section>

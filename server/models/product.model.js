@@ -34,6 +34,10 @@ const productSchema = new mongoose.Schema({
     isAvailable: {
         type: Boolean,
         default: true,
+    },
+    overLayUrl: {
+        type: String,
+        default: '',
     }
 }, { timestamps: true });
 

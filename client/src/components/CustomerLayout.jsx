@@ -1,5 +1,5 @@
 import { Outlet, Link } from 'react-router-dom';
-import { ShoppingCart, Menu, Search, ExternalLink } from 'lucide-react';
+import { ShoppingCart, Menu, Search, ExternalLink, User } from 'lucide-react';
 
 export default function CustomerLayout() {
     return (
@@ -17,9 +17,11 @@ export default function CustomerLayout() {
 
                         <nav className="hidden md:flex gap-8">
                             <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Home</Link>
-                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Custom Prints</Link>
-                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Stationary</Link>
-                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Gifts</Link>
+                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Home Decor</Link>
+                            <Link to="/products" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Personalized Printing</Link>
+                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Business Essentials</Link>
+                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Marketing Essentials</Link>
+
                         </nav>
 
                         <div className="flex items-center gap-5">
@@ -30,6 +32,7 @@ export default function CustomerLayout() {
                                     0
                                 </span>
                             </button>
+                            <button className="text-gray-500 hover:text-gray-900"><User className="h-5 w-5" /></button>
                             <button className="md:hidden text-gray-500 hover:text-gray-900"><Menu className="h-5 w-6" /></button>
                         </div>
                     </div>

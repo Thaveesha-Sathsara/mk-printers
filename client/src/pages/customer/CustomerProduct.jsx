@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../../utils/api';
-import * as fabric from 'fabric';
-import { ShoppingCart, Upload, Download, ArrowLeft, PaintBucket } from 'lucide-react';
+import { fabric } from 'fabric';
+import { ShoppingCart, Upload, Download, ArrowLeft, PaintBucket, Trash2 } from 'lucide-react';
 
 export default function CustomerProduct() {
   const { slug } = useParams();
@@ -31,41 +31,62 @@ export default function CustomerProduct() {
   }, [slug]);
 
 useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await API.get(`/products/${slug}`);
+        if (res.data.success) setProduct(res.data.product);
+      } catch (err) { console.error(err); } 
+      finally { setLoading(false); }
+    };
+    fetchProduct();
+  }, [slug]);
+
+useLayoutEffect(() => {
     if (!product?.requiresCustomImage || !canvasRef.current) return;
 
-    const initCanvas = new fabric.Canvas(canvasRef.current, { width: 500, height: 500 });
-    
+    const initCanvas = new fabric.Canvas(canvasRef.current, {
+      width: 500,
+      height: 500,
+      backgroundColor: '#f3f4f6'
+    });
+
+    // 1. Load the Base Product Image (The Mug/Shirt)
     if (product.images?.length > 0) {
-        const imgUrl = product.images[0].replace('http:', 'https:');
-        
-        // Use Fetch to get the image data as a blob
-        fetch(imgUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const objectURL = URL.createObjectURL(blob);
-                fabric.Image.fromURL(objectURL, (img) => {
-                    const scale = Math.min(500 / img.width, 500 / img.height);
-                    img.set({ scaleX: scale, scaleY: scale, originX: 'center', originY: 'center', left: 250, top: 250 });
-                    initCanvas.setBackgroundImage(img, initCanvas.renderAll.bind(initCanvas));
-                });
-            })
-            .catch(err => console.error("Blob fetch failed:", err));
+      fabric.Image.fromURL(product.images[0], (img) => {
+        const scale = Math.min(500 / img.width, 500 / img.height);
+        img.set({ scaleX: scale, scaleY: scale, originX: 'center', originY: 'center', left: 250, top: 250 });
+        initCanvas.setBackgroundImage(img, initCanvas.renderAll.bind(initCanvas));
+      }, { crossOrigin: 'anonymous' });
+    }
+
+    // 2. Load the Overlay Mask (If the Admin provided one)
+    if (product.overlayUrl) {
+      fabric.Image.fromURL(product.overlayUrl, (overlay) => {
+        overlay.set({ selectable: false, evented: false }); // Lock it so users can't move the mug frame
+        initCanvas.add(overlay);
+        initCanvas.renderAll();
+      }, { crossOrigin: 'anonymous' });
     }
 
     setCanvasInstance(initCanvas);
     return () => initCanvas.dispose();
-}, [product]);
+  }, [product]);
 
-  // Handle User Image Upload
+  // 3. Update the handleUserUpload to make the photo look "Printed"
   const handleUserUpload = (e) => {
     const file = e.target.files[0];
     if (file && canvasInstance) {
       const reader = new FileReader();
       reader.onload = (f) => {
-        const data = f.target.result;
-        fabric.Image.fromURL(data, (img) => {
-          img.scaleToWidth(200);
-          img.set({ left: 150, top: 150, cornerColor: '#2563eb', cornerStrokeColor: '#2563eb', transparentCorners: false });
+        fabric.Image.fromURL(f.target.result, (img) => {
+          img.scaleToWidth(150);
+          img.set({ 
+            left: 175, top: 175, 
+            globalCompositeOperation: 'multiply',
+            cornerColor: '#2563eb',
+            cornerStrokeColor: '#2563eb',
+            transparentCorners: false
+          });
           canvasInstance.add(img);
           canvasInstance.setActiveObject(img);
         });
@@ -73,6 +94,24 @@ useEffect(() => {
       reader.readAsDataURL(file);
     }
   };
+
+  // Handle User Image Upload
+//   const handleUserUpload = (e) => {
+//     const file = e.target.files[0];
+//     if (file && canvasInstance) {
+//       const reader = new FileReader();
+//       reader.onload = (f) => {
+//         const data = f.target.result;
+//         fabric.Image.fromURL(data, (img) => {
+//           img.scaleToWidth(200);
+//           img.set({ left: 150, top: 150, cornerColor: '#2563eb', cornerStrokeColor: '#2563eb', transparentCorners: false });
+//           canvasInstance.add(img);
+//           canvasInstance.setActiveObject(img);
+//         });
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
 
   // Change Background Tint (Simulating changing shirt/mug color)
   const handleColorChange = (color) => {
@@ -82,23 +121,21 @@ useEffect(() => {
   };
 
   // Download the final design
-  const downloadDesign = () => {
-    if (canvasInstance) {
-      // Deselect objects so the bounding box doesn't show in the download
-      canvasInstance.discardActiveObject();
-      canvasInstance.renderAll();
-      
-      const dataURL = canvasInstance.toDataURL({ format: 'png', quality: 1 });
-      const link = document.createElement('a');
-      link.download = `my-${product.slug}-design.png`;
-      link.href = dataURL;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      // We will save this dataURL to state later to pass to the Shopping Cart!
-      setCustomImage(dataURL); 
-    }
+ const downloadDesign = () => {
+    if (!canvasInstance) return;
+
+    canvasInstance.discardActiveObject();
+    canvasInstance.renderAll();
+    
+    const dataURL = canvasInstance.toDataURL({ format: 'png', quality: 1 });
+    
+    // Create link and simulate click safely
+    const link = document.createElement('a');
+    link.download = `my-design.png`;
+    link.href = dataURL;
+    link.click();
+    
+    setCustomImage(dataURL); 
   };
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading product details...</div>;
@@ -115,12 +152,12 @@ useEffect(() => {
         {/* LEFT COLUMN: THE VISUALS / CUSTOMIZER */}
         <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex flex-col items-center justify-center min-h-[500px]">
           {product.requiresCustomImage ? (
-            <div className="relative border border-gray-200 rounded-xl overflow-hidden shadow-inner">
-               <canvas ref={canvasRef} id="canvas" />
-            </div>
-          ) : (
-             <img src={product.images[0] || '/placeholder.png'} alt={product.name} className="w-full h-auto object-cover rounded-xl" />
-          )}
+          <div className="relative border-4 border-gray-200 rounded-xl overflow-hidden shadow-inner bg-gray-100" style={{ width: '500px', height: '500px' }}>
+             <canvas ref={canvasRef} id="canvas" style={{ width: '500px', height: '500px' }} />
+          </div>
+        ) : (
+          <img src={product.images[0] || '/placeholder.png'} alt={product.name} className="w-full h-auto object-cover rounded-xl" />
+        )}
         </div>
 
         {/* RIGHT COLUMN: PRODUCT INFO & CONTROLS */}
@@ -142,6 +179,20 @@ useEffect(() => {
                   <input type="file" accept="image/*" className="hidden" onChange={handleUserUpload} />
                   <Upload className="h-4 w-4"/> Upload Photo
                 </label>
+                <button 
+                  onClick={() => {
+                      const activeObj = canvasInstance.getActiveObject();
+                      if (activeObj) {
+                          canvasInstance.remove(activeObj);
+                          canvasInstance.renderAll();
+                      }
+                  }}
+                  className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-semibold py-3 px-4 rounded-xl transition-all flex items-center gap-2 shadow-sm"
+                  title="Delete Selected Image"
+                >
+                  <Trash2 className="h-4 w-4" /> Delete Photo
+                  
+                </button>
                 <button onClick={downloadDesign} className="flex-1 bg-white border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-4 rounded-xl transition-all flex justify-center items-center gap-2 shadow-sm">
                   <Download className="h-4 w-4"/> Preview & Save
                 </button>

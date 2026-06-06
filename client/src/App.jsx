@@ -9,6 +9,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminProductList from './pages/admin/AdminProductList';
 import CustomerProduct from './pages/customer/CustomerProduct';
+import Products from './pages/customer/Products';
 
 const AdminOrders = () => <div className="p-8"><h2>Orders (Coming Soon)</h2></div>;
 
@@ -23,6 +24,7 @@ export default function App() {
       <Routes>
         <Route element={<CustomerLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/product/:slug" element={<CustomerProduct />} />
         </Route>
 
