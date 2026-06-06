@@ -184,7 +184,7 @@ export default function AdminDashboard() {
       {/* BRANDED HEADER */}
       <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div className="flex items-center gap-4">
-          <img src="/logo.png" alt="M.K. Printers" className="h-14 w-auto rounded-lg shadow-sm" onError={(e) => e.target.style.display = 'none'} />
+          <img src="/logo.jpeg" alt="M.K. Printers" className="h-14 w-auto rounded-lg shadow-sm" onError={(e) => e.target.style.display = 'none'} />
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">Campaign Manager</h1>
             <p className="text-gray-500 text-sm mt-1">Generate and track mystery box rewards.</p>
@@ -311,7 +311,7 @@ export default function AdminDashboard() {
         <p>&copy; 2026 M.K. Printers. All rights reserved.</p>
         <p className="mt-1 flex items-center justify-center gap-1">
           Developed with <span className="text-red-500 animate-pulse">❤️</span> by 
-          <a href="https://your-portfolio-link.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1 font-medium">
+          <a href="https://tsvithana.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1 font-medium">
             Thaveesha Vithana <ExternalLink className="h-3 w-3" />
           </a>
         </p>

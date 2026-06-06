@@ -92,7 +92,7 @@ export default function CustomerView() {
       <div className="flex-1 py-12 px-4 sm:px-6 flex flex-col items-center">
         
         <div className="mb-8 flex flex-col items-center">
-          <img src="/logo.png" alt="M.K. Printers" className="h-16 w-auto mb-3 object-contain drop-shadow-sm rounded-lg" onError={(e) => e.target.style.display = 'none'} />
+          <img src="/logo.jpeg" alt="M.K. Printers" className="h-16 w-auto mb-3 object-contain drop-shadow-sm rounded-lg" onError={(e) => e.target.style.display = 'none'} />
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight">M.K. Printers Rewards</h1>
         </div>
 
