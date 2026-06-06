@@ -154,7 +154,7 @@ const triggerCopyModal = (linkId) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/50 p-4 md:p-8 font-sans text-gray-900 flex flex-col relative">
+    <div className="min-h-full p-4 md:p-8 font-sans text-gray-900 flex flex-col relative">
       
       {activeDropdown && (
         <div className="fixed inset-0 z-30" onClick={() => setActiveDropdown(null)}></div>
