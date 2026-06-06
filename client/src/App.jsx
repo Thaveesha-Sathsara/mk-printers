@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import CustomerView from './pages/CustomerView';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminProducts from './pages/AdminProducts';
 
 const AdminOrders = () => <div className="p-8"><h2>Orders (Coming Soon)</h2></div>;
 const AdminProducts = () => <div className="p-8"><h2>Products (Coming Soon)</h2></div>;

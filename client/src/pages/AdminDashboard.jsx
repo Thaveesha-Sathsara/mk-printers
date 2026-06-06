@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../utils/api';
 import { Gift, Calendar, Copy, CheckCircle, LogOut, AlertCircle, ExternalLink, Ban, AlertTriangle, MoreVertical, Edit, Save } from 'lucide-react';

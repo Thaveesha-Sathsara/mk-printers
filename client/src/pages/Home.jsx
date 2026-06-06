@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowRight, Image as ImageIcon, Sparkles, Printer } from 'lucide-react';
 
 export default function Home() {

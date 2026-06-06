@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Package, ShoppingBag, Gift, Settings, Menu, X } from 'lucide-react';
 

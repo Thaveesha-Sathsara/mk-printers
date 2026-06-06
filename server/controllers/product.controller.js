@@ -4,7 +4,7 @@ exports.createProduct = async (req, res) => {
     try {
         const { name, category, description, basePrice, requiresCustomImage, requiresCustomText, images } = req.body;
 
-        const baseSlug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|+$)+/g, '');
+        const baseSlug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
         const slug = `${baseSlug}-${Math.floor(1000 + Math.random() * 9000)}`;
 
         const newProduct = new Product({
