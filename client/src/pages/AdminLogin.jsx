@@ -25,7 +25,7 @@ export default function AdminLogin() {
       if (response.data.success) {
         localStorage.setItem('adminToken', response.data.token);
         localStorage.setItem('adminUser', response.data.username);
-        navigate('/admin/dashboard');
+        navigate('/admin');
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Try again.');
