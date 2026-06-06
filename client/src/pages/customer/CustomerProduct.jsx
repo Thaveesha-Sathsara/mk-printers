@@ -30,29 +30,31 @@ export default function CustomerProduct() {
     fetchProduct();
   }, [slug]);
 
-  // Initialize Fabric.js Canvas once product loads
-  useEffect(() => {
-    if (product?.requiresCustomImage && canvasRef.current && !canvasInstance) {
-      const initCanvas = new fabric.Canvas(canvasRef.current, {
-        width: 500,
-        height: 500,
-        backgroundColor: '#f3f4f6' // light gray background
-      });
+useEffect(() => {
+    if (!product?.requiresCustomImage || !canvasRef.current) return;
 
-      // Load the base product image as the background
-      if (product.images && product.images.length > 0) {
-        fabric.Image.fromURL(product.images[0], (img) => {
-          // Scale image to fit canvas
-          const scale = Math.min(500 / img.width, 500 / img.height);
-          img.set({ scaleX: scale, scaleY: scale, originX: 'center', originY: 'center', left: 250, top: 250 });
-          
-          initCanvas.setBackgroundImage(img, initCanvas.renderAll.bind(initCanvas));
-        }, { crossOrigin: 'anonymous' }); // Required for Cloudinary images
-      }
-
-      setCanvasInstance(initCanvas);
+    const initCanvas = new fabric.Canvas(canvasRef.current, { width: 500, height: 500 });
+    
+    if (product.images?.length > 0) {
+        const imgUrl = product.images[0].replace('http:', 'https:');
+        
+        // Use Fetch to get the image data as a blob
+        fetch(imgUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const objectURL = URL.createObjectURL(blob);
+                fabric.Image.fromURL(objectURL, (img) => {
+                    const scale = Math.min(500 / img.width, 500 / img.height);
+                    img.set({ scaleX: scale, scaleY: scale, originX: 'center', originY: 'center', left: 250, top: 250 });
+                    initCanvas.setBackgroundImage(img, initCanvas.renderAll.bind(initCanvas));
+                });
+            })
+            .catch(err => console.error("Blob fetch failed:", err));
     }
-  }, [product, canvasInstance]);
+
+    setCanvasInstance(initCanvas);
+    return () => initCanvas.dispose();
+}, [product]);
 
   // Handle User Image Upload
   const handleUserUpload = (e) => {
@@ -75,8 +77,7 @@ export default function CustomerProduct() {
   // Change Background Tint (Simulating changing shirt/mug color)
   const handleColorChange = (color) => {
     if (canvasInstance) {
-        canvasInstance.backgroundColor = color;
-        canvasInstance.renderAll();
+        canvasInstance.setBackgroundColor(color, canvasInstance.renderAll.bind(canvasInstance));
     }
   };
 
@@ -156,7 +157,17 @@ export default function CustomerProduct() {
                 </div>
               </div>
             </div>
-          )}
+        )}
+                  
+        {customImage && (
+            <div className="bg-green-50 p-4 rounded-xl border border-green-200 mb-6 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4">
+              <img src={customImage} alt="Your Custom Design" className="h-16 w-16 object-cover rounded-lg border border-green-200 shadow-sm" />
+              <div>
+                <p className="text-sm font-bold text-green-800">Design Saved!</p>
+                <p className="text-xs text-green-600 font-medium">Ready to be added to your cart.</p>
+              </div>
+            </div>
+        )}
 
           <button className="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-gray-900/20 flex justify-center items-center gap-3 text-lg">
             <ShoppingCart className="h-5 w-5" /> Add to Cart

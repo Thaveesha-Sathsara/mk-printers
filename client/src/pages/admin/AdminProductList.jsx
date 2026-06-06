@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/api';
-import { Package, Plus, Edit, Trash2, Image as ImageIcon, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Package, Plus, Edit, Trash2, Image as ImageIcon, ToggleLeft, ToggleRight, ExternalLink } from 'lucide-react';
 
 export default function AdminProductList() {
   const [products, setProducts] = useState([]);
@@ -90,6 +90,9 @@ export default function AdminProductList() {
                       </button>
                     </td>
                     <td className="p-4 text-right flex items-center justify-end gap-2 h-full mt-2">
+                        <Link to={`/product/${prod.slug}`} target="_blank" className="p-2 text-green-600 bg-green-50 hover:bg-green-100 rounded-lg transition-colors" title="View in Store">
+                        <ExternalLink className="h-4 w-4" />
+                      </Link>
                       <button className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"><Edit className="h-4 w-4" /></button>
                       <button onClick={() => handleDelete(prod._id, prod.name)} className="p-2 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"><Trash2 className="h-4 w-4" /></button>
                     </td>

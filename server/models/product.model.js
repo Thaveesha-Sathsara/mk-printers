@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
-        reuqired: true,
+        required: true,
     },
     slug: {
         type: String,
-        reuqired: true,
+        required: true,
         unique: true,
     },
     category: {
         type: mongoose.Schema.Types.ObjectId, ref: 'Category',
-        reuqired: true,
+        required: true,
     },
     description: {
         type: String,
@@ -20,16 +20,16 @@ const productSchema = new mongoose.Schema({
     },
     basePrice: {
         type: Number,
-        reuqired: true,
+        required: true,
     },
     images: [{ type: String }],
     requiresCustomImage: {
         type: Boolean,
         default: false,
     },
-    requiresCustomtext: {
+    requiresCustomText: {
         type: Boolean,
-        defailt: false,
+        default: false,
     },
     isAvailable: {
         type: Boolean,

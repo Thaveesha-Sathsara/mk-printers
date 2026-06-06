@@ -23,10 +23,7 @@ export default function App() {
       <Routes>
         <Route element={<CustomerLayout />}>
           <Route path="/" element={<Home />} />
-          <Route element={<CustomerLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/product/:slug" element={<CustomerProduct />} />
-          </Route>
+          <Route path="/product/:slug" element={<CustomerProduct />} />
         </Route>
 
 

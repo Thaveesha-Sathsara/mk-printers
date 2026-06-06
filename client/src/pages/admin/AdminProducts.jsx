@@ -29,6 +29,8 @@ export default function AdminProducts() {
     const [reqImage, setReqImage] = useState(false);
     const [reqText, setReqText] = useState(false);
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const fetchData = async () => {
         try {
             const [catRes, prodRes] = await Promise.all([
@@ -75,10 +77,15 @@ export default function AdminProducts() {
 
     const handleCreateProduct = async (e) => {
         e.preventDefault(); 
+
+        if (isSubmitting) return;
+
         setError(''); 
         setSuccess('');
         
         if (!prodCat) return setError('Please select a category first.');
+
+        setIsSubmitting(true);
 
         try {
             await API.post('/products/create', {
@@ -100,6 +107,7 @@ export default function AdminProducts() {
 
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to create product.');
+            setIsSubmitting(false);
         }
     };
 
@@ -210,8 +218,17 @@ export default function AdminProducts() {
                           </div>
                         </div>
 
-                        <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-md flex justify-center items-center gap-2 mt-4">
-                          <Plus className="h-5 w-5"/> Add Product to Store
+                        <button 
+                          type="submit" 
+                          disabled={isSubmitting}
+                          className={`w-full font-bold py-4 rounded-xl transition-all shadow-md flex justify-center items-center gap-2 mt-4 
+                            ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+                        >
+                          {isSubmitting ? (
+                             <span className="animate-pulse">Uploading Image to Server... (Please Wait)</span>
+                          ) : (
+                             <><Plus className="h-5 w-5"/> Add Product to Store</>
+                          )}
                         </button>
                       </form>
                     </CardContent>
