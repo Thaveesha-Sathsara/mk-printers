@@ -2,18 +2,19 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import CustomerLayout from './components/CustomerLayout';
 import AdminLayout from './components/AdminLayout';
-import Home from './pages/Home';
-import CustomerView from './pages/CustomerView';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminProducts from './pages/AdminProducts';
+import Home from './pages/customer/Home';
+import CustomerView from './pages/customer/CustomerView';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminProducts from './pages/admin/AdminProducts';
+import AdminProductList from './pages/admin/AdminProductList';
+import CustomerProduct from './pages/customer/CustomerProduct';
 
 const AdminOrders = () => <div className="p-8"><h2>Orders (Coming Soon)</h2></div>;
-const AdminProducts = () => <div className="p-8"><h2>Products (Coming Soon)</h2></div>;
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('adminToken');
-  return token ? <AdminLayout>{children}</AdminLayout> : <Navigate to="/admin/login" />;
+  return token ? children : <Navigate to="/admin/login" />;
 };
 
 export default function App() {
@@ -22,6 +23,10 @@ export default function App() {
       <Routes>
         <Route element={<CustomerLayout />}>
           <Route path="/" element={<Home />} />
+          <Route element={<CustomerLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/product/:slug" element={<CustomerProduct />} />
+          </Route>
         </Route>
 
 
@@ -35,7 +40,8 @@ export default function App() {
         }>
           <Route index element={<Navigate to="/admin/orders" replace />} />
           <Route path="orders" element={<AdminOrders />} />
-          <Route path="products" element={<AdminProducts />} />
+          <Route path="products" element={<AdminProductList />} />
+          <Route path="products/new" element={<AdminProducts />} />
           <Route path="campaigns" element={<AdminDashboard />} />
         </Route>
 
