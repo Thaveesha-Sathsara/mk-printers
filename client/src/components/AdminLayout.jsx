@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Package, ShoppingBag, Gift, Settings, Menu, X } from 'lucide-react';
 
 export default function AdminLayout() {
   const location = useLocation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Auto-detect screen size to open/close menu by default
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) setIsSidebarOpen(false);
+      else setIsSidebarOpen(true);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const navItems = [
     { path: '/admin/orders', label: 'Orders', icon: ShoppingBag },
@@ -15,24 +29,32 @@ export default function AdminLayout() {
   return (
     <div className="h-screen w-full bg-gray-100 flex overflow-hidden font-sans">
       
-      {/* MOBILE OVERLAY: Darkens the background when menu is open */}
-      {isMobileMenuOpen && (
+      {/* MOBILE OVERLAY: Darkens background when menu is open on phones */}
+      {isSidebarOpen && isMobile && (
         <div 
-          className="md:hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm" 
-          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm" 
+          onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
 
-      {/* SIDEBAR: Slides in on mobile, strictly locked w-64 on desktop */}
+      {/* SIDEBAR */}
       <aside className={`
-        fixed md:static inset-y-0 left-0 z-50
+        fixed md:relative z-50 h-full
         w-64 bg-gray-900 text-white flex flex-col shrink-0
-        transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none
-        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        transition-all duration-300 ease-in-out shadow-2xl md:shadow-none
+        ${isSidebarOpen ? 'translate-x-0 ml-0' : '-translate-x-full md:-ml-64'}
       `}>
-        <div className="h-20 flex items-center px-6 border-b border-gray-800 shrink-0">
-          <img src="/logo.png" alt="M.K. Printers" className="h-10 w-auto mr-3" onError={(e) => e.target.style.display = 'none'} />
-          <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Portal</span>
+        <div className="h-20 flex items-center justify-between px-6 border-b border-gray-800 shrink-0">
+          <div className="flex items-center">
+            <img src="/logo.png" alt="M.K. Printers" className="h-10 w-auto mr-3" onError={(e) => e.target.style.display = 'none'} />
+            <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Portal</span>
+          </div>
+          {/* Close X button only shows on mobile */}
+          {isMobile && (
+            <button onClick={() => setIsSidebarOpen(false)} className="text-gray-400 hover:text-white">
+              <X className="h-6 w-6" />
+            </button>
+          )}
         </div>
         
         <nav className="flex-1 py-6 px-3 space-y-2 overflow-y-auto">
@@ -42,7 +64,7 @@ export default function AdminLayout() {
               <Link 
                 key={item.path} 
                 to={item.path} 
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => isMobile && setIsSidebarOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
               >
                 <item.icon className="h-5 w-5" />
@@ -61,21 +83,25 @@ export default function AdminLayout() {
       </aside>
 
       {/* MAIN CONTENT AREA */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-gray-50/50">
         
-        {/* MOBILE TOP BAR: Only visible on phones */}
-        <header className="md:hidden h-20 bg-gray-900 text-white flex items-center justify-between px-4 shrink-0 shadow-md z-30">
-          <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="M.K. Printers" className="h-8 w-auto" onError={(e) => e.target.style.display = 'none'} />
-            <span className="font-bold tracking-widest uppercase text-sm">Admin</span>
+        {/* UNIVERSAL TOP BAR */}
+        <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-8 shrink-0 z-10">
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
+              className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+            <h2 className="text-xl font-bold text-gray-800">
+              {navItems.find(item => item.path === location.pathname)?.label || 'Dashboard'}
+            </h2>
           </div>
-          <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-gray-300 hover:text-white focus:outline-none">
-            <Menu className="h-7 w-7" />
-          </button>
         </header>
 
-        {/* SCROLLABLE PAGE CONTENT */}
-        <main className="flex-1 overflow-y-auto bg-gray-50/50">
+        {/* SCROLLABLE PAGE CONTENT (Dashboard loads here!) */}
+        <main className="flex-1 overflow-y-auto relative">
           <Outlet /> 
         </main>
 
