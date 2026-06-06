@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../../utils/api';
-import { fabric } from 'fabric';
+import * as fabric from 'fabric';
 import { ShoppingCart, Upload, Download, ArrowLeft, PaintBucket } from 'lucide-react';
 
 export default function CustomerProduct() {
