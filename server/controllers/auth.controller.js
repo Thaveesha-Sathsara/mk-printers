@@ -1,4 +1,5 @@
 const Admin = require('../models/admin.model');
+const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -78,6 +79,67 @@ exports.resetPassword = async (req, res) => {
         await admin.save();
 
         res.status(200).json({ success: true, message: 'Password reset successfully' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+exports.registerUser = async (req, res) => {
+    try {
+        const { name, email, password, phone } = req.body;
+
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            return res.status(400).json({ success: false, message: 'Email already in use' });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const user = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            phone,
+        });
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+        res.status(201).json({
+            succesS: true,
+            token,
+            user: { id: user._id, name: user._name, email: user._email, phone: user._phone }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+exports.loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ success: false, message: 'Invalid credentials' });
+        }
+
+        if (!user.password) {
+            return res.status(400).json({ success: false, message: 'Account created via Google login. use Google instead.' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ success: false, message: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+        res.status(200).json({
+            success: true,
+            token,
+            user: { id: user._id, name: user.name, email: user.email, phone: user.phone }
+        });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

@@ -33,7 +33,7 @@ export default function App() {
 
 
         <Route path="/gift/:linkId" element={<CustomerView />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/login-admin" element={<AdminLogin />} />
 
         <Route path="/admin" element={
           <ProtectedRoute>

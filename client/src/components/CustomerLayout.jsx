@@ -30,14 +30,14 @@ export default function CustomerLayout() {
 
                         <div className="flex items-center gap-5">
                             <button className="text-gray-500 hover:text-gray-900"><Search className="h-5 w-5" /></button>
-                            <button className="text-gray-500 hover:text-gray-900 relative">
+                            <Link to="/cart" className="text-gray-500 hover:text-gray-900 relative cursor-pointer">
                                 <ShoppingCart className="h-6 w-6" />
                                 {cartCount > 0 && (
                                     <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white">
                                     {cartCount}
                                     </span>
                                 )}
-                            </button>
+                            </Link>
                             <button className="text-gray-500 hover:text-gray-900"><User className="h-5 w-5" /></button>
                             <button className="md:hidden text-gray-500 hover:text-gray-900"><Menu className="h-5 w-6" /></button>
                         </div>

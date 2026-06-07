@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        reuqired: true,
+        required: true,
     },
     email: {
         type: String,
@@ -32,4 +32,4 @@ const userSchema = new mongoose.Schema({
     ]
 }, { timestamps: true });
 
-module.exports = mongoose.modell('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
