@@ -61,7 +61,7 @@ export default function AdminProductEdit() {
                     setReqImage(p.requiresCustomImage);
                     setReqText(p.requiresCustomText);
                     if (p.images && p.images.length > 0) setImagePreview(p.images[0]);
-                    if (p.overlayUrl) setOverlayPreview(p.overlayUrl);
+                    if (p.overLayUrl) setOverlayPreview(p.overLayUrl);
                 }
             } catch (err) {
                 // Fallback: If the above endpoint fails, grab all products and find the right one
@@ -76,7 +76,7 @@ export default function AdminProductEdit() {
                         setReqImage(foundProd.requiresCustomImage);
                         setReqText(foundProd.requiresCustomText);
                         if (foundProd.images?.length > 0) setImagePreview(foundProd.images[0]);
-                        if (foundProd.overlayUrl) setOverlayPreview(foundProd.overlayUrl);
+                        if (foundProd.overLayUrl) setOverlayPreview(foundProd.overLayUrl);
                     } else {
                         setError('Product not found.');
                     }

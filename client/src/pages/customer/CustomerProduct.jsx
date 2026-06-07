@@ -75,8 +75,8 @@ useLayoutEffect(() => {
     }
 
     // 4. Load the Overlay Mask and scale it identically
-    if (product.overlayUrl) {
-        fabric.Image.fromURL(product.overlayUrl, (overlay) => {
+    if (product.overLayUrl) {
+        fabric.Image.fromURL(product.overLayUrl, (overlay) => {
             const scale = Math.min(containerWidth / overlay.width, containerWidth / overlay.height);
             overlay.set({ 
                 scaleX: scale, 

@@ -23,6 +23,10 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
     images: [{ type: String }],
+    model3dUrl: {
+        type: String,
+        default: '',
+    },
     requiresCustomImage: {
         type: Boolean,
         default: false,
