@@ -10,13 +10,22 @@ cloudinary.config({
 // 1. ADMIN: Add a new product to the store
 exports.createProduct = async (req, res) => {
     try {
-        const { name, category, description, basePrice, requiresCustomImage, requiresCustomText, imageBase64 } = req.body;
+        const { name, category, description, basePrice, requiresCustomImage, requiresCustomText, imageBase64, model3Base64 } = req.body;
         
         let uploadedImageUrl = '';
+        let uploadedModelUrl = '';
 
         if (imageBase64) {
             const uploadRes = await cloudinary.uploader.upload(imageBase64, { folder: 'mk_printers/products' });
             uploadedImageUrl = uploadRes.secure_url;
+        }
+
+        if (model3Base64) {
+            const modelUploadRes = await cloudinary.uploader.upload(model3Base64, {
+                folder: 'mk_printers/products/models',
+                resource_type: 'auto'
+            });
+            uploadedModelUrl = modelUploadRes.secure_url;
         }
         
         const baseSlug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
@@ -24,7 +33,8 @@ exports.createProduct = async (req, res) => {
 
         const newProduct = new Product({
             name, slug, category, description, basePrice, requiresCustomImage, requiresCustomText, 
-            images: uploadedImageUrl ? [uploadedImageUrl] : []
+            images: uploadedImageUrl ? [uploadedImageUrl] : [],
+            model3dUrl: uploadedModelUrl
         });
         
         await newProduct.save();

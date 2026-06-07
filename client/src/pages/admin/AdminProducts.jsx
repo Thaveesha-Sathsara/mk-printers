@@ -13,6 +13,8 @@ export default function AdminProducts() {
     
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState('');
+    const [modelFile, setModelFile] = useState(null);
+    const [modelFileName, setModelFileName] = useState('');
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -60,6 +62,16 @@ export default function AdminProducts() {
         }
     };
 
+    const handleModelChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setModelFileName(file.name);
+            const reader = new FileReader();
+            reader.onloadend = () => setModelFile(reader.result);
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleCreateCategory = async (e) => {
         e.preventDefault(); 
         setError(''); 
@@ -95,7 +107,8 @@ export default function AdminProducts() {
                 basePrice: Number(prodPrice),
                 requiresCustomImage: reqImage,
                 requiresCustomText: reqText,
-                imageBase64: imageFile
+                imageBase64: imageFile,
+                model3Base64: modelFile
             });
             
             setSuccess(`Product "${prodName}" added to the store! Redirecting...`);
@@ -195,6 +208,21 @@ export default function AdminProducts() {
                             <input type="file" accept="image/*" onChange={handleImageChange} className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition-colors" />
                             {imagePreview && <img src={imagePreview} alt="Preview" className="mt-4 h-32 w-32 object-cover rounded-lg border border-gray-200" />}
                         </div>
+                        
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-2">
+                                <Package className="h-4 w-4" /> 3D Model (.obj or .gltf)
+                            </label>
+                            <p className="text-xs text-gray-500 mb-3">Optional: Upload a 3D model for the interactive customizer.</p>
+                            <input 
+                                type="file" 
+                                accept=".obj,.stl" 
+                                onChange={handleModelChange} 
+                                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 transition-colors"
+                            />
+                            {modelFileName && <span className="text-xs font-bold text-purple-600 mt-2 block">Selected file: {modelFileName}</span>}
+                        </div>
+
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
                           <div>
