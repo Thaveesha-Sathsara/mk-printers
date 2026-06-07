@@ -1,12 +1,23 @@
 import { useCart } from '../../context/CartContext';
 import { Trash2, ArrowRight, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import AuthModal from '../../components/AuthModal';  
+import { useState } from 'react'; 
 
 export default function Cart() {
+    const { user } = useAuth();
+    const [showAuthModal, setShowAuthModal] = useState(false);
     const { cart, removeFromCart, getCartTotal, clearCart } = useCart();
 
     const handleWhatsappCheckout = () => {
+        if (!user) {
+            setShowAuthModal(true);
+            return;
+        }
         let message = `*NEW ORDER FROM M.K. PRINTERS*\n\n`;
+            message += `Customer: *${user.name}*\n`;
+            message += `Email: *${user.email}* \n`;
         cart.forEach((item, index) => {
             message += `${index + 1}. *${item.name}*\n`;
             message += `   Quantity: ${item.quantity} | Price: Rs. ${item.basePrice}\n`;
@@ -78,6 +89,15 @@ export default function Cart() {
                     </button>
                 </div>
             </div>
+            
+            <AuthModal
+                isOpen={showAuthModal}
+                onClose={() => setShowAuthModal(false)}
+                onLoginSuccess={() => {
+                    setShowAuthModal(false);
+                    handleWhatsappCheckout();
+                }}
+            />
         </div>
     );
 }

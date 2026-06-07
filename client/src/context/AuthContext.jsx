@@ -10,12 +10,12 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const savedUser = localStorage.getItem('mk_user');
-        if (savedUSer) setUser(JSON.parse(savedUser));
+        if (savedUser) setUser(JSON.parse(savedUser));
     }, []);
 
     useEffect(() => {
         if (token) {
-            API.defaults.headerscommon['Authorization'] = `Bearer ${token}`;
+            API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         } else {
             delete API.defaults.headers.common['Authorization'];
         }
@@ -50,6 +50,17 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('mk_user');
     };
 
+    const googleLogin = async (googleToken) => {
+        const res = await API.post('/auth/google', { token: googleToken });
+        if (res.data.success) {
+            setToken(res.data.token);
+            setUser(res.data.user);
+            localStorage.setItem('mk_token', res.data.token);
+            localStorage.setItem('mk_user', JSON.stringify(res.data.user));
+        }
+        return res.data;
+    }
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -57,6 +68,7 @@ export const AuthProvider = ({ children }) => {
             login,
             register,
             logout,
+            googleLogin
         }}>
             {children}
         </AuthContext.Provider>

@@ -3,6 +3,8 @@ const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // admin login
 exports.login = async (req, res) => {
@@ -106,9 +108,9 @@ exports.registerUser = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
         res.status(201).json({
-            succesS: true,
+            success: true,
             token,
-            user: { id: user._id, name: user._name, email: user._email, phone: user._phone }
+            user: { id: user._id, name: user.name, email: user.email, phone: user.phone }
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -142,5 +144,39 @@ exports.loginUser = async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+exports.googleLogin = async (req, res) => {
+    try {
+        const { token } = req.body;
+
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+
+        const payload = ticket.getPayload();
+        const { email, name, sub: googleId } = payload;
+
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            user = await User.create({
+                name,
+                email,
+                googleId,
+            });
+        }
+
+        const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+        res.status(200).json({
+            success: true,
+            token: jwtToken,
+            user: { id: user._id, name: user.name, email: user.email, phone: user.phone }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Google auth error', error: error.message });
     }
 };
