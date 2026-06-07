@@ -6,12 +6,21 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState(() => {
-        const savedCart = localStorage.getItem('mk_printers_cart');
-        return savedCart ? JSON.parse(savedCart) : [];
+        try {
+            const savedCart = localStorage.getItem('mk_printers_cart');
+            return savedCart ? JSON.parse(savedCart) : [];
+        } catch (error) {
+            console.error('Error parsing saved cart:', error);
+            return [];
+        }
     });
 
     useEffect(() => {
-        localStorage.setItem('mk_pirnters_cart', JSON.stringify(cart));
+        try {
+            localStorage.setItem('mk_printers_cart', JSON.stringify(cart));
+        } catch (error) {
+            console.error("Failed to save to local storage", error);
+        }
     }, [cart]);
 
     const addToCart = (product, customImage = null, quantity = 1) => {
@@ -22,7 +31,10 @@ export const CartProvider = ({ children }) => {
 
             if (existingItemIndex > -1) {
                 const newCart = [...prevCart];
-                newCart[existingItemIndex].quantity += quantity;
+                newCart[existingItemIndex] = {
+                    ...newCart[existingItemIndex],
+                    quantity: newCart[existingItemIndex].quantity + quantity,
+                };
                 return newCart;
             } else {
                 return [...prevCart, { ...product, customImage, quantity }];
