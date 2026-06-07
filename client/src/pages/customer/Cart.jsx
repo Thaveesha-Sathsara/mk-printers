@@ -10,14 +10,14 @@ export default function Cart() {
     const [showAuthModal, setShowAuthModal] = useState(false);
     const { cart, removeFromCart, getCartTotal, clearCart } = useCart();
 
-    const handleWhatsappCheckout = () => {
-        if (!user) {
+    const handleWhatsappCheckout = (currentUser = user) => {
+        if (!currentUser || !currentUser.email) {
             setShowAuthModal(true);
             return;
         }
         let message = `*NEW ORDER FROM M.K. PRINTERS*\n\n`;
-            message += `Customer: *${user.name}*\n`;
-            message += `Email: *${user.email}* \n`;
+            message += `Customer: *${currentUser.name}*\n`;
+            message += `Email: *${currentUser.email}* \n`;
         cart.forEach((item, index) => {
             message += `${index + 1}. *${item.name}*\n`;
             message += `   Quantity: ${item.quantity} | Price: Rs. ${item.basePrice}\n`;
@@ -84,7 +84,7 @@ export default function Cart() {
                         <span className="font-black text-gray-900">Rs. {getCartTotal()}</span>
                     </div>
 
-                    <button onClick={handleWhatsappCheckout} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2 shadow-lg transition-colors">
+                    <button onClick={() => handleWhatsappCheckout()} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2 shadow-lg transition-colors">
                         Checkout via Whatsapp <ArrowRight className="h-5 w-5" />
                     </button>
                 </div>
@@ -93,9 +93,9 @@ export default function Cart() {
             <AuthModal
                 isOpen={showAuthModal}
                 onClose={() => setShowAuthModal(false)}
-                onLoginSuccess={() => {
+                onLoginSuccess={(freshUser) => {
                     setShowAuthModal(false);
-                    handleWhatsappCheckout();
+                    handleWhatsappCheckout(freshUser);
                 }}
             />
         </div>

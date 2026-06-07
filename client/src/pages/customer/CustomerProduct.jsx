@@ -47,33 +47,55 @@ useEffect(() => {
 useLayoutEffect(() => {
     if (!product?.requiresCustomImage || !canvasRef.current) return;
 
+    // 1. Get the actual width of the parent container on the user's device
+    const wrapper = document.getElementById('canvas-wrapper');
+    const containerWidth = wrapper ? wrapper.clientWidth : 500;
+    
+    // 2. Initialize Canvas with the dynamic width (keeping it a perfect square)
     const initCanvas = new fabric.Canvas(canvasRef.current, {
-      width: 500,
-      height: 500,
-      backgroundColor: '#f3f4f6'
+        width: containerWidth,
+        height: containerWidth,
+        backgroundColor: '#f3f4f6'
     });
 
-    // 1. Load the Base Product Image (The Mug/Shirt)
+    // 3. Load the Base Product Image and scale it to fit the new dynamic size
     if (product.images?.length > 0) {
-      fabric.Image.fromURL(product.images[0], (img) => {
-        const scale = Math.min(500 / img.width, 500 / img.height);
-        img.set({ scaleX: scale, scaleY: scale, originX: 'center', originY: 'center', left: 250, top: 250 });
-        initCanvas.setBackgroundImage(img, initCanvas.renderAll.bind(initCanvas));
-      }, { crossOrigin: 'anonymous' });
+        fabric.Image.fromURL(product.images[0], (img) => {
+            const scale = Math.min(containerWidth / img.width, containerWidth / img.height);
+            img.set({ 
+                scaleX: scale, 
+                scaleY: scale, 
+                originX: 'center', 
+                originY: 'center', 
+                left: containerWidth / 2, 
+                top: containerWidth / 2 
+            });
+            initCanvas.setBackgroundImage(img, initCanvas.renderAll.bind(initCanvas));
+        }, { crossOrigin: 'anonymous' });
     }
 
-    // 2. Load the Overlay Mask (If the Admin provided one)
+    // 4. Load the Overlay Mask and scale it identically
     if (product.overlayUrl) {
-      fabric.Image.fromURL(product.overlayUrl, (overlay) => {
-        overlay.set({ selectable: false, evented: false }); // Lock it so users can't move the mug frame
-        initCanvas.add(overlay);
-        initCanvas.renderAll();
-      }, { crossOrigin: 'anonymous' });
+        fabric.Image.fromURL(product.overlayUrl, (overlay) => {
+            const scale = Math.min(containerWidth / overlay.width, containerWidth / overlay.height);
+            overlay.set({ 
+                scaleX: scale, 
+                scaleY: scale, 
+                originX: 'center', 
+                originY: 'center', 
+                left: containerWidth / 2, 
+                top: containerWidth / 2,
+                selectable: false, 
+                evented: false 
+            });
+            initCanvas.add(overlay);
+            initCanvas.renderAll();
+        }, { crossOrigin: 'anonymous' });
     }
 
     setCanvasInstance(initCanvas);
     return () => initCanvas.dispose();
-  }, [product]);
+}, [product]);
 
   // 3. Update the handleUserUpload to make the photo look "Printed"
   const handleUserUpload = (e) => {
@@ -153,14 +175,14 @@ useLayoutEffect(() => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         
         {/* LEFT COLUMN: THE VISUALS / CUSTOMIZER */}
-        <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex flex-col items-center justify-center min-h-[500px]">
-          {product.requiresCustomImage ? (
-          <div className="relative border-4 border-gray-200 rounded-xl overflow-hidden shadow-inner bg-gray-100" style={{ width: '500px', height: '500px' }}>
-             <canvas ref={canvasRef} id="canvas" style={{ width: '500px', height: '500px' }} />
-          </div>
-        ) : (
-          <img src={product.images[0] || '/placeholder.png'} alt={product.name} className="w-full h-auto object-cover rounded-xl" />
-        )}
+        <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex flex-col items-center justify-center w-full aspect-square max-w-[500px] mx-auto overflow-hidden">
+            <div id="canvas-wrapper" className="w-full h-full relative flex items-center justify-center">
+                {product.requiresCustomImage ? (
+                    <canvas ref={canvasRef} />
+                    ) : (
+                        <img src={product.images[0] || '/placeholder.png'} alt={product.name} className="w-full h-full object-contain rounded-xl" />
+                    )}
+            </div>
         </div>
 
         {/* RIGHT COLUMN: PRODUCT INFO & CONTROLS */}
