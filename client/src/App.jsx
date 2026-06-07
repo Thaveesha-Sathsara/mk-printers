@@ -3,13 +3,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import CustomerLayout from './components/CustomerLayout';
 import AdminLayout from './components/AdminLayout';
 import Home from './pages/customer/Home';
-import CustomerView from './pages/customer/CustomerView';
+import CustomerView from './pages/customer/CustomerGiftRewardView'
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminProductList from './pages/admin/AdminProductList';
 import CustomerProduct from './pages/customer/CustomerProduct';
 import Products from './pages/customer/Products';
+import AdminProductEdit from './pages/admin/AdminProductEdit';
+import Cart from './pages/customer/Cart';
 
 const AdminOrders = () => <div className="p-8"><h2>Orders (Coming Soon)</h2></div>;
 
@@ -26,6 +28,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/product/:slug" element={<CustomerProduct />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
 
 
@@ -41,6 +44,7 @@ export default function App() {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="products" element={<AdminProductList />} />
           <Route path="products/new" element={<AdminProducts />} />
+          <Route path="products/edit/:id" element={<AdminProductEdit />} />
           <Route path="campaigns" element={<AdminDashboard />} />
         </Route>
 

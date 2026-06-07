@@ -93,7 +93,7 @@ export default function AdminProductList() {
                         <Link to={`/product/${prod.slug}`} target="_blank" className="p-2 text-green-600 bg-green-50 hover:bg-green-100 rounded-lg transition-colors" title="View in Store">
                         <ExternalLink className="h-4 w-4" />
                       </Link>
-                      <button className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"><Edit className="h-4 w-4" /></button>
+                      <Link to={`/admin/products/edit/${prod._id}`} className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors inline-flex"><Edit className="h-4 w-4" /></Link>
                       <button onClick={() => handleDelete(prod._id, prod.name)} className="p-2 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"><Trash2 className="h-4 w-4" /></button>
                     </td>
                   </tr>

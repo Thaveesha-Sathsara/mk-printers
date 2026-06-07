@@ -1,7 +1,11 @@
 import { Outlet, Link } from 'react-router-dom';
 import { ShoppingCart, Menu, Search, ExternalLink, User } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 export default function CustomerLayout() {
+    const { cart } = useCart();
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
     return (
         <div className="min-h-screen flex flex-col bg-gray-50 font-sans text-gray-900">
 
@@ -28,9 +32,11 @@ export default function CustomerLayout() {
                             <button className="text-gray-500 hover:text-gray-900"><Search className="h-5 w-5" /></button>
                             <button className="text-gray-500 hover:text-gray-900 relative">
                                 <ShoppingCart className="h-6 w-6" />
-                                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white">
-                                    0
-                                </span>
+                                {cartCount > 0 && (
+                                    <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white">
+                                    {cartCount}
+                                    </span>
+                                )}
                             </button>
                             <button className="text-gray-500 hover:text-gray-900"><User className="h-5 w-5" /></button>
                             <button className="md:hidden text-gray-500 hover:text-gray-900"><Menu className="h-5 w-6" /></button>

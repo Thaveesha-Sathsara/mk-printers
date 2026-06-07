@@ -2,17 +2,20 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../../utils/api';
 import { fabric } from 'fabric';
-import { ShoppingCart, Upload, Download, ArrowLeft, PaintBucket, Trash2 } from 'lucide-react';
+import { ShoppingCart, Upload, Download, ArrowLeft, PaintBucket, Trash2, CheckCircle } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
 
 export default function CustomerProduct() {
-  const { slug } = useParams();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  
+    const { slug } = useParams();
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const { addToCart } = useCart();
+    const [showToast, setShowToast] = useState(false);
+    
   // Customizer State
-  const canvasRef = useRef(null);
-  const [canvasInstance, setCanvasInstance] = useState(null);
-  const [customImage, setCustomImage] = useState(null);
+    const canvasRef = useRef(null);
+    const [canvasInstance, setCanvasInstance] = useState(null);
+    const [customImage, setCustomImage] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -218,9 +221,23 @@ useLayoutEffect(() => {
                 <p className="text-xs text-green-600 font-medium">Ready to be added to your cart.</p>
               </div>
             </div>
-        )}
+                  )}
+                  
+                    <div className={`fixed bottom-4 right-4 bg-gray-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-500 z-50 ${showToast ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
+                      <CheckCircle className="h-5 w-5 text-green-400" />
+                      <div className="flex flex-col">
+                        <span className="font-bold text-sm">Added to Cart!</span>
+                        <span className="text-xs text-gray-400">{product.name} is ready for checkout.</span>
+                      </div>
+                    </div>
 
-          <button className="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-gray-900/20 flex justify-center items-center gap-3 text-lg">
+                  <button 
+                      onClick={() => {
+                          addToCart(product, customImage, 1);
+                          setShowToast(true);
+                          setTimeout(() => setShowToast(false), 3000);
+                      }}
+                      className="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-gray-900/20 flex justify-center items-center gap-3 text-lg">
             <ShoppingCart className="h-5 w-5" /> Add to Cart
           </button>
         </div>
