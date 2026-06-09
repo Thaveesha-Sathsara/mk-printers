@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/api';
 import { Package, Plus, Edit, Trash2, Image as ImageIcon, ToggleLeft, ToggleRight, ExternalLink } from 'lucide-react';

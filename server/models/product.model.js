@@ -49,6 +49,11 @@ const productSchema = new mongoose.Schema({
         width: { type: Number, default: 0.6 },
         height: { type: Number, default: 0.5 },
     },
+    department: {
+        type: String,
+        enum: ['General', 'Home Decor', 'Business Essentials'],
+        default: 'General',
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

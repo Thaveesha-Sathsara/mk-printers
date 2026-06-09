@@ -10,7 +10,7 @@ cloudinary.config({
 // 1. ADMIN: Add a new product to the store
 exports.createProduct = async (req, res) => {
     try {
-        const { name, category, description, basePrice, requiresCustomImage, requiresCustomText, imageBase64, model3Base64, overlayBase64 } = req.body;
+        const { name, category, department, description, basePrice, requiresCustomImage, requiresCustomText, imageBase64, model3Base64, overlayBase64 } = req.body;
         
         let uploadedImageUrl = '';
         let uploadedModelUrl = '';
@@ -40,7 +40,7 @@ exports.createProduct = async (req, res) => {
         const slug = `${baseSlug}-${Math.floor(1000 + Math.random() * 9000)}`;
 
         const newProduct = new Product({
-            name, slug, category, description, basePrice, requiresCustomImage, requiresCustomText, 
+            name, slug, category, department, description, basePrice, requiresCustomImage, requiresCustomText,
             images: uploadedImageUrl ? [uploadedImageUrl] : [],
             model3dUrl: uploadedModelUrl,
             overLayUrl: uploadedOverlayUrl,

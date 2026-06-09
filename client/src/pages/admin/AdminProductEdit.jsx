@@ -15,6 +15,7 @@ export default function AdminProductEdit() {
     // Product State
     const [prodName, setProdName] = useState('');
     const [prodCat, setProdCat] = useState('');
+    const [prodDept, setProdDept] = useState('General');
     const [prodDesc, setProdDesc] = useState('');
     const [prodPrice, setProdPrice] = useState('');
     const [reqImage, setReqImage] = useState(false);
@@ -60,6 +61,7 @@ export default function AdminProductEdit() {
                     setProdPrice(p.basePrice);
                     setReqImage(p.requiresCustomImage);
                     setReqText(p.requiresCustomText);
+                    setProdDept(p.department || 'General');
                     if (p.images && p.images.length > 0) setImagePreview(p.images[0]);
                     if (p.overLayUrl) setOverlayPreview(p.overLayUrl);
                 }
@@ -183,6 +185,14 @@ export default function AdminProductEdit() {
                                 <select required value={prodCat} onChange={(e) => setProdCat(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500">
                                     <option value="" disabled>Select a category...</option>
                                     {categories.map(cat => <option key={cat._id} value={cat._id}>{cat.name}</option>)}
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Department</label>
+                                <select required value={prodDept} onChange={(e) => setProdDept(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700">
+                                    <option value="General">General / Other</option>
+                                    <option value="Home Decor">Home Decor</option>
+                                    <option value="Business Essentials">Business Essentials</option>
                                 </select>
                             </div>
                         </div>

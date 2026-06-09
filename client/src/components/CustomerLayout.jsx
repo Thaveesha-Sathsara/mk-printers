@@ -45,8 +45,8 @@ export default function CustomerLayout() {
 
                         {/* Desktop Nav */}
                         <nav className="hidden md:flex gap-8">
+                            <Link to="/products" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">All Products</Link>
                             <Link to="/home-decor" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Home Decor</Link>
-                            <Link to="/products" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Personalized Printing</Link>
                             <Link to="/business-essentials" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Business Essentials</Link>
                             <Link to="/design-studio" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Design Studio</Link>
                         </nav>
@@ -111,8 +111,8 @@ export default function CustomerLayout() {
                 {/* MOBILE MENU DROPDOWN */}
                 {isMobileMenuOpen && (
                     <div className="md:hidden bg-white border-b border-gray-100 px-4 py-4 space-y-4 shadow-lg absolute w-full top-20 left-0">
+                        <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">All Products</Link>
                         <Link to="/home-decor" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Home Decor</Link>
-                        <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Personalized Printing</Link>
                         <Link to="/business-essentials" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Business Essentials</Link>
                         <Link to="/design-studio" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Design Studio</Link>
 
