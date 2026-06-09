@@ -42,7 +42,13 @@ const productSchema = new mongoose.Schema({
     overLayUrl: {
         type: String,
         default: '',
-    }
+    },
+    printZone: {
+        x: { type: Number, default: 0.2 },
+        y: { type: Number, default: 0.25 },
+        width: { type: Number, default: 0.6 },
+        height: { type: Number, default: 0.5 },
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

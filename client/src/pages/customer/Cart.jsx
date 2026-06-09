@@ -2,8 +2,8 @@ import { useCart } from '../../context/CartContext';
 import { Trash2, ArrowRight, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import AuthModal from '../../components/AuthModal';  
-import { useState } from 'react'; 
+import AuthModal from '../../components/AuthModal';
+import { useState } from 'react';
 
 export default function Cart() {
     const { user } = useAuth();
@@ -51,7 +51,7 @@ export default function Cart() {
                     {cart.map((item, index) => (
                         <div key={index} className="flex gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm items-center">
                             <img
-                                src={item.customImage || item.images[0]}
+                                src={item.customImage || item.images?.[0] || '/placeholder.png'}
                                 alt={item.name}
                                 className="h-24 w-24 object-cover rounded-xl border border-gray-200"
                             />
@@ -89,7 +89,7 @@ export default function Cart() {
                     </button>
                 </div>
             </div>
-            
+
             <AuthModal
                 isOpen={showAuthModal}
                 onClose={() => setShowAuthModal(false)}

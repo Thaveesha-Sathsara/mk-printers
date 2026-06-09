@@ -23,10 +23,13 @@ export const CartProvider = ({ children }) => {
         }
     }, [cart]);
 
-    const addToCart = (product, customImage = null, quantity = 1) => {
+    const addToCart = (product, customImage = null, quantity = 1, customBaseColor = '#ffffff') => {
         setCart((prevCart) => {
             const existingItemIndex = prevCart.findIndex(
-                (item) => item._id === product._id && item.customImage === customImage
+                (item) =>
+                    item._id === product._id &&
+                    item.customImage === customImage &&
+                    item.customBaseColor === customBaseColor
             );
 
             if (existingItemIndex > -1) {
@@ -37,7 +40,7 @@ export const CartProvider = ({ children }) => {
                 };
                 return newCart;
             } else {
-                return [...prevCart, { ...product, customImage, quantity }];
+                return [...prevCart, { ...product, customImage, customBaseColor, quantity }];
             }
         });
     };
@@ -58,5 +61,5 @@ export const CartProvider = ({ children }) => {
         <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, getCartTotal }}>
             {children}
         </CartContext.Provider>
-    );;
+    );
 }

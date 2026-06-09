@@ -11,8 +11,6 @@ export default function CustomerProduct() {
     const [loading, setLoading] = useState(true);
     const { addToCart } = useCart();
     const [showToast, setShowToast] = useState(false);
-    
-    // We only need ONE state for the image now!
     const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
     const [baseColor, setBaseColor] = useState('#ffffff');
 
@@ -21,16 +19,15 @@ export default function CustomerProduct() {
             try {
                 const res = await API.get(`/products/${slug}`);
                 if (res.data.success) setProduct(res.data.product);
-            } catch (err) { 
-                console.error(err); 
-            } finally { 
-                setLoading(false); 
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
             }
         };
         fetchProduct();
     }, [slug]);
 
-    // MAGIC FIX: No more 2D canvas. Just turn the file into a temporary URL!
     const handleUserUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -53,14 +50,12 @@ export default function CustomerProduct() {
             </button>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                
-                {/* LEFT COLUMN: 3D VIEWER ONLY */}
                 <div className="flex flex-col gap-6">
                     {product.model3dUrl ? (
-                        <div className="w-full aspect-square max-w-[500px] mx-auto relative rounded-2xl shadow-lg border border-gray-200">
-                            <ProductViewer3D 
-                                modelUrl={product.model3dUrl} 
-                                userImageUrl={uploadedImageUrl} 
+                        <div className="w-full aspect-square max-w-[500px] mx-auto relative rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                            <ProductViewer3D
+                                modelUrl={product.model3dUrl}
+                                userImageUrl={uploadedImageUrl}
                                 baseColor={baseColor}
                             />
                         </div>
@@ -71,7 +66,6 @@ export default function CustomerProduct() {
                     )}
                 </div>
 
-                {/* RIGHT COLUMN: CONTROLS */}
                 <div className="flex flex-col justify-center">
                     <div className="mb-2">
                         <span className="text-sm font-bold text-blue-600 tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">{product.category?.name}</span>
@@ -83,7 +77,7 @@ export default function CustomerProduct() {
                     {product.requiresCustomImage && (
                         <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200 mb-8 space-y-6">
                             <h3 className="font-bold text-gray-900 flex items-center gap-2"><PaintBucket className="h-5 w-5 text-blue-600"/> Customize Your Design</h3>
-                            
+
                             <div className="flex gap-3">
                                 <label className="flex-1 cursor-pointer bg-white border border-gray-300 hover:border-blue-500 text-gray-700 font-semibold py-3 px-4 rounded-xl transition-all flex justify-center items-center gap-2 shadow-sm">
                                     <input type="file" accept="image/*" className="hidden" onChange={handleUserUpload} />
@@ -99,18 +93,18 @@ export default function CustomerProduct() {
                             <div>
                                 <p className="text-sm font-semibold text-gray-700 mb-2">Base Color</p>
                                 <div className="flex gap-2">
-                                    <button onClick={() => setBaseColor('#ffffff')} className="h-8 w-8 rounded-full bg-white border-2 border-gray-200 hover:scale-110"></button>
-                                    <button onClick={() => setBaseColor('#000000')} className="h-8 w-8 rounded-full bg-black border-2 border-gray-800 hover:scale-110"></button>
-                                    <button onClick={() => setBaseColor('#ef4444')} className="h-8 w-8 rounded-full bg-red-500 border-2 border-red-600 hover:scale-110"></button>
-                                    <button onClick={() => setBaseColor('#3b82f6')} className="h-8 w-8 rounded-full bg-blue-500 border-2 border-blue-600 hover:scale-110"></button>
+                                    <button type="button" onClick={() => setBaseColor('#ffffff')} className="h-8 w-8 rounded-full bg-white border-2 border-gray-200 hover:scale-110" aria-label="White" />
+                                    <button type="button" onClick={() => setBaseColor('#000000')} className="h-8 w-8 rounded-full bg-black border-2 border-gray-800 hover:scale-110" aria-label="Black" />
+                                    <button type="button" onClick={() => setBaseColor('#ef4444')} className="h-8 w-8 rounded-full bg-red-500 border-2 border-red-600 hover:scale-110" aria-label="Red" />
+                                    <button type="button" onClick={() => setBaseColor('#3b82f6')} className="h-8 w-8 rounded-full bg-blue-500 border-2 border-blue-600 hover:scale-110" aria-label="Blue" />
                                 </div>
                             </div>
                         </div>
                     )}
 
-                    <button 
+                    <button
                         onClick={() => {
-                            addToCart(product, uploadedImageUrl, 1); // Pass the direct URL to the cart
+                            addToCart(product, uploadedImageUrl, 1, baseColor);
                             setShowToast(true);
                             setTimeout(() => setShowToast(false), 3000);
                         }}
@@ -120,7 +114,7 @@ export default function CustomerProduct() {
                     </button>
                 </div>
             </div>
-            
+
             <div className={`fixed bottom-4 right-4 bg-gray-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-500 z-50 ${showToast ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
                 <CheckCircle className="h-5 w-5 text-green-400" />
                 <div className="flex flex-col">

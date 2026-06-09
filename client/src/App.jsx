@@ -12,6 +12,7 @@ import CustomerProduct from './pages/customer/CustomerProduct';
 import Products from './pages/customer/Products';
 import AdminProductEdit from './pages/admin/AdminProductEdit';
 import Cart from './pages/customer/Cart';
+import Profile from './pages/customer/Profile';
 
 const AdminOrders = () => <div className="p-8"><h2>Orders (Coming Soon)</h2></div>;
 
@@ -26,6 +27,7 @@ export default function App() {
       <Routes>
         <Route element={<CustomerLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/products" element={<Products />} />
           <Route path="/product/:slug" element={<CustomerProduct />} />
           <Route path="/cart" element={<Cart />} />

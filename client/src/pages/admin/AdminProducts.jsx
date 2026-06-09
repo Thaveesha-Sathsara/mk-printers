@@ -211,12 +211,12 @@ export default function AdminProducts() {
                         
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-2">
-                                <Package className="h-4 w-4" /> 3D Model (.obj or .gltf)
+                                <Package className="h-4 w-4" /> 3D Model (.glb / .gltf)
                             </label>
-                            <p className="text-xs text-gray-500 mb-3">Optional: Upload a 3D model for the interactive customizer.</p>
+                            <p className="text-xs text-gray-500 mb-3">Export from Blender as GLB. Name the print material &quot;Print&quot; and UV-unwrap the print faces to 0-1.</p>
                             <input 
                                 type="file" 
-                                accept=".obj,.stl" 
+                                accept=".glb,.gltf,.obj" 
                                 onChange={handleModelChange} 
                                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 transition-colors"
                             />

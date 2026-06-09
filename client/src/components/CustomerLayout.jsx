@@ -1,9 +1,14 @@
 import { Outlet, Link } from 'react-router-dom';
-import { ShoppingCart, Menu, Search, ExternalLink, User } from 'lucide-react';
+import { ShoppingCart, Menu, Search, ExternalLink, User, LogIn } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import AuthModal from './AuthModal';
+import { useState } from 'react';
 
 export default function CustomerLayout() {
     const { cart } = useCart();
+    const { user } = useAuth();
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
     return (
@@ -38,7 +43,18 @@ export default function CustomerLayout() {
                                     </span>
                                 )}
                             </Link>
-                            <button className="text-gray-500 hover:text-gray-900"><User className="h-5 w-5" /></button>
+                            {user ? (
+                                <Link to="/profile" className="text-gray-500 hover:text-blue-600 transition-colors p-2 bg-gray-50 rounded-full">
+                                    <User className="h-5 w-5" />
+                                </Link>
+                            ) : (
+                                <button
+                                    onClick={() => setIsAuthModalOpen(true)}
+                                        className="hidden md:flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-5 py-2 rounded-xl transition-all font-semibold text-sm"
+                                    >
+                                        <LogIn className="h-4 w-4" /> Login
+                                    </button>
+                            )}
                             <button className="md:hidden text-gray-500 hover:text-gray-900"><Menu className="h-5 w-6" /></button>
                         </div>
                     </div>
@@ -77,6 +93,14 @@ export default function CustomerLayout() {
                     </div>
                 </div>
             </footer>
+
+            <AuthModal
+                isOpen={isAuthModalOpen}
+                onClose={() => setIsAuthModalOpen(false)}
+                onLoginSuccess={(userData) => {
+                    setIsAuthModalOpen(false);
+                }}
+            />
         </div>
     );
 }

@@ -10,10 +10,11 @@ cloudinary.config({
 // 1. ADMIN: Add a new product to the store
 exports.createProduct = async (req, res) => {
     try {
-        const { name, category, description, basePrice, requiresCustomImage, requiresCustomText, imageBase64, model3Base64 } = req.body;
+        const { name, category, description, basePrice, requiresCustomImage, requiresCustomText, imageBase64, model3Base64, overlayBase64 } = req.body;
         
         let uploadedImageUrl = '';
         let uploadedModelUrl = '';
+        let uploadedOverlayUrl = '';
 
         if (imageBase64) {
             const uploadRes = await cloudinary.uploader.upload(imageBase64, { folder: 'mk_printers/products' });
@@ -27,6 +28,13 @@ exports.createProduct = async (req, res) => {
             });
             uploadedModelUrl = modelUploadRes.secure_url;
         }
+
+        if (overlayBase64) {
+            const overlayUploadRes = await cloudinary.uploader.upload(overlayBase64, {
+                folder: 'mk_printers/products/overlays',
+            });
+            uploadedOverlayUrl = overlayUploadRes.secure_url;
+        }
         
         const baseSlug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
         const slug = `${baseSlug}-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -34,7 +42,8 @@ exports.createProduct = async (req, res) => {
         const newProduct = new Product({
             name, slug, category, description, basePrice, requiresCustomImage, requiresCustomText, 
             images: uploadedImageUrl ? [uploadedImageUrl] : [],
-            model3dUrl: uploadedModelUrl
+            model3dUrl: uploadedModelUrl,
+            overLayUrl: uploadedOverlayUrl,
         });
         
         await newProduct.save();
@@ -67,7 +76,21 @@ exports.deleteProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const { imageBase64, overlayBase64, ...updates } = req.body;
+
+        if (imageBase64) {
+            const uploadRes = await cloudinary.uploader.upload(imageBase64, { folder: 'mk_printers/products' });
+            updates.images = [uploadRes.secure_url];
+        }
+
+        if (overlayBase64) {
+            const overlayUploadRes = await cloudinary.uploader.upload(overlayBase64, {
+                folder: 'mk_printers/products/overlays',
+            });
+            updates.overLayUrl = overlayUploadRes.secure_url;
+        }
+
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, updates, { new: true });
         res.status(200).json({ success: true, product: updatedProduct });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
