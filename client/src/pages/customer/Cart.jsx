@@ -4,8 +4,14 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import AuthModal from '../../components/AuthModal';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 export default function Cart() {
+    <Helmet>
+        <title>Your Cart | M.K. Printers</title>
+        <meta name="description" content="Review the items in your cart before checking out. Customize your order, remove items, and proceed to a seamless checkout experience via Whatsapp with M.K. Printers." />
+        <meta name="keywords" content="shopping cart, order summary, checkout, customize order, M.K. Printers cart" />
+    </Helmet>
     const { user } = useAuth();
     const [showAuthModal, setShowAuthModal] = useState(false);
     const { cart, removeFromCart, getCartTotal, clearCart } = useCart();

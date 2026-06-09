@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Briefcase, ArrowLeft } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function BusinessEssentials() {
+    <Helmet>
+        <title>Business Essentials | M.K. Printers</title>
+        <meta name="description" content="Elevate your brand. Our premium business card, flyer, and corporate stationery customizer is launching soon to handle all your professional printing needs." />
+        <meta name="keywords" content="custom business cards, personalized flyers, corporate stationery, professional printing, M.K. Printers business essentials" />
+    </Helmet>
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white px-4 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">

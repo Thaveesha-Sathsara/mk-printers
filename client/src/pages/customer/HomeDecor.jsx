@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Home, ArrowLeft } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function HomeDecor() {
+    <Helmet>
+        <title>Home Decor | M.K. Printers</title>
+        <meta name="description" content="Our exclusive collection of customizable home decor is currently being curated. Check back soon for premium wall art, cushions, and interior accessories." />
+        <meta name="keywords" content="custom home decor, personalized wall art, custom cushions, interior accessories, M.K. Printers home decor" />
+    </Helmet>
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white px-4 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">

@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Palette, ArrowLeft, Sparkles } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function DesignStudio() {
+    <Helmet>
+        <title>Design Studio | M.K. Printers</title>
+        <meta name="description" content="We are building the ultimate interactive 3D design studio. Soon, you will be able to customize all our products with your own text, colors, and images in real-time." />
+        <meta name="keywords" content="3D design studio, interactive product customization, real-time design, custom product creator, M.K. Printers design studio" />
+    </Helmet>
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white px-4 relative overflow-hidden">
       {/* Background Glows */}

@@ -1,8 +1,14 @@
 import { useAuth } from '../../context/AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { User, Mail, Phone, Package, Settings, LogOut, MapPin } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function Profile() {
+    <Helmet>
+        <title>My Profile | M.K. Printers</title>
+        <meta name="description" content="View and manage your account details, recent orders, and saved designs in your M.K. Printers profile. Update your information, track your orders, and access exclusive features to enhance your shopping experience." />
+        <meta name="keywords" content="user profile, account details, recent orders, saved designs, M.K. Printers account" />
+    </Helmet>
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 

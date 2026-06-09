@@ -4,8 +4,14 @@ import API from '../../utils/api';
 import { ShoppingCart, Upload, ArrowLeft, PaintBucket, Trash2, CheckCircle } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import ProductViewer3D from '../../components/ProductViewer3D';
+import { Helmet } from 'react-helmet-async';
 
 export default function CustomerProduct() {
+    <Helmet>
+        <title>{product ? `${product.name} | M.K. Printers` : 'Product Details | M.K. Printers'}</title>
+        <meta name="description" content={product ? product.description : 'Detailed view of our customizable product. Upload your own images and choose base colors to make it uniquely yours. Add to cart and bring your design to life with M.K. Printers.'} />
+        <meta name="keywords" content={product ? `${product.name}, custom products, personalized gifts, M.K. Printers` : 'custom products, personalized gifts, M.K. Printers'} />
+    </Helmet>
     const { slug } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);

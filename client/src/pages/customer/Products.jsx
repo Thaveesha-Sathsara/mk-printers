@@ -3,8 +3,14 @@ import { useSearchParams } from 'react-router-dom'; // NEW IMPORT
 import { useProducts } from '../../hooks/useProducts';
 import ProductCard from '../../components/ProductCard';
 import { Search, SlidersHorizontal } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function Products() {
+    <Helmet>
+        <title>Shop Products | M.K. Printers</title>
+        <meta name="description" content="Explore our wide range of customizable products at M.K. Printers. From magic mugs to personalized apparel, find the perfect item to express your unique style or create unforgettable gifts. Shop now and bring your ideas to life!" />
+        <meta name="keywords" content="custom products, magic mugs, personalized apparel, custom printing, unique gifts, M.K. Printers" />
+    </Helmet>
     const { products, loading, error } = useProducts();
     const [searchParams, setSearchParams] = useSearchParams(); // GRAB URL PARAMS
     
