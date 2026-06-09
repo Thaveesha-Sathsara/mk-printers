@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import API from '../../utils/api';
 import { Save, ArrowLeft, AlertCircle, CheckCircle, Image as ImageIcon, Type, Layers } from 'lucide-react';
@@ -64,7 +64,7 @@ export default function AdminProductEdit() {
                     if (p.overLayUrl) setOverlayPreview(p.overLayUrl);
                 }
             } catch (err) {
-                // Fallback: If the above endpoint fails, grab all products and find the right one
+                console.error("Failed to fetch product data:", err);
                 try {
                     const fallbackRes = await API.get(`/products`);
                     const foundProd = fallbackRes.data.products.find(p => p._id === id);
@@ -81,7 +81,7 @@ export default function AdminProductEdit() {
                         setError('Product not found.');
                     }
                 } catch (fallbackErr) {
-                    setError('Failed to load product data.');
+                    setError('Failed to load product data.', fallbackErr);
                 }
             } finally {
                 setLoading(false);

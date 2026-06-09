@@ -1,12 +1,35 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom'; // NEW IMPORT
 import { useProducts } from '../../hooks/useProducts';
 import ProductCard from '../../components/ProductCard';
 import { Search, SlidersHorizontal } from 'lucide-react';
 
 export default function Products() {
     const { products, loading, error } = useProducts();
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams(); // GRAB URL PARAMS
+    
+    // Initialize the search bar with whatever is in the URL (e.g. ?q=mug)
+    const [searchTerm, setSearchTerm] = useState(searchParams.get('q') || '');
     const [sortBy, setSortBy] = useState('newest');
+
+    // If the URL changes (because they searched again from the Navbar), update the local input!
+    useEffect(() => {
+        const query = searchParams.get('q');
+        if (query !== null) {
+            setSearchTerm(query);
+        }
+    }, [searchParams]);
+
+    // Update the URL when they type in the local search bar so it stays in sync
+    const handleLocalSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+        if (value) {
+            setSearchParams({ q: value });
+        } else {
+            setSearchParams({});
+        }
+    };
 
     const filteredAndSortedProducts = useMemo(() => {
         let result = [...products];
@@ -43,7 +66,7 @@ export default function Products() {
                         type="text"
                         placeholder="Search mugs, shirts, categories..."
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={handleLocalSearchChange} // UPDATED HANDLER
                         className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm"
                     />
                 </div>
@@ -67,7 +90,7 @@ export default function Products() {
             {filteredAndSortedProducts.length === 0 ? (
                 <div className="text-center py-24 bg-gray-50 rounded-2xl border border-gray-100">
                     <p className="text-xl text-gray-500 font-medium">No products found matching your search.</p>
-                    <button onClick={() => setSearchTerm('')} className="mt-4 text-blue-600 font-bold hover:underline">Clear Search</button>
+                    <button onClick={() => { setSearchTerm(''); setSearchParams({}); }} className="mt-4 text-blue-600 font-bold hover:underline">Clear Search</button>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
