@@ -38,7 +38,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/products" className="bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-transform hover:scale-105 shadow-xl shadow-white/10 flex items-center justify-center gap-2">
-              Start Designing <ArrowRight className="h-5 w-5" />
+              Start Exploring <ArrowRight className="h-5 w-5" />
             </Link>
           </div>
         </div>
