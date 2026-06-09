@@ -3,8 +3,4 @@ Allow: /
 Disallow: /profile
 Disallow: /cart
 
-# If you want to block AI from scraping your custom designs, add this:
-User-agent: GPTBot
-Disallow: /
-User-agent: CCBot
-Disallow: /
+Sitemap: https://www.mk-printers.com.lk/sitemap.xml
