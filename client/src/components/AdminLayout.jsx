@@ -51,7 +51,7 @@ export default function AdminLayout() {
           </div>
           {/* Close X button only shows on mobile */}
           {isMobile && (
-            <button onClick={() => setIsSidebarOpen(false)} className="text-gray-400 hover:text-white">
+            <button aria-label="Close sidebar" onClick={() => setIsSidebarOpen(false)} className="text-gray-400 hover:text-white">
               <X className="h-6 w-6" />
             </button>
           )}
@@ -75,7 +75,7 @@ export default function AdminLayout() {
         </nav>
         
         <div className="p-4 border-t border-gray-800 shrink-0">
-          <button className="flex items-center gap-3 px-4 py-3 w-full text-gray-400 hover:text-white transition-colors text-left">
+          <button aria-label="Open Settings" className="flex items-center gap-3 px-4 py-3 w-full text-gray-400 hover:text-white transition-colors text-left">
             <Settings className="h-5 w-5" />
             <span className="font-semibold">Settings</span>
           </button>
@@ -89,6 +89,7 @@ export default function AdminLayout() {
         <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-8 shrink-0 z-10">
           <div className="flex items-center gap-4">
             <button 
+              aria-label="Toggle sidebar"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
               className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none"
             >

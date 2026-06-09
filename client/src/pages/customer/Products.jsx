@@ -96,7 +96,7 @@ export default function Products() {
             {filteredAndSortedProducts.length === 0 ? (
                 <div className="text-center py-24 bg-gray-50 rounded-2xl border border-gray-100">
                     <p className="text-xl text-gray-500 font-medium">No products found matching your search.</p>
-                    <button onClick={() => { setSearchTerm(''); setSearchParams({}); }} className="mt-4 text-blue-600 font-bold hover:underline">Clear Search</button>
+                    <button aria-label="Clear search" onClick={() => { setSearchTerm(''); setSearchParams({}); }} className="mt-4 text-blue-600 font-bold hover:underline">Clear Search</button>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

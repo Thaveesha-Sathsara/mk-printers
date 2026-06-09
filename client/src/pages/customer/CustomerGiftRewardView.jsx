@@ -144,7 +144,7 @@ export default function CustomerView() {
             </div>
 
             {viewState === 'revealed' && (
-              <button onClick={() => setViewState('opened')} className="mt-12 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-2 shadow-xl shadow-gray-900/20 transform animate-in slide-in-from-bottom-4 duration-500">
+              <button aria-label="Continue to Claim" onClick={() => setViewState('opened')} className="mt-12 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-2 shadow-xl shadow-gray-900/20 transform animate-in slide-in-from-bottom-4 duration-500">
                 Continue to Claim <ArrowRight className="h-5 w-5" />
               </button>
             )}
@@ -166,7 +166,7 @@ export default function CustomerView() {
                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">WhatsApp Number</label>
                 <input type="tel" required value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="+94 77 123 4567" />
               </div>
-              <button type="submit" disabled={submitting} className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 px-4 rounded-xl mt-4">
+              <button aria-label="Claim Reward" type="submit" disabled={submitting} className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 px-4 rounded-xl mt-4">
                 {submitting ? 'Sending...' : <><Send className="h-5 w-5"/> Claim Reward</>}
               </button>
             </form>

@@ -169,7 +169,7 @@ const triggerCopyModal = (linkId) => {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">Link Copied!</h3>
             <p className="text-sm text-gray-500 mb-6 break-all bg-gray-50 p-3 rounded-lg border">{copyModal.link}</p>
-            <button onClick={() => setCopyModal({ show: false, link: '' })} className="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-3 px-4 rounded-xl transition-colors">
+            <button aria-label="Close" onClick={() => setCopyModal({ show: false, link: '' })} className="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-3 px-4 rounded-xl transition-colors">
               Awesome, thanks!
             </button>
           </div>
@@ -186,8 +186,8 @@ const triggerCopyModal = (linkId) => {
             <h3 className="text-xl font-bold text-gray-900 mb-2">Cancel Link?</h3>
             <p className="text-sm text-gray-500 mb-6">Customers will no longer be able to open this link or claim a prize. This action cannot be undone.</p>
             <div className="flex gap-3">
-              <button onClick={() => setCancelModal({ show: false, linkId: null })} className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded-xl transition-colors">Back</button>
-              <button onClick={confirmCancel} className="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-xl transition-colors">Yes, Cancel</button>
+              <button aria-label="Back" onClick={() => setCancelModal({ show: false, linkId: null })} className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded-xl transition-colors">Back</button>
+              <button aria-label="Yes, Cancel" onClick={confirmCancel} className="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-xl transition-colors">Yes, Cancel</button>
             </div>
           </div>
         </div>
@@ -211,8 +211,8 @@ const triggerCopyModal = (linkId) => {
                 <input type="number" min="1" value={editModal.validDays} onChange={(e) => setEditModal({...editModal, validDays: e.target.value})} className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
               </div>
               <div className="flex gap-3 mt-6">
-                <button type="button" onClick={() => setEditModal({ show: false, linkId: null, prizes: [], validDays: 7 })} className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded-xl transition-colors">Cancel</button>
-                <button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 font-semibold py-3 px-4 rounded-xl transition-colors"><Save className="h-4 w-4"/> Save Changes</button>
+                <button aria-label="Cancel" type="button" onClick={() => setEditModal({ show: false, linkId: null, prizes: [], validDays: 7 })} className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded-xl transition-colors">Cancel</button>
+                <button aria-label="Save Changes" type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 font-semibold py-3 px-4 rounded-xl transition-colors"><Save className="h-4 w-4"/> Save Changes</button>
               </div>
             </form>
           </div>
@@ -228,7 +228,7 @@ const triggerCopyModal = (linkId) => {
             <p className="text-gray-500 text-sm mt-1">Generate and track mystery box rewards.</p>
           </div>
         </div>
-        <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors shadow-sm font-medium">
+        <button aria-label="Logout" onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors shadow-sm font-medium">
           <LogOut className="h-4 w-4" /> Logout
         </button>
       </div>
@@ -254,7 +254,7 @@ const triggerCopyModal = (linkId) => {
                   <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2"><Calendar className="h-4 w-4"/> Valid For (Days)</label>
                   <input type="number" min="1" value={validDays} onChange={(e) => setValidDays(e.target.value)} className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
                 </div>
-                <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow-sm shadow-blue-600/20 transition-all">Generate Link</button>
+                <button aria-label="Generate Link" type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow-sm shadow-blue-600/20 transition-all">Generate Link</button>
               </form>
             </CardContent>
           </Card>
@@ -308,13 +308,14 @@ const triggerCopyModal = (linkId) => {
                         
                         {/* ACTIONS COLUMN: Copy Outside, Edit/Cancel Inside 3-Dots */}
                         <td className="p-4 text-right flex items-center justify-end gap-2 relative">
-                          <button onClick={() => triggerCopyModal(camp.linkId)} className="flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-medium bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md transition-colors" title="Copy Link">
+                          <button aria-label="Copy Link" onClick={() => triggerCopyModal(camp.linkId)} className="flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-medium bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md transition-colors" title="Copy Link">
                             <Copy className="h-4 w-4" /> Copy
                           </button>
                           
                           {camp.status === 'Active' && (
                             <>
                               <button 
+                                aria-label="More options"
                                 onClick={() => setActiveDropdown(activeDropdown === camp.linkId ? null : camp.linkId)}
                                 className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none relative z-40"
                               >
@@ -323,7 +324,7 @@ const triggerCopyModal = (linkId) => {
                               
                               {activeDropdown === camp.linkId && (
                                 <div className="absolute right-4 top-12 w-40 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-2 animate-in fade-in zoom-in-95 duration-100">
-                                  <button onClick={() => openEditModal(camp)} className="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors">
+                                  <button aria-label="Edit Items" onClick={() => openEditModal(camp)} className="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors">
                                     <Edit className="h-4 w-4 text-gray-500" /> Edit Items
                                   </button>
                                   <div className="border-t border-gray-100 my-1"></div>

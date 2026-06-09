@@ -233,6 +233,7 @@ export default function AdminProductEdit() {
                         </div>
 
                         <button 
+                            aria-label="Update Product"
                             type="submit" 
                             disabled={isSubmitting}
                             className={`w-full font-bold py-4 rounded-xl transition-all shadow-md flex justify-center items-center gap-2 mt-8 

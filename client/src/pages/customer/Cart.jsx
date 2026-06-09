@@ -67,7 +67,7 @@ export default function Cart() {
                             </div>
                             <div className="text-right">
                                 <p className="font-bold text-xl text-gray-900 mb-2">Rs. {item.basePrice}</p>
-                                <button onClick={() => removeFromCart(index)} className="text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors">
+                                <button aria-label="Remove" onClick={() => removeFromCart(index)} className="text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors">
                                     <Trash2 className="h-5 w-5" />
                                 </button>
                             </div>
@@ -90,7 +90,7 @@ export default function Cart() {
                         <span className="font-black text-gray-900">Rs. {getCartTotal()}</span>
                     </div>
 
-                    <button onClick={() => handleWhatsappCheckout()} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2 shadow-lg transition-colors">
+                    <button aria-label="Checkout" onClick={() => handleWhatsappCheckout()} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2 shadow-lg transition-colors">
                         Checkout via Whatsapp <ArrowRight className="h-5 w-5" />
                     </button>
                 </div>

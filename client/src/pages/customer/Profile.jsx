@@ -58,10 +58,11 @@ export default function Profile() {
 
                     {/* SIDEBAR ACTIONS */}
                     <div className="mt-6 flex flex-col gap-3">
-                        <button className="flex items-center gap-3 w-full p-4 rounded-xl bg-white hover:bg-gray-50 text-gray-700 font-semibold transition-colors border border-gray-200 shadow-sm">
+                        <button aira-label="Account Settings" className="flex items-center gap-3 w-full p-4 rounded-xl bg-white hover:bg-gray-50 text-gray-700 font-semibold transition-colors border border-gray-200 shadow-sm">
                             <Settings className="w-5 h-5 text-gray-400" /> Account Settings
                         </button>
                         <button 
+                            aira-label="Logout"
                             onClick={handleLogout}
                             className="flex items-center gap-3 w-full p-4 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-semibold transition-colors border border-red-100 shadow-sm"
                         >
@@ -85,7 +86,7 @@ export default function Profile() {
                         <div className="bg-gray-50 border border-dashed border-gray-300 rounded-xl p-12 text-center flex flex-col items-center justify-center">
                             <Package className="w-12 h-12 text-gray-300 mb-4" />
                             <p className="text-gray-500 font-medium">You haven't placed any orders yet.</p>
-                            <button onClick={() => navigate('/products')} className="mt-4 px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition font-medium">
+                            <button aria-label="Start Shopping" onClick={() => navigate('/products')} className="mt-4 px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition font-medium">
                                 Start Shopping
                             </button>
                         </div>

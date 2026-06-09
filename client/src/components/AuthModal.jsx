@@ -49,7 +49,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative animate-in zoom-in-95">
-                <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 bg-gray-100 p-2 rounded-full">
+                <button aria-label="Close" onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 bg-gray-100 p-2 rounded-full">
                     <X className="h-5 w-5" />
                 </button>
 
@@ -83,7 +83,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                         <input type="password" required placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" />
                     </div>
 
-                    <button type="submit" disabled={loading || successMsg} className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-4 rounded-xl transition-all shadow-md">
+                    <button aria-label="Submit button" type="submit" disabled={loading || successMsg} className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-4 rounded-xl transition-all shadow-md">
                         {loading ? 'Processing...' : (isLogin ? 'Log In' : 'Sign Up')}
                     </button>
                 </form>
@@ -116,7 +116,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
 
                 <p className="text-center mt-6 text-sm text-gray-500">
                     {isLogin ? "Don't have an account? " : "Already have an account? "}
-                    <button onClick={() => setIsLogin(!isLogin)} className="text-blue-600 font-bold hover:underline">
+                    <button aria-label="Toggle between login and sign up" onClick={() => setIsLogin(!isLogin)} className="text-blue-600 font-bold hover:underline">
                         {isLogin ? 'Sign up' : 'Log in'}
                     </button>
                 </p>

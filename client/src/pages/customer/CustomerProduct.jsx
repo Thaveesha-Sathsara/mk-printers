@@ -51,7 +51,7 @@ export default function CustomerProduct() {
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <button onClick={() => window.history.back()} className="flex items-center gap-2 text-gray-500 hover:text-gray-900 mb-8 font-medium transition-colors">
+            <button aria-label="Go back" onClick={() => window.history.back()} className="flex items-center gap-2 text-gray-500 hover:text-gray-900 mb-8 font-medium transition-colors">
                 <ArrowLeft className="h-4 w-4" /> Back to Shop
             </button>
 
@@ -90,7 +90,7 @@ export default function CustomerProduct() {
                                     <Upload className="h-4 w-4"/> Upload Photo
                                 </label>
                                 {uploadedImageUrl && (
-                                    <button onClick={handleDelete} className="bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 py-3 px-4 rounded-xl flex items-center transition-colors shadow-sm">
+                                    <button aria-label="Delete Image" onClick={handleDelete} className="bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 py-3 px-4 rounded-xl flex items-center transition-colors shadow-sm">
                                         <Trash2 className="h-4 w-4" />
                                     </button>
                                 )}
@@ -99,16 +99,17 @@ export default function CustomerProduct() {
                             <div>
                                 <p className="text-sm font-semibold text-gray-700 mb-2">Base Color</p>
                                 <div className="flex gap-2">
-                                    <button type="button" onClick={() => setBaseColor('#ffffff')} className="h-8 w-8 rounded-full bg-white border-2 border-gray-200 hover:scale-110" aria-label="White" />
-                                    <button type="button" onClick={() => setBaseColor('#000000')} className="h-8 w-8 rounded-full bg-black border-2 border-gray-800 hover:scale-110" aria-label="Black" />
-                                    <button type="button" onClick={() => setBaseColor('#ef4444')} className="h-8 w-8 rounded-full bg-red-500 border-2 border-red-600 hover:scale-110" aria-label="Red" />
-                                    <button type="button" onClick={() => setBaseColor('#3b82f6')} className="h-8 w-8 rounded-full bg-blue-500 border-2 border-blue-600 hover:scale-110" aria-label="Blue" />
+                                    <button aria-label="White" type="button" onClick={() => setBaseColor('#ffffff')} className="h-8 w-8 rounded-full bg-white border-2 border-gray-200 hover:scale-110" />
+                                    <button aria-label="Black" type="button" onClick={() => setBaseColor('#000000')} className="h-8 w-8 rounded-full bg-black border-2 border-gray-800 hover:scale-110" />
+                                    <button aria-label="Red" type="button" onClick={() => setBaseColor('#ef4444')} className="h-8 w-8 rounded-full bg-red-500 border-2 border-red-600 hover:scale-110" />
+                                    <button aria-label="Blue" type="button" onClick={() => setBaseColor('#3b82f6')} className="h-8 w-8 rounded-full bg-blue-500 border-2 border-blue-600 hover:scale-110" />
                                 </div>
                             </div>
                         </div>
                     )}
 
                     <button
+                        aria-label="Add to Cart"
                         onClick={() => {
                             addToCart(product, uploadedImageUrl, 1, baseColor);
                             setShowToast(true);

@@ -85,7 +85,7 @@ export default function AdminProductList() {
                       {!prod.requiresCustomImage && !prod.requiresCustomText && <span className="text-gray-400">None</span>}
                     </td>
                     <td className="p-4 text-center">
-                      <button onClick={() => toggleAvailability(prod._id, prod.isAvailable)} className={`p-1 rounded-full transition-colors ${prod.isAvailable ? 'text-green-500' : 'text-gray-400'}`}>
+                      <button aria-label="Toggle availability" onClick={() => toggleAvailability(prod._id, prod.isAvailable)} className={`p-1 rounded-full transition-colors ${prod.isAvailable ? 'text-green-500' : 'text-gray-400'}`}>
                         {prod.isAvailable ? <ToggleRight className="h-8 w-8" /> : <ToggleLeft className="h-8 w-8" />}
                       </button>
                     </td>
@@ -94,7 +94,7 @@ export default function AdminProductList() {
                         <ExternalLink className="h-4 w-4" />
                       </Link>
                       <Link to={`/admin/products/edit/${prod._id}`} className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors inline-flex"><Edit className="h-4 w-4" /></Link>
-                      <button onClick={() => handleDelete(prod._id, prod.name)} className="p-2 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"><Trash2 className="h-4 w-4" /></button>
+                      <button aria-label="Delete" onClick={() => handleDelete(prod._id, prod.name)} className="p-2 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"><Trash2 className="h-4 w-4" /></button>
                     </td>
                   </tr>
                 ))
