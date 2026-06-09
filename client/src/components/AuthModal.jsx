@@ -95,7 +95,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                                 setLoading(true);
                                 setError('');
                                 const data = await googleLogin(credentialResponse.credential);
-                                setSuccessMsg('Google login successful! Preparing checkout...');
+                                setSuccessMsg('Google login successful!');
                                 
                                 setTimeout(() => {
                                     onLoginSuccess(data.user); // Pass the user back!
