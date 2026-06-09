@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Menu, Search, ExternalLink, User, LogIn, X } from 'lucide-react';
+import { ShoppingCart, Menu, Search, ExternalLink, User, LogIn, X, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
@@ -44,10 +45,10 @@ export default function CustomerLayout() {
 
                         {/* Desktop Nav */}
                         <nav className="hidden md:flex gap-8">
-                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Home</Link>
-                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Home Decor</Link>
+                            <Link to="/home-decor" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Home Decor</Link>
                             <Link to="/products" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Personalized Printing</Link>
-                            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Business Essentials</Link>
+                            <Link to="/business-essentials" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Business Essentials</Link>
+                            <Link to="/design-studio" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Design Studio</Link>
                         </nav>
 
                         {/* Actions */}
@@ -109,11 +110,11 @@ export default function CustomerLayout() {
                 {/* MOBILE MENU DROPDOWN */}
                 {isMobileMenuOpen && (
                     <div className="md:hidden bg-white border-b border-gray-100 px-4 py-4 space-y-4 shadow-lg absolute w-full top-20 left-0">
-                        <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Home</Link>
-                        <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Home Decor</Link>
+                        <Link to="/home-decor" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Home Decor</Link>
                         <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Personalized Printing</Link>
-                        <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Business Essentials</Link>
-                        
+                        <Link to="/business-essentials" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Business Essentials</Link>
+                        <Link to="/design-studio" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Design Studio</Link>
+
                         <div className="pt-4 border-t border-gray-100">
                             {user ? (
                                 <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-2 text-gray-600 font-medium py-2">
@@ -134,26 +135,87 @@ export default function CustomerLayout() {
             </main>
 
             {/* Footer remains unchanged... */}
-            <footer className="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
+            <footer className="bg-gray-900 text-gray-300 py-16 border-t border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
-                        <div>
-                            <h3 className="text-xl font-bold text-white mb-4">Quick Links</h3>
-                            <p className="text-gray-400 text-sm leading-relaxed">Premium custom printing, magical mugs, custom apparel, and business statationery delivered with quality.</p>
+                    
+                    {/* Top Section - 4 Columns */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                        
+                        {/* 1. Brand & About */}
+                        <div className="flex flex-col space-y-6">
+                            <div className="flex items-center gap-3">
+                                {/* If you want the logo in the footer too, uncomment this: */}
+                                {/* <img src="/logo.jpeg" alt="M.K. Printers Logo" className="h-10 w-auto rounded-md bg-white p-1" /> */}
+                                <span className="text-2xl font-black text-white tracking-tight">M.K. Printers</span>
+                            </div>
+                            <p className="text-gray-400 text-sm leading-relaxed">
+                                Bringing your ideas to life with premium custom printing, interactive 3D designs, and top-tier quality delivered across Sri Lanka.
+                            </p>
+                            
+                            {/* Social Icons */}
+                            <div className="flex gap-4 pt-2">
+                                <a href="https://web.facebook.com/profile.php?id=100091288278761" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors duration-300">
+                                    <FaFacebook className="w-5 h-5" />
+                                </a>
+                                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors duration-300">
+                                    <FaInstagram className="w-5 h-5" />
+                                </a>
+                                <a href="https://www.tiktok.com/@m.k.printers0?_r=1&_t=ZS-973tRzkMJvc" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors duration-300">
+                                    <FaTiktok className="w-5 h-5" />
+                                </a>
+
+                            </div>
                         </div>
+
+                        {/* 2. Quick Links */}
                         <div>
-                            <h4 className="text-white font-bold mb-4">Contact Us</h4>
-                            <ul className="space-y-2 text-sm text-gray-400">
-                                <li>Whatsapp: +94 75 709 8761</li>
-                                <li>Email: hello@mk-printers.com.lk</li>
-                                <li>Location: Ihala Bomiriya, Kaduwela, Sri Lanka</li>
+                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
+                            <ul className="space-y-4 text-sm text-gray-400">
+                                <li><Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowRight className="w-3 h-3" /> Home</Link></li>
+                                <li><Link to="/products" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowRight className="w-3 h-3" /> Shop All Products</Link></li>
+                                <li><Link to="/design-studio" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowRight className="w-3 h-3" /> 3D Design Studio</Link></li>
+                                <li><Link to="/profile" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowRight className="w-3 h-3" /> My Account</Link></li>
                             </ul>
                         </div>
+
+                        {/* 3. Categories */}
+                        <div>
+                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Categories</h4>
+                            <ul className="space-y-4 text-sm text-gray-400">
+                                <li><Link to="/products?q=mug" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowRight className="w-3 h-3" /> Magic Mugs</Link></li>
+                                <li><Link to="/products?q=apparel" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowRight className="w-3 h-3" /> Custom Apparel</Link></li>
+                                <li><Link to="/business-essentials" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowRight className="w-3 h-3" /> Business Stationery</Link></li>
+                                <li><Link to="/home-decor" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowRight className="w-3 h-3" /> Home Decor</Link></li>
+                            </ul>
+                        </div>
+
+                        {/* 4. Contact Info */}
+                        <div>
+                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Contact Us</h4>
+                            <ul className="space-y-4 text-sm text-gray-400">
+                                <li className="flex items-start gap-3">
+                                    <Phone className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                                    <span>+94 75 709 8761 <br/><span className="text-xs text-gray-500 font-medium">(WhatsApp Available)</span></span>
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <Mail className="w-5 h-5 text-blue-500 shrink-0" />
+                                    <a href="mailto:hello@mk-printers.com.lk" className="hover:text-blue-400 transition-colors">hello@mk-printers.com.lk</a>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <MapPin className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                                    <span>Ihala Bomiriya, <br/>Kaduwela, Sri Lanka</span>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
 
-                    <div className="pt-8 border-t border-gray-800 text-center text-sm text-gray-500 flex flex-col items-center">
+                    {/* Bottom Section - Copyright & Dev Credit */}
+                    <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
                         <p>&copy; {new Date().getFullYear()} M.K. Printers. All rights reserved.</p>
-                        <p className="mt-2 flex items-center gap-1.5 bg-gray-800/50 py-1.5 px-4 rounded-full border border-gray-700/50">
+                        
+                        {/* Developer Credit - Preserved exactly as requested! */}
+                        <p className="flex items-center gap-1.5 bg-gray-800/50 py-1.5 px-4 rounded-full border border-gray-700/50 hover:bg-gray-800 transition-colors">
                             Developed with <span className="text-red-500 animate-pulse">❤️</span> by
                             <a href="https://tsvithana.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1 font-semibold transition-colors">
                                 Thaveesha Vithana <ExternalLink className="h-3 w-3" />

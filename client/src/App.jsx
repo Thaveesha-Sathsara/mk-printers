@@ -13,6 +13,9 @@ import Products from './pages/customer/Products';
 import AdminProductEdit from './pages/admin/AdminProductEdit';
 import Cart from './pages/customer/Cart';
 import Profile from './pages/customer/Profile';
+import DesignStudio from './pages/customer/DesignStudio';
+import HomeDecor from './pages/customer/HomeDecor';
+import BuinessEssentials from './pages/customer/BusinessEssentials';
 
 const AdminOrders = () => <div className="p-8"><h2>Orders (Coming Soon)</h2></div>;
 
@@ -31,6 +34,9 @@ export default function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/product/:slug" element={<CustomerProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/design-studio" element={<DesignStudio />} />
+          <Route path="/home-decor" element={<HomeDecor />} />
+          <Route path="/business-essentials" element={<BuinessEssentials />} />
         </Route>
 
 
