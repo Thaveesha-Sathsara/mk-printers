@@ -6,6 +6,7 @@ const giftRoutes = require('./routes/gift.route');
 const authRoutes = require('./routes/auth.route');
 const categoryRoutes = require('./routes/category.route');
 const productRoutes = require('./routes/product.route');
+const orderRoutes = require('./routes/order.route');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use('/api/gift', giftRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/orders', orderRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
