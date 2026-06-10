@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Menu, Search, ExternalLink, User, LogIn, X, Phone, Mail, MapPin, ArrowRight, Home, Tag } from 'lucide-react';
+import { ShoppingCart, Menu, Search, ExternalLink, User, LogIn, X, Phone, Mail, MapPin, ArrowRight, Tag, Package } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -136,9 +136,9 @@ export default function CustomerLayout() {
             </main>
 
             <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-50 pb-safe flex justify-around py-3">
-                <Link to="/" className="flex flex-col items-center gap-1 text-gray-500 hover:text-blue-600">
-                    <Home className="h-6 w-6" />
-                    <span className="text-[10px] font-bold">Home</span>
+                <Link to="/products" className="flex flex-col items-center gap-1 text-gray-500 hover:text-blue-600">
+                    <Package className="h-6 w-6" />
+                    <span className="text-[10px] font-bold">Products</span>
                 </Link>
                 <Link to="/products?q=offer" className="flex flex-col items-center gap-1 text-gray-500 hover:text-blue-600">
                     <Tag className="h-6 w-6" />
