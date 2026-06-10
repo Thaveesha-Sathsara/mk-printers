@@ -39,8 +39,12 @@ export default function CustomerProduct() {
     const handleUserUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const tempUrl = URL.createObjectURL(file);
-            setUploadedImageUrl(tempUrl);
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            reader.onloadend = () => {
+                setUploadedImageUrl(reader.result);
+            };
         }
     };
 
