@@ -189,3 +189,21 @@ exports.googleLogin = async (req, res) => {
         res.status(500).json({ success: false, message: 'Google auth error', error: error.message });
     }
 };
+
+exports.updateProfile = async (req, res) => {
+    try {
+        const { name, phone, address } = req.body;
+        
+        const userId = req.user?.id || req.user?._id || req.userId;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId, 
+            { name, phone, address }, 
+            { new: true, runValidators: true }
+        );
+
+        res.status(200).json({ success: true, user: updatedUser });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

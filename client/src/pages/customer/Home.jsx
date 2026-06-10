@@ -30,11 +30,11 @@ export default function Home() {
             M.K. Printers Premium
           </span>
           <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-tight">
-            Bring Your Ideas <br className="hidden md:block"/> 
+            Create Your Custom Signature <br className="hidden md:block"/> 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">To Life.</span>
           </h1>
           <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
-            Experience our interactive 3D studio. Customize premium mugs, apparel, and business essentials instantly before you buy.
+            EPersonalize premium mugs, apparel, and business essentials in three simple steps. Upload your design, and our experts will ensure it’s perfectly placed before production.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/products" className="bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-transform hover:scale-105 shadow-xl shadow-white/10 flex items-center justify-center gap-2">
@@ -75,15 +75,15 @@ export default function Home() {
                     <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-purple-600 mb-4 border border-gray-100">
                         <Upload className="h-8 w-8" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">2. Customize in 3D</h3>
-                    <p className="text-gray-500">Upload photos and see a live 3D preview.</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">2. Upload Your Design</h3>
+                    <p className="text-gray-500">Easily upload your photos or logos during checkout.</p>
                 </div>
                 <div className="flex flex-col items-center">
                     <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-green-600 mb-4 border border-gray-100">
                         <Package className="h-8 w-8" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">3. We Print & Ship</h3>
-                    <p className="text-gray-500">Fast, high-quality production to your door.</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">3. Professional Review & Print</h3>
+                    <p className="text-gray-500">Our design team reviews your file to ensure a flawless print, then ships it directly to your door.</p>
                 </div>
             </div>
         </div>

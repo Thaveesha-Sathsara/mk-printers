@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import API from '../../utils/api';
 import { Link } from 'react-router-dom';
 import { 
     User as UserIcon, Package, Clock, Loader, Truck, 
-    XCircle, Settings, HelpCircle, Headphones, ChevronRight 
+    XCircle, Settings, HelpCircle, Headphones, ChevronRight, Edit2 
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
 export default function Profile() {
-    const { user, logout } = useAuth();
+    const { user } = useAuth(); // Removed logout from here!
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -26,7 +26,6 @@ export default function Profile() {
         return <div className="min-h-[60vh] flex items-center justify-center text-gray-500">Please log in to view your profile.</div>;
     }
 
-    // Calculate the notification bubbles! (Grouping Processing & Printing together)
     const pendingCount = orders.filter(o => o.status === 'Pending').length;
     const processingCount = orders.filter(o => ['Processing', 'Printing'].includes(o.status)).length;
     const shippedCount = orders.filter(o => o.status === 'Shipped').length;
@@ -37,28 +36,36 @@ export default function Profile() {
                 <title>My Profile | M.K. Printers</title>
             </Helmet>
 
-            {/* 1. User Info Header */}
-            <div className="bg-white rounded-2xl p-6 flex items-center gap-5 shadow-sm border border-gray-100 mb-6">
+            {/* 1. User Info Header (Now with Phone & Edit Button) */}
+            <div className="bg-white rounded-2xl p-6 flex items-center gap-5 shadow-sm border border-gray-100 mb-6 relative">
                 <div className="h-16 w-16 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-full flex items-center justify-center shrink-0 shadow-md">
                     <UserIcon className="h-8 w-8" />
                 </div>
                 <div className="overflow-hidden flex-1">
                     <h2 className="text-xl font-black text-gray-900 truncate">{user.name}</h2>
-                    <p className="text-sm text-gray-500 truncate">{user.email}</p>
+                    <p className="text-sm text-gray-500 truncate">
+                        {user.email} {user.phone && <span className="hidden sm:inline">• {user.phone}</span>}
+                    </p>
+                    {/* Mobile only phone number */}
+                    {user.phone && <p className="text-sm text-gray-500 sm:hidden truncate">{user.phone}</p>}
                 </div>
+                
+                {/* The Edit Profile Button */}
+                <Link to="/settings" className="p-3 bg-gray-50 hover:bg-blue-50 text-gray-400 hover:text-blue-600 rounded-full transition-colors">
+                    <Edit2 className="h-5 w-5" />
+                </Link>
             </div>
 
             {/* 2. "My Orders" App-Style Grid */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
                 <div className="flex justify-between items-center mb-6">
-                    <h3 className="font-black text-gray-900 text-lg">My Orders</h3>
+                    <h3 className="flex items-center font-black text-gray-900 text-lg"><Package className="h-5 w-5 mr-2" />My Orders</h3>
                     <Link to="/orders?tab=All" className="text-sm text-blue-600 font-bold flex items-center hover:underline">
                         View All <ChevronRight className="h-4 w-4" />
                     </Link>
                 </div>
 
                 <div className="grid grid-cols-4 gap-2 text-center">
-                    {/* Pending */}
                     <Link to="/orders?tab=Pending" className="flex flex-col items-center gap-2 group">
                         <div className="relative">
                             <div className="h-12 w-12 bg-gray-50 group-hover:bg-blue-50 rounded-full flex items-center justify-center transition-colors">
@@ -73,7 +80,6 @@ export default function Profile() {
                         <span className="text-xs font-bold text-gray-600">Pending</span>
                     </Link>
 
-                    {/* Processing */}
                     <Link to="/orders?tab=Processing" className="flex flex-col items-center gap-2 group">
                         <div className="relative">
                             <div className="h-12 w-12 bg-gray-50 group-hover:bg-blue-50 rounded-full flex items-center justify-center transition-colors">
@@ -88,7 +94,6 @@ export default function Profile() {
                         <span className="text-xs font-bold text-gray-600">Processing</span>
                     </Link>
 
-                    {/* Shipped */}
                     <Link to="/orders?tab=Shipped" className="flex flex-col items-center gap-2 group">
                         <div className="relative">
                             <div className="h-12 w-12 bg-gray-50 group-hover:bg-blue-50 rounded-full flex items-center justify-center transition-colors">
@@ -103,7 +108,6 @@ export default function Profile() {
                         <span className="text-xs font-bold text-gray-600">Shipped</span>
                     </Link>
 
-                    {/* Cancellations (No badge, as requested) */}
                     <Link to="/orders?tab=Cancellations" className="flex flex-col items-center gap-2 group">
                         <div className="relative">
                             <div className="h-12 w-12 bg-gray-50 group-hover:bg-red-50 rounded-full flex items-center justify-center transition-colors">
@@ -115,16 +119,17 @@ export default function Profile() {
                 </div>
             </div>
 
-            {/* 3. Account Tools & Nonsense 😉 */}
+            {/* 3. Account Tools & Nonsense */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
                 <div className="divide-y divide-gray-100">
-                    <button className="w-full flex items-center justify-between p-5 hover:bg-gray-50 transition-colors">
+                    {/* Changed this to a Link! */}
+                    <Link to="/settings" className="w-full flex items-center justify-between p-5 hover:bg-gray-50 transition-colors">
                         <div className="flex items-center gap-4">
                             <Settings className="h-5 w-5 text-gray-400" />
                             <span className="font-bold text-gray-700">Account Settings</span>
                         </div>
                         <ChevronRight className="h-4 w-4 text-gray-300" />
-                    </button>
+                    </Link>
                     <button className="w-full flex items-center justify-between p-5 hover:bg-gray-50 transition-colors">
                         <div className="flex items-center gap-4">
                             <HelpCircle className="h-5 w-5 text-gray-400" />
@@ -141,13 +146,6 @@ export default function Profile() {
                     </button>
                 </div>
             </div>
-
-            <button 
-                onClick={logout}
-                className="w-full py-4 bg-gray-200 hover:bg-red-100 hover:text-red-700 text-gray-700 font-black rounded-xl transition-colors"
-            >
-                Log Out
-            </button>
         </div>
     );
 }

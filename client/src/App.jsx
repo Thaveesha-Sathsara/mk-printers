@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import CustomerLayout from './components/CustomerLayout';
 import AdminLayout from './components/AdminLayout';
@@ -18,6 +17,8 @@ import HomeDecor from './pages/customer/HomeDecor';
 import BuinessEssentials from './pages/customer/BusinessEssentials';
 import AdminOrders from './pages/admin/AdminOrders';
 import Orders from './pages/customer/Orders';
+import Settings from './pages/customer/Settings';
+import ScrollToTop from './components/ScrollToTop';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -28,6 +29,7 @@ const ProtectedRoute = ({ children }) => {
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route element={<CustomerLayout />}>
           <Route path="/" element={<Home />} />
@@ -39,6 +41,7 @@ export default function App() {
           <Route path="/design-studio" element={<DesignStudio />} />
           <Route path="/home-decor" element={<HomeDecor />} />
           <Route path="/business-essentials" element={<BuinessEssentials />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
 
 

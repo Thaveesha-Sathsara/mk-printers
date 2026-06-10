@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Menu, Search, ExternalLink, User, LogIn, X, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { ShoppingCart, Menu, Search, ExternalLink, User, LogIn, X, Phone, Mail, MapPin, ArrowRight, Home, Tag } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -59,7 +59,7 @@ export default function CustomerLayout() {
                             </button>
                             
                             {/* Cart */}
-                            <Link to="/cart" className="text-gray-500 hover:text-gray-900 relative cursor-pointer">
+                            <Link to="/cart" className="hidden md:flex text-gray-500 hover:text-gray-900 relative cursor-pointer">
                                 <ShoppingCart className="h-6 w-6" />
                                 {cartCount > 0 && (
                                     <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white">
@@ -134,6 +134,30 @@ export default function CustomerLayout() {
             <main className="flex-grow">
                 <Outlet />
             </main>
+
+            <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-50 pb-safe flex justify-around py-3">
+                <Link to="/" className="flex flex-col items-center gap-1 text-gray-500 hover:text-blue-600">
+                    <Home className="h-6 w-6" />
+                    <span className="text-[10px] font-bold">Home</span>
+                </Link>
+                <Link to="/products?q=offer" className="flex flex-col items-center gap-1 text-gray-500 hover:text-blue-600">
+                    <Tag className="h-6 w-6" />
+                    <span className="text-[10px] font-bold">Offers</span>
+                </Link>
+                <Link to="/cart" className="flex flex-col items-center gap-1 text-gray-500 hover:text-blue-600 relative">
+                    <ShoppingCart className="h-6 w-6" />
+                    {cartCount > 0 && (
+                        <span className="absolute -top-1 right-2 bg-red-500 text-white text-[10px] h-4 w-4 flex items-center justify-center rounded-full">
+                            {cartCount}
+                        </span>
+                    )}
+                    <span className="text-[10px] font-bold">Cart</span>
+                </Link>
+                <Link to="/profile" className="flex flex-col items-center gap-1 text-gray-500 hover:text-blue-600">
+                    <User className="h-6 w-6" />
+                    <span className="text-[10px] font-bold">Account</span>
+                </Link>
+            </div>
 
             {/* Footer remains unchanged... */}
             <footer className="bg-gray-900 text-gray-300 py-16 border-t border-gray-800">
