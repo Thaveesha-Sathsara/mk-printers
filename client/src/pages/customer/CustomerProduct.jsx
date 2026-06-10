@@ -58,7 +58,7 @@ export default function CustomerProduct() {
             </button>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div className="flex flex-col gap-6">
+                <div className="w-full aspect-square bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden relative">
                     {product.model3dUrl ? (
                         <div className="w-full aspect-square max-w-[500px] mx-auto relative rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
                             <ProductViewer3D
@@ -72,6 +72,11 @@ export default function CustomerProduct() {
                             <img src={product.images[0] || '/placeholder.png'} alt={product.name} className="w-full h-full object-contain" />
                         </div>
                     )}
+                    {uploadedImageUrl && (
+                            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-2xl shadow-lg border border-gray-100 animate-in fade-in">
+                                <img src={uploadedImageUrl} alt="Preview" className="h-16 w-16 object-cover rounded-xl" />
+                            </div>
+                        )}
                 </div>
 
                 <div className="flex flex-col justify-center">
