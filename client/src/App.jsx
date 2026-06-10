@@ -16,8 +16,9 @@ import Profile from './pages/customer/Profile';
 import DesignStudio from './pages/customer/DesignStudio';
 import HomeDecor from './pages/customer/HomeDecor';
 import BuinessEssentials from './pages/customer/BusinessEssentials';
+import AdminOrders from './pages/admin/AdminOrders';
+import Orders from './pages/customer/Orders';
 
-const AdminOrders = () => <div className="p-8"><h2>Orders (Coming Soon)</h2></div>;
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('adminToken');
@@ -31,6 +32,7 @@ export default function App() {
         <Route element={<CustomerLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/products" element={<Products />} />
           <Route path="/product/:slug" element={<CustomerProduct />} />
           <Route path="/cart" element={<Cart />} />

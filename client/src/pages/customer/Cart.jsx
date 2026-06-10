@@ -1,39 +1,69 @@
 import { useCart } from '../../context/CartContext';
-import { Trash2, ArrowRight, ShoppingBag } from 'lucide-react';
+import { Trash2, ArrowRight, ShoppingBag, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import AuthModal from '../../components/AuthModal';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import API from '../../utils/api'; // Make sure API is imported
 
 export default function Cart() {
-    <Helmet>
-        <title>Your Cart | M.K. Printers</title>
-        <meta name="description" content="Review the items in your cart before checking out. Customize your order, remove items, and proceed to a seamless checkout experience via Whatsapp with M.K. Printers." />
-        <meta name="keywords" content="shopping cart, order summary, checkout, customize order, M.K. Printers cart" />
-    </Helmet>
     const { user } = useAuth();
     const [showAuthModal, setShowAuthModal] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false); // Loading state
     const { cart, removeFromCart, getCartTotal, clearCart } = useCart();
 
-    const handleWhatsappCheckout = (currentUser = user) => {
+    // NEW LOGIC: Save to DB first, then go to WhatsApp
+    const handleConfirmOrder = async (currentUser = user) => {
         if (!currentUser || !currentUser.email) {
             setShowAuthModal(true);
             return;
         }
-        let message = `*NEW ORDER FROM M.K. PRINTERS*\n\n`;
-            message += `Customer: *${currentUser.name}*\n`;
-            message += `Email: *${currentUser.email}* \n`;
-        cart.forEach((item, index) => {
-            message += `${index + 1}. *${item.name}*\n`;
-            message += `   Quantity: ${item.quantity} | Price: Rs. ${item.basePrice}\n`;
-            if (item.customImage) message += `   [Contains Custom Design]\n`;
-            message += `\n`;
-        });
-        message += `*TOTAL: Rs. ${getCartTotal()}*`;
 
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/94757098761?text=${encodedMessage}`, '_blank');
+        setIsProcessing(true);
+
+        try {
+            // 1. Send the cart data to your new backend route
+            const response = await API.post('/orders/create', {
+                items: cart,
+                totalAmount: getCartTotal()
+            });
+
+            if (response.data.success) {
+                const orderId = response.data.orderId;
+
+                // 2. Build the WhatsApp Message WITH the official Order ID
+                let message = `*NEW ORDER CONFIRMATION*\n`;
+                message += `Order ID: *${orderId}*\n\n`;
+                message += `Customer: *${currentUser.name}*\n`;
+                message += `Email: *${currentUser.email}*\n\n`;
+                
+                cart.forEach((item, index) => {
+                    message += `${index + 1}. *${item.name}*\n`;
+                    message += `   Qty: ${item.quantity} | Rs. ${item.basePrice}\n`;
+                    if (item.customText) message += `   Text: "${item.customText}"\n`;
+                    if (item.customImage) message += `   [Custom Image Uploaded to System]\n`;
+                    message += `\n`;
+                });
+                
+                message += `*TOTAL: Rs. ${getCartTotal()}*\n\n`;
+                message += `Please confirm my shipping costs and delivery timeline.`;
+
+                // 3. Clear the cart since the order is locked in
+                clearCart();
+                setIsProcessing(false);
+
+                alert("Order secured successfully! You can track its status in your Profile. Redirecting to WhatsApp to confirm shipping...");
+
+                // 4. Redirect to WhatsApp
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/94757098761?text=${encodedMessage}`, '_blank');
+            }
+        } catch (error) {
+            console.error("Order creation failed:", error);
+            alert("There was an issue securing your order. Please try again.");
+            setIsProcessing(false);
+        }
     };
 
     if (cart.length === 0) {
@@ -49,10 +79,14 @@ export default function Cart() {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-12">
+            <Helmet>
+                <title>Your Cart | M.K. Printers</title>
+                <meta name="description" content="Review the items in your cart before checking out." />
+            </Helmet>
+
             <h1 className="text-3xl font-black text-gray-900 mb-8">Your Cart</h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
                 <div className="lg:col-span-2 space-y-4">
                     {cart.map((item, index) => (
                         <div key={index} className="flex gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm items-center">
@@ -63,7 +97,9 @@ export default function Cart() {
                             />
                             <div className="flex-1">
                                 <h3 className="font-bold text-lg text-gray-900">{item.name}</h3>
-                                <p className="text-gray-500">Qty: {item.quantity}</p>
+                                <p className="text-gray-500 text-sm">Qty: {item.quantity}</p>
+                                {/* Show custom text preview if it exists */}
+                                {item.customText && <p className="text-xs text-blue-600 mt-1">Text: "{item.customText}"</p>}
                             </div>
                             <div className="text-right">
                                 <p className="font-bold text-xl text-gray-900 mb-2">Rs. {item.basePrice}</p>
@@ -90,9 +126,19 @@ export default function Cart() {
                         <span className="font-black text-gray-900">Rs. {getCartTotal()}</span>
                     </div>
 
-                    <button aria-label="Checkout" onClick={() => handleWhatsappCheckout()} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2 shadow-lg transition-colors">
-                        Checkout via Whatsapp <ArrowRight className="h-5 w-5" />
+                    <button 
+                        aria-label="Confirm Order" 
+                        onClick={() => handleConfirmOrder()} 
+                        disabled={isProcessing}
+                        className={`w-full text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2 shadow-lg transition-all ${isProcessing ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'}`}
+                    >
+                        {isProcessing ? (
+                            <><Loader2 className="h-5 w-5 animate-spin" /> Securing Order...</>
+                        ) : (
+                            <>Confirm Order & WhatsApp <ArrowRight className="h-5 w-5" /></>
+                        )}
                     </button>
+                    <p className="text-xs text-center text-gray-400 mt-4">Your designs will be securely saved to our system before redirecting.</p>
                 </div>
             </div>
 
@@ -101,7 +147,7 @@ export default function Cart() {
                 onClose={() => setShowAuthModal(false)}
                 onLoginSuccess={(freshUser) => {
                     setShowAuthModal(false);
-                    handleWhatsappCheckout(freshUser);
+                    handleConfirmOrder(freshUser);
                 }}
             />
         </div>

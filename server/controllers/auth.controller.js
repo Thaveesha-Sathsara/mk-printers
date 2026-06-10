@@ -88,21 +88,28 @@ exports.resetPassword = async (req, res) => {
 
 exports.registerUser = async (req, res) => {
     try {
-        const { name, email, password, phone } = req.body;
+        const { name, email, password, phone, address, googleId } = req.body;
 
         const userExists = await User.findOne({ email });
         if (userExists) {
             return res.status(400).json({ success: false, message: 'Email already in use' });
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        let hashedPassword = undefined;
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            hashedPassword = await bcrypt.hash(password, salt);
+        } else if (!googleId) {
+            return res.status(400).json({ success: false, message: 'Password is required for manual signup.' });
+        }
 
         const user = await User.create({
             name,
             email,
             password: hashedPassword,
             phone,
+            address, // Save the new address object!
+            googleId,
         });
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
@@ -162,13 +169,15 @@ exports.googleLogin = async (req, res) => {
         let user = await User.findOne({ email });
 
         if (!user) {
-            user = await User.create({
-                name,
-                email,
-                googleId,
+            // THE FIX: Do NOT create the user yet! Tell the frontend they are new.
+            return res.status(200).json({
+                success: true,
+                isNewUser: true, 
+                googleData: { name, email, googleId }
             });
         }
 
+        // If they exist, log them in normally
         const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
         res.status(200).json({
