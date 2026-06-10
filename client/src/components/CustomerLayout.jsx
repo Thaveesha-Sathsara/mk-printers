@@ -84,9 +84,9 @@ export default function CustomerLayout() {
                             )}
                             
                             {/* Mobile Menu Toggle */}
-                            <button aria-label="Open Mobile Menu" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden text-gray-500 hover:text-gray-900">
+                            {/* <button aria-label="Open Mobile Menu" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden text-gray-500 hover:text-gray-900">
                                 {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@ export default function CustomerLayout() {
                 )}
 
                 {/* MOBILE MENU DROPDOWN */}
-                {isMobileMenuOpen && (
+                {/* {isMobileMenuOpen && (
                     <div className="md:hidden bg-white border-b border-gray-100 px-4 py-4 space-y-4 shadow-lg absolute w-full top-20 left-0">
                         <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">All Products</Link>
                         <Link to="/home-decor" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">Home Decor</Link>
@@ -128,7 +128,7 @@ export default function CustomerLayout() {
                             )}
                         </div>
                     </div>
-                )}
+                )} */}
             </header>
 
             <main className="flex-grow">
