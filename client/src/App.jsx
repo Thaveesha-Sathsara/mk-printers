@@ -32,7 +32,7 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route element={<CustomerLayout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Navigate to="/products" replace />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/products" element={<Products />} />
