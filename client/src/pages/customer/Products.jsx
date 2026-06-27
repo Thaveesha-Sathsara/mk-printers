@@ -70,13 +70,13 @@ export default function Products() {
             </div>
 
             {/* Compact E-commerce Banner */}
-            <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl p-6 md:p-8 mb-6 text-white shadow-sm relative overflow-hidden flex items-center justify-between">
+            {/* <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl p-6 md:p-8 mb-6 text-white shadow-sm relative overflow-hidden flex items-center justify-between">
                 <div className="relative z-10 max-w-xl">
                     <h1 className="text-2xl md:text-3xl font-black mb-1.5 tracking-tight">All Products</h1>
                     <p className="text-gray-300 text-sm md:text-base leading-relaxed">Explore our complete catalog of customizable items and premium prints.</p>
                 </div>
                 <Package className="h-32 w-32 text-white/5 absolute -right-6 -bottom-6 md:relative md:right-0 md:bottom-0 md:text-gray-500/20 md:h-20 md:w-20" />
-            </div>
+            </div> */}
 
             {/* Search and Sort Sticky/Filter Bar */}
             <div className="flex flex-col md:flex-row gap-3 mb-6">

@@ -22,14 +22,13 @@ export default function HomeDecor() {
       </div>
 
       {/* Compact E-commerce Banner */}
-      <div className="bg-gradient-to-r from-emerald-900 to-teal-900 rounded-xl p-6 md:p-8 mb-6 text-white shadow-sm relative overflow-hidden flex items-center justify-between">
+      {/* <div className="bg-gradient-to-r from-emerald-900 to-teal-900 rounded-xl p-6 md:p-8 mb-6 text-white shadow-sm relative overflow-hidden flex items-center justify-between">
         <div className="relative z-10 max-w-xl">
           <h1 className="text-2xl md:text-3xl font-black mb-1.5 tracking-tight">Home Decor</h1>
           <p className="text-emerald-100 text-sm md:text-base leading-relaxed">Premium customizable wall art, cushions, and interior accessories.</p>
         </div>
-        {/* Faded background icon for mobile, clear on desktop */}
         <Home className="h-32 w-32 text-white/5 absolute -right-6 -bottom-6 md:relative md:right-0 md:bottom-0 md:text-emerald-500/20 md:h-20 md:w-20" />
-      </div>
+      </div> */}
 
       {/* Mobile-Optimized Grid (2 columns on mobile) */}
       {decorProducts.length === 0 ? (

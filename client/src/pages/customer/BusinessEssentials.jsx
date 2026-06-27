@@ -22,13 +22,13 @@ export default function BusinessEssentials() {
       </div>
 
       {/* Compact E-commerce Banner */}
-      <div className="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-xl p-6 md:p-8 mb-6 text-white shadow-sm relative overflow-hidden flex items-center justify-between">
+      {/* <div className="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-xl p-6 md:p-8 mb-6 text-white shadow-sm relative overflow-hidden flex items-center justify-between">
         <div className="relative z-10 max-w-xl">
           <h1 className="text-2xl md:text-3xl font-black mb-1.5 tracking-tight">Business Essentials</h1>
           <p className="text-blue-100 text-sm md:text-base leading-relaxed">Professional printing for corporate stationery and marketing materials.</p>
         </div>
         <Briefcase className="h-32 w-32 text-white/5 absolute -right-6 -bottom-6 md:relative md:right-0 md:bottom-0 md:text-blue-500/20 md:h-20 md:w-20" />
-      </div>
+      </div> */}
 
       {/* Mobile-Optimized Grid (2 columns on mobile) */}
       {businessProducts.length === 0 ? (
