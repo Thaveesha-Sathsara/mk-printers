@@ -196,10 +196,14 @@ exports.updateProfile = async (req, res) => {
         
         const userId = req.user?.id || req.user?._id || req.userId;
 
+        if (!userId) {
+            return res.status(401).json({ success: false, message: 'Unauthorized' });
+        }
+
         const updatedUser = await User.findByIdAndUpdate(
             userId, 
             { name, phone, address }, 
-            { new: true, runValidators: true }
+            { returnDocument: 'after', runValidators: true }
         );
 
         res.status(200).json({ success: true, user: updatedUser });

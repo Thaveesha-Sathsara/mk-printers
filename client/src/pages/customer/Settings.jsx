@@ -6,7 +6,7 @@ import API from '../../utils/api';
 import { Helmet } from 'react-helmet-async';
 
 export default function Settings() {
-    const { user, logout } = useAuth();
+    const { user, logout, setUser } = useAuth();
     const navigate = useNavigate();
 
     // Form states pre-filled with existing user data
@@ -27,15 +27,18 @@ export default function Settings() {
 
         try {
             // We will make this backend route in the next step!
-            await API.put('/auth/update-profile', {
+            const res = await API.put('/auth/update-profile', {
                 name,
                 phone,
                 address: { street, city, postalCode }
             });
+
+            if (res.data.success) {
+                setUser(res.data.user);
+                setSuccessMsg('Profile updated successfully!');
+                setTimeout(() => setSuccessMsg(''), 3000);
+            }
             
-            setSuccessMsg('Profile updated successfully!');
-            // Note: You might want to refresh the user context here depending on how your AuthContext is built
-            setTimeout(() => setSuccessMsg(''), 3000);
         } catch (error) {
             alert('Failed to update profile.', error);
         } finally {
