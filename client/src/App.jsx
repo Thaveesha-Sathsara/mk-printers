@@ -19,6 +19,7 @@ import AdminOrders from './pages/admin/AdminOrders';
 import Orders from './pages/customer/Orders';
 import Settings from './pages/customer/Settings';
 import ScrollToTop from './components/ScrollToTop';
+import AdminCategoryNew from './pages/admin/AdminCategoryNew';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -57,6 +58,7 @@ export default function App() {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="products" element={<AdminProductList />} />
           <Route path="products/new" element={<AdminProducts />} />
+          <Route path="categories/new" element={<AdminCategoryNew />} />
           <Route path="products/edit/:id" element={<AdminProductEdit />} />
           <Route path="campaigns" element={<AdminDashboard />} />
         </Route>

@@ -138,13 +138,13 @@ export default function CustomerProduct() {
                 <div>
                     <p className="text-xs font-bold text-gray-900 mb-2 uppercase tracking-wider">Size</p>
                     <div className="flex flex-wrap gap-2">
-                        {product.sizes.map(size => (
+                        {product.sizes.map(sizeObj => (
                             <button 
-                                key={size}
-                                onClick={() => setSelectedSize(size)}
-                                className={`px-4 py-2 text-sm font-bold rounded-lg border transition-all ${selectedSize === size ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-900'}`}
+                                key={sizeObj._id || sizeObj.value}
+                                onClick={() => setSelectedSize(sizeObj.value)}
+                                className={`px-4 py-2 text-sm font-bold rounded-lg border transition-all ${selectedSize === sizeObj.value ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-900'}`}
                             >
-                                {size}
+                                {sizeObj.value}
                             </button>
                         ))}
                     </div>
