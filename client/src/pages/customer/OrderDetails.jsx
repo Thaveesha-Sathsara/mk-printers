@@ -14,13 +14,11 @@ export default function OrderDetails() {
     useEffect(() => {
         const fetchDetails = async () => {
             try {
-                // Ensure your backend has a route to get a single order: GET /orders/:id
                 const res = await API.get(`/orders/${id}`);
                 if (res.data.success) {
                     const o = res.data.order;
                     setOrder(o);
                     
-                    // Fetch similar products based on the first item's category (if available)
                     if (o.items && o.items[0]?.product) {
                         const prodRes = await API.get(`/products`);
                         if (prodRes.data.success) {

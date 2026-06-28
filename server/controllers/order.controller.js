@@ -112,7 +112,7 @@ exports.getOrderById = async (req, res) => {
         }
 
         const userId = req.user?.id || req.user?._id || req.userId;
-        if (order.user.toString() !== userid.toString()) {
+        if (order.user.toString() !== userId.toString()) {
             return res.status(403).json({ success: false, message: 'Access denied' });
         }
 
