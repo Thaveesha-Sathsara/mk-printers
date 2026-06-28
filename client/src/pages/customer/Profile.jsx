@@ -22,8 +22,20 @@ export default function Profile() {
         }
     }, [user]);
 
+    // Inside Profile.jsx
     if (!user) {
-        return <div className="min-h-[60vh] flex items-center justify-center text-gray-500">Please log in to view your profile.</div>;
+        return (
+            <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 text-center">
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 max-w-sm w-full">
+                    <UserIcon className="h-12 w-12 text-blue-500 mx-auto mb-4" />
+                    <h2 className="text-xl font-black text-gray-900 mb-2">My Profile</h2>
+                    <p className="text-gray-500 text-sm mb-6">Please log in to view your orders and account settings.</p>
+                    <Link to="/login" className="block w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors">
+                        Login / Register
+                    </Link>
+                </div>
+            </div>
+        );
     }
 
     const pendingCount = orders.filter(o => o.status === 'Pending').length;
