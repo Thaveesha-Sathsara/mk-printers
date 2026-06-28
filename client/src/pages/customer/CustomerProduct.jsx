@@ -316,14 +316,12 @@ export default function CustomerProduct() {
 {           isMobileDrawerOpen && (
                 <>
                     <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setIsMobileDrawerOpen(false)}>
-                        {/* The Modal Box */}
                         <div className="bg-white w-full max-w-md rounded-2xl p-6 shadow-2xl animate-in zoom-in-95 duration-200" onClick={e => e.stopPropagation()}>
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="font-black text-lg text-gray-900">{product.name} Rs. {currentPrice}</h3>
                                 <button onClick={() => setIsMobileDrawerOpen(false)} className="text-gray-400 hover:text-gray-900"><XCircle className="h-6 w-6" /></button>
                             </div>
                             
-                            {/* Reusing your Specs logic here */}
                             <SpecificationsUI />
 
                             <button onClick={() => executeAction(drawerAction)} className="w-full font-black py-4 rounded-xl mt-8 flex justify-center items-center gap-2 bg-blue-600 text-white shadow-lg text-sm">

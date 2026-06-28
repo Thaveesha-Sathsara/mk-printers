@@ -54,12 +54,12 @@ export default function CustomerLayout() {
                         {/* Actions */}
                         <div className="flex items-center gap-5">
                             {/* Search Toggle */}
-                            <button aria-label="Toggle Search" onClick={() => setIsSearchOpen(!isSearchOpen)} className="text-gray-500 hover:text-gray-900">
+                            <button aria-label="Toggle Search" onClick={() => setIsSearchOpen(!isSearchOpen)} className="hidden text-gray-500 hover:text-gray-900">
                                 {isSearchOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
                             </button>
                             
                             {/* Cart */}
-                            <Link to="/cart" className="hidden md:flex text-gray-500 hover:text-gray-900 relative cursor-pointer">
+                            <Link to="/cart" className="md:flex text-gray-500 hover:text-gray-900 relative cursor-pointer">
                                 <ShoppingCart className="h-6 w-6" />
                                 {cartCount > 0 && (
                                     <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white">
@@ -169,7 +169,6 @@ export default function CustomerLayout() {
                         {/* 1. Brand & About */}
                         <div className="flex flex-col space-y-6">
                             <div className="flex items-center gap-3">
-                                {/* If you want the logo in the footer too, uncomment this: */}
                                 {/* <img src="/logo.jpeg" alt="M.K. Printers Logo" className="h-10 w-auto rounded-md bg-white p-1" /> */}
                                 <span className="text-2xl font-black text-white tracking-tight">M.K. Printers</span>
                             </div>
@@ -239,7 +238,7 @@ export default function CustomerLayout() {
                     <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
                         <p>&copy; {new Date().getFullYear()} M.K. Printers. All rights reserved.</p>
                         
-                        {/* Developer Credit - Preserved exactly as requested! */}
+                        {/* Developer Credit */}
                         <p className="flex items-center gap-1.5 bg-gray-800/50 py-1.5 px-4 rounded-full border border-gray-700/50 hover:bg-gray-800 transition-colors">
                             Developed with <span className="text-red-500 animate-pulse">❤️</span> by
                             <a href="https://tsvithana.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1 font-semibold transition-colors">
