@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 
+const variantOptionSchema = new mongoose.Schema({
+    value: { type: String, required: true }, 
+    price: { type: Number },
+    image: { type: String, default: '' },
+});
+
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -23,6 +29,12 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
     images: [{ type: String }],
+    colors: [variantOptionSchema],
+    sizes: [variantOptionSchema],
+    customVariants: [{
+        title: { type: String, required: true },
+        options: [variantOptionSchema],
+    }],
     model3dUrl: {
         type: String,
         default: '',
@@ -54,6 +66,7 @@ const productSchema = new mongoose.Schema({
         enum: ['General', 'Home Decor', 'Business Essentials'],
         default: 'General',
     },
+    
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

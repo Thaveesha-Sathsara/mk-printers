@@ -7,7 +7,17 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// 1. ADMIN: Add a new product to the store
+const uploadBase64 = async (base64Str, folder) => {
+    if (!base64Str || !base64Str.startsWith('data:image')) return '';
+    try {
+        const res = await cloudinary.uploader.upload(base64Str, { folder });
+        return res.secure_url;
+    } catch (err) {
+        console.error('Cloudinary upload error:', err);
+        return '';
+    }
+};
+
 exports.createProduct = async (req, res) => {
     try {
         const { name, category, department, description, basePrice, requiresCustomImage, requiresCustomText, imageBase64, model3Base64, overlayBase64 } = req.body;
