@@ -111,23 +111,66 @@ exports.deleteProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const { imageBase64, overlayBase64, ...updates } = req.body;
+        const { 
+            name, category, department, description, basePrice, 
+            requiresCustomImage, requiresCustomText, 
+            mainImagesBase64, model3Base64, overlayBase64,
+            colors, sizes, customVariants
+        } = req.body;
 
-        if (imageBase64) {
-            const uploadRes = await cloudinary.uploader.upload(imageBase64, { folder: 'mk_printers/products' });
-            updates.images = [uploadRes.secure_url];
+        const updates = { name, category, department, description, basePrice, requiresCustomImage, requiresCustomText };
+
+        // 1. Process Main Images (Keep existing URLs, upload new Base64s)
+        const processedImages = [];
+        if (mainImagesBase64 && mainImagesBase64.length > 0) {
+            for (const img of mainImagesBase64) {
+                if (img.startsWith('data:image')) {
+                    const url = await uploadBase64(img, 'mk_printers/products/main');
+                    if (url) processedImages.push(url);
+                } else {
+                    processedImages.push(img); // It's an existing Cloudinary URL
+                }
+            }
+            updates.images = processedImages;
         }
 
-        if (overlayBase64) {
-            const overlayUploadRes = await cloudinary.uploader.upload(overlayBase64, {
-                folder: 'mk_printers/products/overlays',
-            });
-            updates.overLayUrl = overlayUploadRes.secure_url;
+        // 2. Process Model & Overlay
+        if (model3Base64 && model3Base64.startsWith('data:')) {
+            const modelUploadRes = await cloudinary.uploader.upload(model3Base64, { folder: 'mk_printers/products/models', resource_type: 'auto' });
+            updates.model3dUrl = modelUploadRes.secure_url;
+        }
+        if (overlayBase64 && overlayBase64.startsWith('data:')) {
+            updates.overLayUrl = await uploadBase64(overlayBase64, 'mk_printers/products/overlays');
         }
 
-        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, updates, { new: true });
+        // 3. Process Variants
+        const processVariants = async (variantsArray) => {
+            if (!variantsArray) return [];
+            return await Promise.all(variantsArray.map(async (v) => {
+                let imgUrl = v.image || ''; // Keep existing image if present
+                if (v.imageBase64 && v.imageBase64.startsWith('data:image')) {
+                    imgUrl = await uploadBase64(v.imageBase64, 'mk_printers/products/variants');
+                }
+                return { value: v.value, price: v.price || null, image: imgUrl };
+            }));
+        };
+
+        if (colors) updates.colors = await processVariants(colors);
+        if (sizes) updates.sizes = await processVariants(sizes);
+
+        if (customVariants) {
+            const processedCustomVariants = [];
+            for (const cv of customVariants) {
+                const processedOptions = await processVariants(cv.options);
+                processedCustomVariants.push({ title: cv.title, options: processedOptions });
+            }
+            updates.customVariants = processedCustomVariants;
+        }
+
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, updates, { returnDocument: 'after' });
         res.status(200).json({ success: true, product: updatedProduct });
     } catch (error) {
+        console.error("Update Product Crash:", error);
         res.status(500).json({ success: false, message: error.message });
     }
 };
