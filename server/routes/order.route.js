@@ -7,5 +7,6 @@ router.post('/create', authMiddleware, orderController.createOrder);
 router.get('/my-orders', authMiddleware, orderController.getMyOrders);
 router.get('/all', orderController.getAllOrders);
 router.put('/update-status/:id', orderController.updateOrderStatus);
+router.get('/:id', authMiddleware, orderController.getOrderById);
 
 module.exports = router;

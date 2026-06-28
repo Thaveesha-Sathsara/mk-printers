@@ -101,3 +101,24 @@ exports.updateOrderStatus = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+exports.getOrderById = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        const order = await Order.findById(orderId).populate('items.product');
+
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+
+        const userId = req.user?.id || req.user?._id || req.userId;
+        if (order.user.toString() !== userid.toString()) {
+            return res.status(403).json({ success: false, message: 'Access denied' });
+        }
+
+        res.status(200).json({ success: true, order });
+    } catch (error) {
+        console.error("Get Order By ID Error:", error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

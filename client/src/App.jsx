@@ -20,6 +20,7 @@ import Orders from './pages/customer/Orders';
 import Settings from './pages/customer/Settings';
 import ScrollToTop from './components/ScrollToTop';
 import AdminCategoryNew from './pages/admin/AdminCategoryNew';
+import OrderDetails from './pages/customer/OrderDetails';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/home-decor" element={<HomeDecor />} />
           <Route path="/business-essentials" element={<BuinessEssentials />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/order/:id" element={<OrderDetails />} />
         </Route>
 
 
