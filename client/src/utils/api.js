@@ -14,7 +14,7 @@ API.interceptors.request.use(
     // (Assuming your AuthContext saves the customer token as 'token')
     const token = isAdminPanel 
         ? localStorage.getItem('adminToken') 
-        : localStorage.getItem('token');
+        : localStorage.getItem('mk_token');
 
     // 3. Attach it to the headers
     if (token) {
