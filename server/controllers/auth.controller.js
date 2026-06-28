@@ -211,3 +211,13 @@ exports.updateProfile = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+exports.getMe = async (req, res) => {
+    try {
+        const userId = req.user?.id || req.user?._id || req.userId;
+        const user = await User.findById(userId).select('-password');
+        res.status(200).json({ success: true, user });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

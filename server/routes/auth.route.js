@@ -10,5 +10,6 @@ router.post('/login', authController.loginUser);
 router.post('/register', authController.registerUser);
 router.post('/google', authController.googleLogin);
 router.put('/update-profile', authMiddleware, authController.updateProfile);
+router.get('/me', authMiddleware, authController.getMe);
 
 module.exports = router;
