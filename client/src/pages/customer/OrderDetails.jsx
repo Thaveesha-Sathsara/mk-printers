@@ -12,29 +12,21 @@ export default function OrderDetails() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchDetails = async () => {
-            try {
-                const res = await API.get(`/orders/${id}`);
-                if (res.data.success) {
-                    const o = res.data.order;
-                    setOrder(o);
-                    
-                    if (o.items && o.items[0]?.product) {
-                        const prodRes = await API.get(`/products`);
-                        if (prodRes.data.success) {
-                            // Assuming backend populates the product ID
-                            const similar = prodRes.data.products.slice(0, 6); // Simplified logic
-                            setSimilarProducts(similar);
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error("Failed to fetch order details", error);
-            } finally {
+        API.get(`/orders/${id}`).then(res => {
+            if (res.data.success) {
+                setOrder(res.data.order);
                 setLoading(false);
+                
+                if (res.data.order.items[0]?.product) {
+                    API.get(`/products`).then(prodRes => {
+                        if (prodRes.data.success) setSimilarProducts(prodRes.data.products.slice(0, 4));
+                    });
+                }
             }
-        };
-        fetchDetails();
+        }).catch(err => {
+            console.error(err);
+            setLoading(false);
+        });
         window.scrollTo(0, 0);
     }, [id]);
 
@@ -43,33 +35,26 @@ export default function OrderDetails() {
         try {
             await API.put(`/orders/update-status/${id}`, { status: 'Cancelled' });
             setOrder({ ...order, status: 'Cancelled' }); 
-        } catch (error) {
-            alert("Failed to cancel order.", error);
-        }
+        } catch (error) { alert("Failed to cancel order.", error); }
     };
 
     const handleCopyDetails = () => {
         const details = `Order ID: ${order._id}\nTotal: Rs. ${order.totalAmount}\nStatus: ${order.status}`;
         navigator.clipboard.writeText(details);
-        alert("Order details copied to clipboard!");
-    };
-
-    const handleAskWhatsApp = () => {
-        const msg = encodeURIComponent(`Hi, I have a question about my Order #${order._id.slice(-6).toUpperCase()}.`);
-        window.open(`https://wa.me/94757098761?text=${msg}`, '_blank');
+        alert("Order details copied!");
     };
 
     if (loading) return <div className="min-h-screen flex items-center justify-center text-sm font-bold text-gray-500">Loading Order Details...</div>;
     if (!order) return <div className="min-h-screen flex items-center justify-center font-bold">Order not found.</div>;
 
     return (
-        <div className="bg-gray-50 min-h-screen relative pb-28 md:pb-12">
+        <div className="bg-gray-50 min-h-screen relative pb-24 md:pb-12">
             <Helmet>
                 <title>Order #{order._id.slice(-6).toUpperCase()} | M.K. Printers</title>
                 <style>{`@media (max-width: 767px) { footer, .pb-safe { display: none !important; } }`}</style>
             </Helmet>
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 md:py-8">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 md:py-8">
                 <Link to="/orders" className="inline-flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-gray-900 mb-6 transition-colors uppercase tracking-wider">
                     <ArrowLeft className="h-3 w-3" /> Back to Orders
                 </Link>
@@ -84,69 +69,52 @@ export default function OrderDetails() {
                                     <h2 className="text-lg font-black text-gray-900">Order Items</h2>
                                     <p className="text-xs text-gray-400 font-mono mt-0.5">#{order._id.toUpperCase()}</p>
                                 </div>
-                                <button onClick={handleCopyDetails} className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 bg-blue-50 px-3 py-1.5 rounded-lg">
-                                    <Copy className="h-3 w-3" /> Copy
+                                <button onClick={handleCopyDetails} className="text-xs font-bold text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors">
+                                    <Copy className="h-4 w-4 inline mr-1" /> Copy
                                 </button>
                             </div>
                             
-                            <div className="space-y-4">
-                                {order.items.map((item, idx) => (
-                                    <div key={idx} className="flex gap-4 items-start">
-                                        <div className="h-16 w-16 shrink-0 rounded-lg border border-gray-100 overflow-hidden bg-gray-50">
-                                            {item.customImage ? (
-                                                <img src={item.customImage} alt={item.name} className="h-full w-full object-cover" />
-                                            ) : (
-                                                <div className="h-full w-full flex items-center justify-center"><Package className="h-6 w-6 text-gray-300" /></div>
-                                            )}
+                            <div className="space-y-5">
+                                {order.items.map((item, idx) => {
+                                    const imgUrl = item.image || item.product?.images?.[0] || '/placeholder.png';
+                                    const v = item.variants || item.variant || {};
+                                    
+                                    return (
+                                        <div key={idx} className="flex gap-4 items-start pb-5 border-b border-gray-50 last:border-0 last:pb-0">
+                                            <div className="h-20 w-20 shrink-0 rounded-xl border border-gray-100 overflow-hidden bg-gray-50 p-1 flex items-center justify-center">
+                                                <img src={imgUrl} alt={item.name} className="h-full w-full object-cover rounded-lg" />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <h4 className="text-sm font-bold text-gray-900 truncate">{item.name}</h4>
+                                                <p className="text-xs font-bold text-gray-900 mt-1">Rs. {item.price} <span className="text-gray-400 font-medium">x {item.quantity}</span></p>
+                                                
+                                                <div className="flex flex-wrap gap-2 mt-2">
+                                                    {v.color && (
+                                                        <span className="text-[10px] font-bold bg-gray-100 px-2 py-1 rounded-md flex items-center gap-1">
+                                                            <span className="h-2 w-2 rounded-full border border-gray-300" style={{backgroundColor: v.color.value || v.color}}></span> Color
+                                                        </span>
+                                                    )}
+                                                    {v.size && <span className="text-[10px] font-bold bg-gray-100 px-2 py-1 rounded-md">Size: {v.size.value || v.size}</span>}
+                                                    
+                                                    {v.custom && Object.entries(v.custom).map(([key, opt]) => (
+                                                        <span key={key} className="text-[10px] font-bold bg-gray-100 px-2 py-1 rounded-md">{key}: {opt.value || opt}</span>
+                                                    ))}
+                                                </div>
+
+                                                {item.customText && <p className="text-[10px] text-gray-500 mt-2 bg-gray-50 inline-block px-2 py-1 rounded-md border border-gray-100">Text: "{item.customText}"</p>}
+                                                {item.customImage && <a href={item.customImage} target="_blank" rel="noreferrer" className="text-[10px] text-blue-500 hover:underline mt-1 block font-bold">View Uploaded Artwork</a>}
+                                            </div>
                                         </div>
-                                        <div className="flex-1 min-w-0">
-                                            <h4 className="text-sm font-bold text-gray-900 truncate">{item.name}</h4>
-                                            <p className="text-xs text-gray-500 mt-1">Qty: {item.quantity} x Rs. {item.price}</p>
-                                            {item.customText && <p className="text-[10px] text-gray-400 mt-1 bg-gray-50 inline-block px-2 py-1 rounded">Text: {item.customText}</p>}
-                                        </div>
-                                        <div className="text-right shrink-0">
-                                            <p className="text-sm font-black text-gray-900">Rs. {item.quantity * item.price}</p>
-                                        </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </div>
-
-                        {/* Similar Products (Desktop View) */}
-                        {similarProducts.length > 0 && (
-                            <div className="hidden md:block bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-                                <h3 className="text-sm font-black text-gray-900 mb-4">Add to your next order</h3>
-                                <div className="grid grid-cols-3 gap-3">
-                                    {similarProducts.slice(0, 3).map(sim => (
-                                        <ProductCard key={sim._id} product={sim} />
-                                    ))}
-                                </div>
-                            </div>
-                        )}
                     </div>
 
-                    {/* Right Column: Order Summary & Status */}
-                    <div className="md:col-span-4 space-y-6">
-                        <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-                            <h3 className="text-sm font-black text-gray-900 mb-4">Summary</h3>
-                            
-                            <div className="space-y-3 text-xs text-gray-600 mb-4">
-                                <div className="flex justify-between">
-                                    <span>Subtotal</span>
-                                    <span className="font-bold text-gray-900">Rs. {order.totalAmount}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Shipping</span>
-                                    <span>Calculated via WhatsApp</span>
-                                </div>
-                            </div>
-                            
-                            <div className="flex justify-between items-center pt-4 border-t border-gray-100">
-                                <span className="text-sm font-bold text-gray-900">Total</span>
-                                <span className="text-xl font-black text-blue-600">Rs. {order.totalAmount}</span>
-                            </div>
-                        </div>
-
+                    {/* Right Column: Clean Summaries & Actions */}
+                    <div className="md:col-span-4 space-y-4">
+                        
+                        {/* Status Box */}
                         <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm space-y-4">
                             <div className="flex items-center gap-3">
                                 <CalendarClock className="h-5 w-5 text-gray-400" />
@@ -164,10 +132,24 @@ export default function OrderDetails() {
                             </div>
                         </div>
 
-                        {/* Desktop Action Buttons */}
+                        {/* Un-stretched Summary Box */}
+                        <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
+                            <h3 className="text-sm font-black text-gray-900 mb-4">Payment Summary</h3>
+                            <div className="space-y-3 text-xs text-gray-600 mb-4">
+                                <div className="flex justify-between"><span>Subtotal</span><span className="font-bold text-gray-900">Rs. {order.totalAmount}</span></div>
+                                <div className="flex justify-between"><span>Shipping</span><span className="text-gray-400 italic">Calculated via WhatsApp</span></div>
+                            </div>
+                            <div className="flex justify-between items-center pt-4 border-t border-gray-100">
+                                <span className="text-sm font-bold text-gray-900">Total</span>
+                                <span className="text-xl font-black text-blue-600">Rs. {order.totalAmount}</span>
+                            </div>
+                        </div>
+
+                        {/* Separate Actions Box (Desktop Only) */}
                         <div className="hidden md:flex flex-col gap-3">
-                            <button onClick={handleAskWhatsApp} className="w-full bg-green-50 hover:bg-green-100 text-green-700 font-bold py-3 rounded-xl transition-all flex justify-center items-center gap-2 text-sm border border-green-200">
-                                <MessageCircle className="h-4 w-4" /> Ask via WhatsApp
+                            <button onClick={() => window.open(`https://wa.me/94757098761?text=${encodeURIComponent(`Hi, I have a question about Order #${order._id.slice(-6).toUpperCase()}.`)}`, '_blank')} 
+                                    className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 rounded-xl transition-colors flex justify-center items-center gap-2 text-sm shadow-md">
+                                <MessageCircle className="h-5 w-5" /> Ask about this order
                             </button>
                             {order.status === 'Pending' && (
                                 <button onClick={handleCancelOrder} className="w-full bg-white hover:bg-red-50 text-red-600 font-bold py-3 rounded-xl transition-all flex justify-center items-center gap-2 text-sm border border-red-200">
@@ -175,39 +157,32 @@ export default function OrderDetails() {
                                 </button>
                             )}
                         </div>
+
                     </div>
-
-                    {/* Similar Products (Mobile View) */}
-                    {similarProducts.length > 0 && (
-                        <div className="md:hidden col-span-1 bg-white rounded-2xl border border-gray-200 p-5 shadow-sm mt-2">
-                            <h3 className="text-sm font-black text-gray-900 mb-4">Add to your next order</h3>
-                            <div className="grid grid-cols-2 gap-3">
-                                {similarProducts.slice(0, 4).map(sim => (
-                                    <ProductCard key={sim._id} product={sim} />
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
                 </div>
+
+                {/* Similar Products */}
+                {similarProducts.length > 0 && (
+                    <div className="mt-8 pt-8 border-t border-gray-200">
+                        <h3 className="text-sm font-black text-gray-900 mb-4">You might also like</h3>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+                            {similarProducts.map(sim => <ProductCard key={sim._id} product={sim} />)}
+                        </div>
+                    </div>
+                )}
             </div>
 
-            {/* Mobile Bottom Bar */}
-            <div className="md:hidden fixed bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100 z-40 shadow-[0_-10px_30px_rgba(0,0,0,0.08)]">
-                <div className="flex justify-between items-center mb-3">
-                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Total Amount</span>
-                    <span className="text-lg font-black text-gray-900">Rs. {order.totalAmount}</span>
-                </div>
-                <div className="flex gap-2">
-                    {order.status === 'Pending' && (
-                        <button onClick={handleCancelOrder} className="flex-1 bg-red-50 text-red-600 font-bold py-3 rounded-xl flex justify-center items-center gap-1.5 text-sm border border-red-200">
-                            <XCircle className="h-4 w-4" /> Cancel
-                        </button>
-                    )}
-                    <button onClick={handleAskWhatsApp} className="flex-[1.5] bg-green-500 text-white font-bold py-3 rounded-xl flex justify-center items-center gap-1.5 text-sm shadow-md">
-                        <MessageCircle className="h-4 w-4" /> WhatsApp
+            {/* Mobile Bottom Actions (WhatsApp + Cancel side by side) */}
+            <div className="md:hidden fixed bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100 z-40 shadow-[0_-10px_30px_rgba(0,0,0,0.08)] flex gap-2">
+                {order.status === 'Pending' && (
+                    <button onClick={handleCancelOrder} className="flex-1 bg-red-50 text-red-600 font-bold py-3.5 rounded-xl flex justify-center items-center gap-1.5 text-sm border border-red-200">
+                        <XCircle className="h-4 w-4" /> Cancel
                     </button>
-                </div>
+                )}
+                <button onClick={() => window.open(`https://wa.me/94757098761?text=${encodeURIComponent(`Hi, I have a question about Order #${order._id.slice(-6).toUpperCase()}.`)}`, '_blank')} 
+                        className="flex-[2] bg-green-500 text-white font-bold py-3.5 rounded-xl flex justify-center items-center gap-2 text-sm shadow-md">
+                    <MessageCircle className="h-5 w-5" /> WhatsApp Support
+                </button>
             </div>
         </div>
     );

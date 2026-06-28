@@ -16,6 +16,7 @@ export default function Orders() {
 
     useEffect(() => {
         if (user) {
+            // Added populate logic on backend ensures we can get product images if item.image fails
             API.get('/orders/my-orders')
                 .then(res => { if (res.data.success) setOrders(res.data.orders); })
                 .catch(err => console.error(err))
@@ -58,7 +59,6 @@ export default function Orders() {
 
             <h1 className="text-2xl md:text-3xl font-black text-gray-900 mb-6">Order History</h1>
 
-            {/* 📱 MOBILE OPTIMIZED TABS */}
             <div className="flex overflow-x-auto gap-2 pb-4 mb-2 [&::-webkit-scrollbar]:hidden">
                 {TABS.map((tab) => (
                     <button
@@ -86,6 +86,10 @@ export default function Orders() {
                         const firstItem = order.items[0];
                         const additionalItems = order.items.length - 1;
                         
+                        // Resilient Fallbacks
+                        const imgUrl = firstItem?.image || firstItem?.product?.images?.[0] || '/placeholder.png';
+                        const v = firstItem?.variants || firstItem?.variant || {};
+                        
                         return (
                             <Link to={`/order/${order._id}`} key={order._id} className="block bg-white rounded-xl border border-gray-200 shadow-sm hover:border-gray-300 transition-all p-4 group">
                                 <div className="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
@@ -94,23 +98,20 @@ export default function Orders() {
                                 </div>
                                 
                                 <div className="flex items-center gap-4">
-                                    {/* Thumbnail */}
-                                    <div className="h-16 w-16 shrink-0 rounded-lg border border-gray-100 overflow-hidden bg-gray-50 flex items-center justify-center">
-                                        {firstItem?.customImage ? (
-                                            <img src={firstItem.customImage} alt="thumbnail" className="h-full w-full object-cover" />
-                                        ) : (
-                                            <ImageIcon className="h-6 w-6 text-gray-300" />
-                                        )}
+                                    <div className="h-16 w-16 shrink-0 rounded-lg border border-gray-100 overflow-hidden bg-gray-50 p-0.5 flex items-center justify-center">
+                                        <img src={imgUrl} alt="thumbnail" className="h-full w-full object-cover rounded-md" />
                                     </div>
                                     
-                                    {/* Order Brief */}
                                     <div className="flex-1 min-w-0">
                                         <h4 className="text-sm font-bold text-gray-900 truncate">{firstItem?.name}</h4>
-                                        <p className="text-xs text-gray-500 mt-0.5">
-                                            Qty: {firstItem?.quantity} 
-                                            {additionalItems > 0 && <span className="font-bold text-blue-600 ml-2">+{additionalItems} more item{additionalItems > 1 ? 's' : ''}</span>}
-                                        </p>
-                                        <p className="text-sm font-black text-gray-900 mt-1">Rs. {order.totalAmount}</p>
+                                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-[10px] font-bold text-gray-500">
+                                            <span>Qty: {firstItem?.quantity}</span>
+                                            {v.size && <span>• Size: {v.size.value || v.size}</span>}
+                                            {v.color && (
+                                                <span className="flex items-center gap-1">• <span className="h-2 w-2 rounded-full border border-gray-300" style={{backgroundColor: v.color.value || v.color}}></span></span>
+                                            )}
+                                        </div>
+                                        <p className="text-sm font-black text-gray-900 mt-1.5">Rs. {order.totalAmount} {additionalItems > 0 && <span className="text-[10px] text-blue-600 font-bold ml-1">+{additionalItems} more</span>}</p>
                                     </div>
                                     
                                     <div className="shrink-0 text-gray-400 group-hover:text-blue-600 transition-colors">

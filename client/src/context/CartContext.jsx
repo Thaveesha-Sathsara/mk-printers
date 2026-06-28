@@ -23,16 +23,18 @@ export const CartProvider = ({ children }) => {
         }
     }, [cart]);
 
-    const addToCart = (product, customImage = null, quantity = 1, customBaseColor = '#ffffff') => {
+    const addToCart = (product, customImage = null, quantity = 1, variants = {}) => {
         setCart((prevCart) => {
+            // Check if the exact same product with the EXACT SAME specs is already in the cart
             const existingItemIndex = prevCart.findIndex(
                 (item) =>
                     item._id === product._id &&
                     item.customImage === customImage &&
-                    item.customBaseColor === customBaseColor
+                    JSON.stringify(item.variants) === JSON.stringify(variants) // Compares the variant configurations
             );
 
             if (existingItemIndex > -1) {
+                // If it's the exact same configuration, just increase the quantity
                 const newCart = [...prevCart];
                 newCart[existingItemIndex] = {
                     ...newCart[existingItemIndex],
@@ -40,7 +42,8 @@ export const CartProvider = ({ children }) => {
                 };
                 return newCart;
             } else {
-                return [...prevCart, { ...product, customImage, customBaseColor, quantity }];
+                // If it's a new product or a different variation (e.g. different size), add as a new row
+                return [...prevCart, { ...product, customImage, variants, quantity }];
             }
         });
     };
@@ -54,6 +57,7 @@ export const CartProvider = ({ children }) => {
     };
 
     const getCartTotal = () => {
+        // Because we pass the calculated currentPrice as basePrice from CustomerProduct, this math remains perfectly accurate
         return cart.reduce((total, item) => total + (item.basePrice * item.quantity), 0);
     };
 
