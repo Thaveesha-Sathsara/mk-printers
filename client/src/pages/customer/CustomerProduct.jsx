@@ -313,21 +313,23 @@ export default function CustomerProduct() {
             </div>
 
             {/* Mobile Drawer */}
-            {isMobileDrawerOpen && (
+{           isMobileDrawerOpen && (
                 <>
-                    <div className="md:hidden fixed inset-0 bg-black/50 z-50 backdrop-blur-sm animate-in fade-in" onClick={() => setIsMobileDrawerOpen(false)} />
-                    <div className="md:hidden fixed bottom-0 left-0 w-full bg-white z-50 rounded-t-3xl p-5 animate-in slide-in-from-bottom-full duration-200 shadow-2xl pb-safe max-h-[85vh] overflow-y-auto">
-                        <div className="flex justify-between items-center mb-5 pb-3 border-b border-gray-100 sticky top-0 bg-white">
-                            <div>
-                                <h3 className="font-black text-lg text-gray-900">Select Options</h3>
-                                <p className="text-blue-600 font-bold text-sm">Total: Rs. {currentPrice}</p>
+                    <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setIsMobileDrawerOpen(false)}>
+                        {/* The Modal Box */}
+                        <div className="bg-white w-full max-w-md rounded-2xl p-6 shadow-2xl animate-in zoom-in-95 duration-200" onClick={e => e.stopPropagation()}>
+                            <div className="flex justify-between items-center mb-6">
+                                <h3 className="font-black text-lg text-gray-900">{product.name} Rs. {currentPrice}</h3>
+                                <button onClick={() => setIsMobileDrawerOpen(false)} className="text-gray-400 hover:text-gray-900"><XCircle className="h-6 w-6" /></button>
                             </div>
-                            <button onClick={() => setIsMobileDrawerOpen(false)} className="bg-gray-50 p-2 rounded-full text-gray-400 hover:text-gray-900"><XCircle className="h-5 w-5" /></button>
+                            
+                            {/* Reusing your Specs logic here */}
+                            <SpecificationsUI />
+
+                            <button onClick={() => executeAction(drawerAction)} className="w-full font-black py-4 rounded-xl mt-8 flex justify-center items-center gap-2 bg-blue-600 text-white shadow-lg text-sm">
+                                Confirm & Proceed
+                            </button>
                         </div>
-                        <SpecificationsUI />
-                        <button onClick={() => executeAction(drawerAction)} className="w-full font-bold py-3.5 rounded-xl mt-6 flex justify-center items-center gap-2 bg-blue-600 text-white shadow-md text-sm sticky bottom-0">
-                            Confirm {drawerAction === 'buy' ? 'Buy Now' : 'Add to Cart'}
-                        </button>
                     </div>
                 </>
             )}
