@@ -39,6 +39,8 @@ exports.createOrder = async (req, res) => {
                 name: item.name,
                 quantity: Number(item.quantity) || 1,
                 price: Number(item.basePrice) || 0,
+                image: item.images?.[0] || '',
+                variant: item.variant || {},
                 customText: item.customText || '',
                 customImage: uploadedCustomImageUrl
             };
