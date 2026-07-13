@@ -142,7 +142,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                     </p>
                 </div>
 
-                {/* ALERTS */}
+                {/* alerts */}
                 {error && <div className="bg-red-50 text-red-600 p-3 rounded-xl text-sm font-semibold mb-4 border border-red-100 animate-in fade-in">{error}</div>}
                 {successMsg && <div className="bg-green-50 text-green-700 p-3 rounded-xl text-sm font-semibold mb-4 border border-green-200 flex items-center gap-2 animate-in fade-in"><CheckCircle className="h-5 w-5" /> {successMsg}</div>}
 
