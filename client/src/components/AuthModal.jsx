@@ -13,7 +13,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
     const [error, setError] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
     
-    // Google Flow State
     const [isGoogleSignUp, setIsGoogleSignUp] = useState(false);
     const [googleId, setGoogleId] = useState('');
 
