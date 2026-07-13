@@ -180,7 +180,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                             </form>
                         )}
 
-                        {/* address and phhone */}
+                        {/* address and phone */}
                         {step === 2 && (
                             <form onSubmit={handleNextStep} className="space-y-4 animate-in slide-in-from-right duration-300">
                                 <div className="relative">
