@@ -165,7 +165,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                     </div>
                 )}
 
-                {/* SIGNUP WIZARD */}
+                {/* signup */}
                 {!isLogin && (
                     <div className="relative overflow-hidden">
                         
