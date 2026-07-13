@@ -128,7 +128,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                     <X className="h-5 w-5" />
                 </button>
 
-                {/* HEADER */}
+                {/* header */}
                 <div className="mb-6">
                     {!isLogin && <ProgressDots />}
                     <h2 className="text-2xl font-black text-gray-900 mb-2">
