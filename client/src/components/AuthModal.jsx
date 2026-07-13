@@ -87,7 +87,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
             setError('');
             const res = await googleLogin(credentialResponse.credential);
             
-            // If the backend says it's a new user, jump to step 2!
             if (res.isNewUser) {
                 setName(res.googleData.name);
                 setEmail(res.googleData.email);
