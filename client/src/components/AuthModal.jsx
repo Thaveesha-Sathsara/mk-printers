@@ -169,7 +169,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                 {!isLogin && (
                     <div className="relative overflow-hidden">
                         
-                        {/* STEP 1: Basic Info */}
+                        {/* basic info */}
                         {step === 1 && (
                             <form onSubmit={handleNextStep} className="space-y-4 animate-in slide-in-from-right duration-300">
                                 <div className="relative">
