@@ -6,7 +6,6 @@ import { GoogleLogin } from '@react-oauth/google';
 export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
     const { login, register, googleLogin } = useAuth();
     
-    // Core States
     const [isLogin, setIsLogin] = useState(true);
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
