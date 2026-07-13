@@ -10,7 +10,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
-    
     const [isGoogleSignUp, setIsGoogleSignUp] = useState(false);
     const [googleId, setGoogleId] = useState('');
 
