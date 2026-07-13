@@ -50,7 +50,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
 
         try {
             const address = { street, city, postalCode };
-            // Note: If you have an AuthContext, make sure the register function accepts this full object!
             const data = await register({ name, email, password: isGoogleSignUp ? undefined : password, phone, address, googleId });
             
             setSuccessMsg('Account created! Preparing checkout...');
