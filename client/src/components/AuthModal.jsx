@@ -85,7 +85,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         try {
             setLoading(true);
             setError('');
-            // You might need to adjust your auth context if it doesn't return the raw backend response
             const res = await googleLogin(credentialResponse.credential);
             
             // If the backend says it's a new user, jump to step 2!
