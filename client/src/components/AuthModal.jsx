@@ -101,7 +101,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         }
     };
 
-    // Quick helper for the progress dots
+    // quick helper for the progress dots
     const ProgressDots = () => (
         <div className="flex justify-center gap-2 mb-6">
             {[1, 2, 3].map((num) => (
