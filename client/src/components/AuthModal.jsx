@@ -17,7 +17,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
     const [isGoogleSignUp, setIsGoogleSignUp] = useState(false);
     const [googleId, setGoogleId] = useState('');
 
-    // Form Data States
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
