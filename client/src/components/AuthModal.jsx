@@ -89,7 +89,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                 setStep(2);
                 setLoading(false);
             } else {
-                // Existing user logged in perfectly
                 setSuccessMsg('Google login successful!');
                 setTimeout(() => {
                     onLoginSuccess(res.user);
