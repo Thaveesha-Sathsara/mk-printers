@@ -49,7 +49,7 @@ export default function AdminLayout() {
             <img src="/logo.png" alt="M.K. Printers" className="h-10 w-auto mr-3" onError={(e) => e.target.style.display = 'none'} />
             <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Portal</span>
           </div>
-          {/* Close X button only shows on mobile */}
+          {/* mobile only close btn */}
           {isMobile && (
             <button aria-label="Close sidebar" onClick={() => setIsSidebarOpen(false)} className="text-gray-400 hover:text-white">
               <X className="h-6 w-6" />
