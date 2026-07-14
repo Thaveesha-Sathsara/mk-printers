@@ -29,7 +29,7 @@ export default function AdminLayout() {
   return (
     <div className="h-screen w-full bg-gray-100 flex overflow-hidden font-sans">
       
-      {/* MOBILE OVERLAY: Darkens background when menu is open on phones */}
+      {/* mobile overlay, background */}
       {isSidebarOpen && isMobile && (
         <div 
           className="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm" 
