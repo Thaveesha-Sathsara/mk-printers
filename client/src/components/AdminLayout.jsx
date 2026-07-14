@@ -37,7 +37,7 @@ export default function AdminLayout() {
         ></div>
       )}
 
-      {/* SIDEBAR */}
+      {/* sidebar */}
       <aside className={`
         fixed md:relative z-50 h-full
         w-64 bg-gray-900 text-white flex flex-col shrink-0
