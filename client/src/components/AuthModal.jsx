@@ -212,7 +212,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                             </form>
                         )}
 
-                        {/* STEP 3: Agreement */}
+                        {/* agrreement */}
                         {step === 3 && (
                             <form onSubmit={handleFinalSubmit} className="space-y-6 animate-in slide-in-from-right duration-300">
                                 <div className="bg-gray-50 p-5 rounded-2xl border border-gray-200 text-sm text-gray-600 leading-relaxed max-h-40 overflow-y-auto">
