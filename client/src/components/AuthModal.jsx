@@ -240,7 +240,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                     </div>
                 )}
 
-                {/* google login */}
+                {/* google login with footer */}
                 {(!isGoogleSignUp || isLogin) && (
                     <>
                         <div className="mt-6 border-t border-gray-100 pt-6 flex flex-col items-center gap-4">
