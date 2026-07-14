@@ -101,7 +101,7 @@ export default function AdminLayout() {
           </div>
         </header>
 
-        {/* SCROLLABLE PAGE CONTENT (Dashboard loads here!) */}
+        {/* scroll page content */}
         <main className="flex-1 overflow-y-auto relative">
           <Outlet /> 
         </main>
