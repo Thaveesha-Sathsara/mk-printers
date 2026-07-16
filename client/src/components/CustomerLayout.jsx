@@ -189,7 +189,7 @@ export default function CustomerLayout() {
                             </div>
                         </div>
 
-                        {/* 2. Quick Links */}
+                        {/* quick links */}
                         <div>
                             <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
                             <ul className="space-y-4 text-sm text-gray-400">
