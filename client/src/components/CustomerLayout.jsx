@@ -168,14 +168,13 @@ export default function CustomerLayout() {
                         {/* footer logo */}
                         <div className="flex flex-col space-y-6">
                             <div className="flex items-center gap-3">
-                                {/* <img src="/logo.jpeg" alt="M.K. Printers Logo" className="h-10 w-auto rounded-md bg-white p-1" /> */}
                                 <span className="text-2xl font-black text-white tracking-tight">M.K. Printers</span>
                             </div>
                             <p className="text-gray-400 text-sm leading-relaxed">
                                 Bringing your ideas to life with premium custom printing, interactive 3D designs, and top-tier quality delivered across Sri Lanka.
                             </p>
                             
-                            {/* Social Icons */}
+                            {/* social icons */}
                             <div className="flex gap-4 pt-2">
                                 <a href="https://web.facebook.com/profile.php?id=100091288278761" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors duration-300">
                                     <FaFacebook className="w-5 h-5" />
