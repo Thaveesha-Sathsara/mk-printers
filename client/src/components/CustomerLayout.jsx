@@ -50,7 +50,7 @@ export default function CustomerLayout() {
                             <Link to="/design-studio" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Design Studio</Link>
                         </nav>
 
-                        {/* Actions */}
+                        {/* actions */}
                         <div className="flex items-center gap-5">
                             {/* Search Toggle */}
                             <button aria-label="Toggle Search" onClick={() => setIsSearchOpen(!isSearchOpen)} className="hidden text-gray-500 hover:text-gray-900">
