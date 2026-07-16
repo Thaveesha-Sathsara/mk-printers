@@ -67,7 +67,7 @@ export default function CustomerLayout() {
                                 )}
                             </Link>
                             
-                            {/* Auth */}
+                            {/* auth */}
                             {user ? (
                                 <Link to="/profile" className="text-gray-500 hover:text-blue-600 transition-colors p-2 bg-gray-50 rounded-full hidden md:flex">
                                     <User className="h-5 w-5" />
