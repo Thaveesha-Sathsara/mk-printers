@@ -42,7 +42,7 @@ export default function CustomerLayout() {
                             <span className="text-2xl font-black tracking-tight text-gray-900">M.K. Printers</span>
                         </Link>
 
-                        {/* Desktop Nav */}
+                        {/* desktop nav */}
                         <nav className="hidden md:flex gap-8">
                             <Link to="/products" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">All Products</Link>
                             <Link to="/home-decor" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Home Decor</Link>
