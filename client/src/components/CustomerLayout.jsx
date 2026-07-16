@@ -57,7 +57,7 @@ export default function CustomerLayout() {
                                 {isSearchOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
                             </button>
                             
-                            {/* Cart */}
+                            {/* cart */}
                             <Link to="/cart" className="md:flex text-gray-500 hover:text-gray-900 relative cursor-pointer">
                                 <ShoppingCart className="h-6 w-6" />
                                 {cartCount > 0 && (
