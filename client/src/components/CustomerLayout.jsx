@@ -82,7 +82,7 @@ export default function CustomerLayout() {
                                 </button>
                             )}
                             
-                            {/* Mobile Menu Toggle */}
+                            {/* mobile menu toggle */}
                             <button aria-label="Open Mobile Menu" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden text-gray-500 hover:text-gray-900">
                                 {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                             </button>
