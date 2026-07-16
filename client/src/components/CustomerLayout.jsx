@@ -52,7 +52,7 @@ export default function CustomerLayout() {
 
                         {/* actions */}
                         <div className="flex items-center gap-5">
-                            {/* Search Toggle */}
+                            {/* search toggle */}
                             <button aria-label="Toggle Search" onClick={() => setIsSearchOpen(!isSearchOpen)} className="hidden text-gray-500 hover:text-gray-900">
                                 {isSearchOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
                             </button>
