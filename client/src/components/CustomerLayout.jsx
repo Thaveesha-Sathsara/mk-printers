@@ -211,7 +211,7 @@ export default function CustomerLayout() {
                             </ul>
                         </div>
 
-                        {/* 4. Contact Info */}
+                        {/* contact info */}
                         <div>
                             <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Contact Us</h4>
                             <ul className="space-y-4 text-sm text-gray-400">
