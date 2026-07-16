@@ -10,8 +10,7 @@ export default function CustomerLayout() {
     const { cart } = useCart();
     const { user } = useAuth();
     const navigate = useNavigate();
-    
-    // UI States
+
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
