@@ -232,7 +232,7 @@ export default function CustomerLayout() {
 
                     </div>
 
-                    {/* Bottom Section - Copyright & Dev Credit */}
+                    {/* copyrights */}
                     <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
                         <p>&copy; {new Date().getFullYear()} M.K. Printers. All rights reserved.</p>
                         
