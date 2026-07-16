@@ -18,7 +18,7 @@ export default function CustomerLayout() {
 
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
-    // Handle global search submission
+    // handle global search submission
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         if (searchQuery.trim()) {
