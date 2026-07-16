@@ -165,7 +165,7 @@ export default function CustomerLayout() {
                     {/* footer grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                         
-                        {/* 1. Brand & About */}
+                        {/* footer logo */}
                         <div className="flex flex-col space-y-6">
                             <div className="flex items-center gap-3">
                                 {/* <img src="/logo.jpeg" alt="M.K. Printers Logo" className="h-10 w-auto rounded-md bg-white p-1" /> */}
