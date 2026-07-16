@@ -90,7 +90,7 @@ export default function CustomerLayout() {
                     </div>
                 </div>
 
-                {/* EXPANDABLE SEARCH BAR */}
+                {/* expandable search bar */}
                 {isSearchOpen && (
                     <div className="absolute top-20 left-0 w-full bg-white border-b border-gray-100 p-4 shadow-lg animate-in slide-in-from-top-2">
                         <form onSubmit={handleSearchSubmit} className="max-w-3xl mx-auto relative">
