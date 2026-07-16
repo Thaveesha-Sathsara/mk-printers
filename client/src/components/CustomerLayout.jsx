@@ -107,7 +107,7 @@ export default function CustomerLayout() {
                     </div>
                 )}
 
-                {/* MOBILE MENU DROPDOWN */}
+                {/* mobile menu dropdown */}
                 {isMobileMenuOpen && (
                     <div className="md:hidden bg-white border-b border-gray-100 px-4 py-4 space-y-4 shadow-lg absolute w-full top-20 left-0">
                         <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="block text-gray-600 hover:text-blue-600 font-medium py-2">All Products</Link>
