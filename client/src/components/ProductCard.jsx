@@ -15,7 +15,7 @@ export default function ProductCard({ product }) {
         >
             <div className="relative aspect-square bg-gray-50 flex items-center justify-center overflow-hidden">
                 
-                {/* 1. THUMBNAIL IMAGE OR FALLBACK */}
+                {/* thumbnail image */}
                 {imageUrl ? (
                     <img 
                         src={imageUrl} 
