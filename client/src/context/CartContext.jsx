@@ -34,7 +34,7 @@ export const CartProvider = ({ children }) => {
             );
 
             if (existingItemIndex > -1) {
-                // If it's the exact same configuration, just increase the quantity
+                // if it's the exact same configuration, just increase the quantity
                 const newCart = [...prevCart];
                 newCart[existingItemIndex] = {
                     ...newCart[existingItemIndex],
