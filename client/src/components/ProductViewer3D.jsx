@@ -95,7 +95,7 @@ function createNaturalTexture(imgElement) {
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
-  tex.flipY      = true; // we already flipped manually above
+  tex.flipY      = true; // flipped the image
   tex.wrapS      = THREE.RepeatWrapping;
   tex.wrapT      = THREE.ClampToEdgeWrapping;
   // No repeat, no offset — let it map naturally
