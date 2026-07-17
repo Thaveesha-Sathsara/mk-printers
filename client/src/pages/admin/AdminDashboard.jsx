@@ -78,7 +78,7 @@ export default function AdminDashboard() {
     }
   };
 
-  // Edit Handlers
+  // edit handler
   const openEditModal = (camp) => {
     const currentPrizes = [...camp.prizePool];
     while (currentPrizes.length < 6) currentPrizes.push('Retry');
