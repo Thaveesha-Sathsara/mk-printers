@@ -87,8 +87,6 @@ function createNaturalTexture(imgElement) {
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
-  // Draw the image flipped vertically to correct the upside-down
-  // (canvas origin is top-left, WebGL/UV origin is bottom-left)
   ctx.save();
   ctx.translate(0, CANVAS_H);
   ctx.scale(1, -1);
