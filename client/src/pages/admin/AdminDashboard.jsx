@@ -59,7 +59,7 @@ export default function AdminDashboard() {
     } catch (err) { setError('Failed to generate link.', err); }
   };
 
-  // THE FIX: Wait for the database to confirm before updating the screen
+  //  wait for the db to handle cancel before updating the screen
   const confirmCancel = async () => {
     const targetLinkId = cancelModal.linkId;
     setCancelModal({ show: false, linkId: null });
