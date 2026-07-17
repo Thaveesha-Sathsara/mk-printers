@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
                 )}
             </div>
 
-            {/* PRODUCT DETAILS */}
+            {/* product details */}
             <div className="p-5">
                 <div className="text-xs font-bold text-blue-600 tracking-wider uppercase mb-2">
                     {product.category?.name || 'Uncategorized'}
