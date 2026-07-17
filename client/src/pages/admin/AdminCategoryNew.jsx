@@ -41,7 +41,7 @@ export default function AdminCategoryNew() {
             await API.post('/categories/create', { name: catName, description: catDesc });
             setSuccess(`Category "${catName}" created successfully!`);
             setCatName(''); setCatDesc('');
-            fetchCategories(); // Refresh the list
+            fetchCategories();
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to create category.');
         } finally {
