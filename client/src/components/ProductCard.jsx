@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box, Image as ImageIcon } from 'lucide-react';
 
 export default function ProductCard({ product }) {
-    // Check if the product has a standard image array
+    // check if the product has a standard image array
     const imageUrl = product.images && product.images.length > 0 
         ? product.images[0] 
         : null;
