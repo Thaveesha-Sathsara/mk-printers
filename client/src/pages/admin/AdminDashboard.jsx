@@ -122,7 +122,7 @@ const triggerCopyModal = (linkId) => {
           console.error("Failed to copy using navigator: ", err);
         });
     } else {
-      // FALLBACK: Heavy-duty copy method for raw HTTP IP addresses
+      // FALLBACK: heavy-duty copy method for raw HTTP IP addresses
       try {
         const textArea = document.createElement("textarea");
         textArea.value = url;
