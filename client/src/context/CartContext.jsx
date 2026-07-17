@@ -42,7 +42,7 @@ export const CartProvider = ({ children }) => {
                 };
                 return newCart;
             } else {
-                // If it's a new product or a different variation (e.g. different size), add as a new row
+                // if it's a new product or a different variation (e.g. different size), add as a new row
                 return [...prevCart, { ...product, customImage, variants, quantity }];
             }
         });
