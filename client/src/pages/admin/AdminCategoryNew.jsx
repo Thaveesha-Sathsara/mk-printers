@@ -88,7 +88,7 @@ export default function AdminCategoryNew() {
                     </CardContent>
                 </Card>
 
-                {/* Existing Categories List */}
+                {/* exisiting categories */}
                 <Card>
                     <CardHeader><CardTitle>Active Categories</CardTitle></CardHeader>
                     <ul className="divide-y divide-gray-100 max-h-[400px] overflow-y-auto">
