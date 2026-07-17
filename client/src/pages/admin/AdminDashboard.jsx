@@ -65,7 +65,7 @@ export default function AdminDashboard() {
     setCancelModal({ show: false, linkId: null });
     
     try {
-      // 1. Tell the backend to cancel the link and WAIT for it to finish
+      // tell the backedn to cancel and wait till the process is done
       await API.post(`/gift/cancel/${targetLinkId}`);
       
       // 2. ONLY update the screen after the backend says "Success!"
