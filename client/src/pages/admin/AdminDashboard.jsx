@@ -111,7 +111,7 @@ export default function AdminDashboard() {
 const triggerCopyModal = (linkId) => {
     const url = `${window.location.origin}/gift/${linkId}`;
     
-    // Check if the modern clipboard API is available (HTTPS / Localhost)
+    // check if the modern clipboard API is available (HTTPS / Localhost)
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(url)
         .then(() => {
