@@ -29,7 +29,7 @@ export default function ProductCard({ product }) {
                     </div>
                 )}
 
-                {/* 2. THE 3D BADGE (Only shows if the product has a 3D model attached) */}
+                {/* shows 3D badge for 3D products */}
                 {product.model3dUrl && (
                     <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 border border-gray-200">
                         <Box className="h-4 w-4 text-blue-600" />
