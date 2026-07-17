@@ -44,7 +44,7 @@ export default function AdminDashboard() {
     return () => clearInterval(interval); 
   }, [fetchCampaigns]);
 
-  // Form Handlers
+  // form handlers
   const handlePrizeChange = (index, value) => {
     const newPrizes = [...prizes];
     newPrizes[index] = value;
