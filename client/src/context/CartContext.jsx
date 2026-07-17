@@ -57,7 +57,7 @@ export const CartProvider = ({ children }) => {
     };
 
     const getCartTotal = () => {
-        // Because we pass the calculated currentPrice as basePrice from CustomerProduct, this math remains perfectly accurate
+        // because we pass the calculated currentPrice as basePrice from CustomerProduct, this math remains perfectly accurate
         return cart.reduce((total, item) => total + (item.basePrice * item.quantity), 0);
     };
 
