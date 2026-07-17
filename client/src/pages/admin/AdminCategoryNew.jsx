@@ -68,7 +68,7 @@ export default function AdminCategoryNew() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                {/* Add Category Form */}
+                {/* add category form */}
                 <Card className="h-fit">
                     <CardHeader><CardTitle><Plus className="h-5 w-5 text-purple-600" /> Create New</CardTitle></CardHeader>
                     <CardContent>
