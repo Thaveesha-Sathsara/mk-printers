@@ -132,7 +132,7 @@ export default function AdminLogin() {
         )}
       </div>
 
-      {/* FOOTER */}
+      {/* footer */}
       <footer className="mt-12 text-center text-sm text-gray-500">
         <div className="flex items-center justify-center gap-4 mb-4">
           <a href="https://tsvithana.vercel.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm transition-all text-xs font-semibold">
