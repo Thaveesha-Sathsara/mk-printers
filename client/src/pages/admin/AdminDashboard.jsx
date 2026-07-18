@@ -219,7 +219,7 @@ const triggerCopyModal = (linkId) => {
         </div>
       )}
 
-      {/* BRANDED HEADER */}
+      {/* branded header */}
       <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div className="flex items-center gap-4">
           <img src="/logo.jpeg" alt="M.K. Printers" className="h-14 w-auto rounded-lg shadow-sm" onError={(e) => e.target.style.display = 'none'} />
