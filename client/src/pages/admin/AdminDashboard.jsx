@@ -260,7 +260,7 @@ const triggerCopyModal = (linkId) => {
           </Card>
         </div>
 
-        {/* DATA TABLE */}
+        {/* data table */}
         <div className="xl:col-span-2">
           <Card className="h-full flex flex-col">
             <CardHeader className="flex justify-between items-center">
