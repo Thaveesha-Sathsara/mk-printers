@@ -32,7 +32,6 @@ export default function AdminOrders() {
         }
     };
 
-    // helper function for beautiful status badges
     const StatusBadge = ({ status }) => {
         const styles = {
             'Pending': 'bg-yellow-100 text-yellow-800 border-yellow-200',
