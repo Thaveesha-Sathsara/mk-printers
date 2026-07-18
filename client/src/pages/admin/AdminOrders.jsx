@@ -26,7 +26,6 @@ export default function AdminOrders() {
     const handleStatusChange = async (orderId, newStatus) => {
         try {
             await API.put(`/orders/update-status/${orderId}`, { status: newStatus });
-            // refresh the list to show the new status
             fetchOrders(); 
         } catch (error) {
             alert("Failed to update status.", error);
