@@ -77,7 +77,7 @@ export default function AdminOrders() {
                             {orders.map((order) => (
                                 <tr key={order._id} className="hover:bg-gray-50 transition-colors">
                                     
-                                    {/* Order ID & Date */}
+                                    {/* orders id and date */}
                                     <td className="p-4 align-top">
                                         <div className="font-mono text-xs text-blue-600 font-bold mb-1">
                                             #{order._id.slice(-6).toUpperCase()}
