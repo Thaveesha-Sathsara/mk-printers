@@ -193,7 +193,7 @@ const triggerCopyModal = (linkId) => {
         </div>
       )}
 
-      {/* EDIT MODAL */}
+      {/* edit modal */}
       {editModal.show && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full transform animate-in fade-in zoom-in duration-200">
