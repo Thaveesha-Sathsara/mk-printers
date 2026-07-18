@@ -127,7 +127,7 @@ const triggerCopyModal = (linkId) => {
         const textArea = document.createElement("textarea");
         textArea.value = url;
         
-        // Avoid scrolling to bottom of the page when appending
+        // avoid scrolling to bottom of the page when appending
         textArea.style.top = "0";
         textArea.style.left = "0";
         textArea.style.position = "fixed";
