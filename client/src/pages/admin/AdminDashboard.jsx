@@ -176,7 +176,7 @@ const triggerCopyModal = (linkId) => {
         </div>
       )}
 
-      {/* CANCEL MODAL */}
+      {/* cancel modal */}
       {cancelModal.show && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full text-center transform animate-in fade-in zoom-in duration-200">
