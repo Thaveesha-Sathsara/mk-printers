@@ -70,7 +70,7 @@ export default function AdminLogin() {
         <p className="text-gray-500 font-medium tracking-wide">Rewards Management Portal</p>
       </div>
 
-      {/* LOGIN CARD */}
+      {/* login card */}
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
         {error && <div className="mb-4 p-3 bg-red-50 text-red-700 text-sm font-medium rounded-lg text-center">{error}</div>}
         {message && <div className="mb-4 p-3 bg-green-50 text-green-700 text-sm font-medium rounded-lg text-center">{message}</div>}
