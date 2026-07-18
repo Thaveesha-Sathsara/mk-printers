@@ -235,7 +235,7 @@ const triggerCopyModal = (linkId) => {
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 xl:grid-cols-3 gap-8 flex-1">
         
-        {/* GENERATOR */}
+        {/* generator */}
         <div className="xl:col-span-1">
           <Card>
             <CardHeader><CardTitle><Gift className="h-5 w-5 text-blue-600" /> Create Mystery Link</CardTitle></CardHeader>
