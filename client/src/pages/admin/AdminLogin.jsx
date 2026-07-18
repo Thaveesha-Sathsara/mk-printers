@@ -63,7 +63,7 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50/50 p-4 font-sans">
       
-      {/* BRANDING HEADER */}
+      {/* branding header */}
       <div className="mb-8 text-center flex flex-col items-center">
         <img src="/logo.jpeg" alt="M.K. Printers Logo" className="h-20 w-auto mb-4 object-contain drop-shadow-md rounded-xl" onError={(e) => e.target.style.display = 'none'} />
         <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">M.K. Printers</h1>
