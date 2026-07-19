@@ -94,7 +94,7 @@ export default function AdminOrders() {
                                         <div className="text-gray-500">{order.user?.phone}</div>
                                     </td>
 
-                                    {/* Items & Custom Uploads */}
+                                    {/* items and custom uploads */}
                                     <td className="p-4 align-top">
                                         <ul className="space-y-3">
                                             {order.items.map((item, idx) => (
