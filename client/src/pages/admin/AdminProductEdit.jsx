@@ -53,7 +53,7 @@ export default function AdminProductEdit() {
                 if (prodRes.data.success) {
                     const p = prodRes.data.products.find(prod => prod._id === id);
                     if (p) {
-                        // Pre-fill all the form fields
+                        // pre-fill all the form fields
                         setProdName(p.name);
                         setProdCat(p.category?._id || p.category);
                         setProdDept(p.department || 'General');
