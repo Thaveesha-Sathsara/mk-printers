@@ -49,7 +49,7 @@ export default function AdminProductEdit() {
                 if (catRes.data.success) setCategories(catRes.data.categories);
 
                 // fetch the specific product to edit
-                const prodRes = await API.get('/products'); // Assuming your get by ID route isn't set up, filtering from all
+                const prodRes = await API.get('/products');
                 if (prodRes.data.success) {
                     const p = prodRes.data.products.find(prod => prod._id === id);
                     if (p) {
