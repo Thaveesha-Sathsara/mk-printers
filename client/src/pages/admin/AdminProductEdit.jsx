@@ -14,7 +14,7 @@ export default function AdminProductEdit() {
     const navigate = useNavigate();
     const { id } = useParams();
     
-    // Basic Info
+    // basic info
     const [prodName, setProdName] = useState('');
     const [prodCat, setProdCat] = useState('');
     const [prodDept, setProdDept] = useState('General');
