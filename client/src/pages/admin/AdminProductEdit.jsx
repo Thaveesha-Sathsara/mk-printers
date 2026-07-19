@@ -44,7 +44,7 @@ export default function AdminProductEdit() {
     useEffect(() => {
         const fetchAllData = async () => {
             try {
-                // 1. Fetch Categories
+                // fetch categories
                 const catRes = await API.get('/categories');
                 if (catRes.data.success) setCategories(catRes.data.categories);
 
