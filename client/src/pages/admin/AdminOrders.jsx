@@ -117,7 +117,7 @@ export default function AdminOrders() {
                                         </ul>
                                     </td>
 
-                                    {/* Total */}
+                                    {/* total */}
                                     <td className="p-4 align-top font-black text-gray-900">
                                         Rs. {order.totalAmount}
                                     </td>
