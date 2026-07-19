@@ -12,7 +12,7 @@ const STANDARD_COLORS = ['#EF4444', '#F97316', '#F59E0B', '#EAB308', '#22C55E', 
 
 export default function AdminProductEdit() {
     const navigate = useNavigate();
-    const { id } = useParams(); // Get the product ID from the URL
+    const { id } = useParams();
     
     // Basic Info
     const [prodName, setProdName] = useState('');
