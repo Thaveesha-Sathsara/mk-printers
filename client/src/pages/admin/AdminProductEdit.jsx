@@ -33,7 +33,7 @@ export default function AdminProductEdit() {
     const [sizes, setSizes] = useState([]); 
     const [customVariants, setCustomVariants] = useState([]); 
     
-    // UI States
+    // UI states
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
