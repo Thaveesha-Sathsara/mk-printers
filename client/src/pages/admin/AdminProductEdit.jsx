@@ -23,7 +23,7 @@ export default function AdminProductEdit() {
     const [reqImage, setReqImage] = useState(false);
     const [reqText, setReqText] = useState(false);
     
-    // Images & 3D Model
+    // images and 3d models
     const [mainImages, setMainImages] = useState([]); 
     const [modelFile, setModelFile] = useState(null);
     const [modelFileName, setModelFileName] = useState('');
