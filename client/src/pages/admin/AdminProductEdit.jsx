@@ -28,7 +28,7 @@ export default function AdminProductEdit() {
     const [modelFile, setModelFile] = useState(null);
     const [modelFileName, setModelFileName] = useState('');
 
-    // Variants
+    // variants
     const [colors, setColors] = useState([]); 
     const [sizes, setSizes] = useState([]); 
     const [customVariants, setCustomVariants] = useState([]); 
