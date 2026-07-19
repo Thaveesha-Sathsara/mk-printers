@@ -251,7 +251,7 @@ export default function AdminProductEdit() {
                     </CardContent>
                 </Card>
 
-                {/* 3. VARIATIONS MATRIX */}
+                {/* variation matrix */}
                 <Card>
                     <CardHeader><CardTitle>Variations & Options</CardTitle></CardHeader>
                     <CardContent className="space-y-8">
