@@ -142,7 +142,7 @@ export default function AdminProductEdit() {
         setCustomVariants(newCV);
     };
 
-    // --- Submit Edit (PUT Request) ---
+    // submit handler
     const handleUpdateProduct = async (e) => {
         e.preventDefault(); 
         if (isSubmitting) return;
