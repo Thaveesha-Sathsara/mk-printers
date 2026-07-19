@@ -126,7 +126,7 @@ export default function AdminProductEdit() {
         reader.readAsDataURL(file);
     };
 
-    // --- Variant Generators ---
+    // variant generators
     const addColor = (hex) => {
         if (!colors.find(c => c.value === hex)) setColors([...colors, { value: hex, price: '', imageBase64: '' }]);
     };
