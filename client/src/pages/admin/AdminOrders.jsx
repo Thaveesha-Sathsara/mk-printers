@@ -122,7 +122,7 @@ export default function AdminOrders() {
                                         Rs. {order.totalAmount}
                                     </td>
 
-                                    {/* Status Controller */}
+                                    {/* status controller */}
                                     <td className="p-4 align-top">
                                         <div className="flex flex-col gap-2 items-start">
                                             <StatusBadge status={order.status} />
