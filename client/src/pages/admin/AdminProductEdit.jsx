@@ -83,7 +83,7 @@ export default function AdminProductEdit() {
         fetchAllData();
     }, [id]);
 
-    // --- File Handlers ---
+    // filed handlers
     const handleMainImages = (e) => {
         const files = Array.from(e.target.files);
         files.forEach(file => {
