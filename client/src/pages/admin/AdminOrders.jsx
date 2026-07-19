@@ -87,7 +87,7 @@ export default function AdminOrders() {
                                         </div>
                                     </td>
 
-                                    {/* Customer Info */}
+                                    {/* customer info */}
                                     <td className="p-4 align-top">
                                         <div className="font-bold text-gray-900">{order.user?.name || 'Unknown User'}</div>
                                         <div className="text-gray-500">{order.user?.email}</div>
