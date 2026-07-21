@@ -26,7 +26,7 @@ export default function AdminProducts() {
     const [modelFileName, setModelFileName] = useState('');
 
     // Variants
-    const [colors, setColors] = useState([]); // { value: '#hex', price: '', imageBase64: '' }
+    const [colors, setColors] = useState([]);
     const [sizes, setSizes] = useState([]); // { value: 'XL', price: '', imageBase64: '' }
     const [customVariants, setCustomVariants] = useState([]); // { title: 'Watt', options: [...] }
     
