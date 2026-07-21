@@ -21,7 +21,7 @@ export default function AdminProducts() {
     const [prodPrice, setProdPrice] = useState('');
     const [reqImage, setReqImage] = useState(false);
     const [reqText, setReqText] = useState(false);
-    const [mainImages, setMainImages] = useState([]); // Array of base64
+    const [mainImages, setMainImages] = useState([]);
     const [modelFile, setModelFile] = useState(null);
     const [modelFileName, setModelFileName] = useState('');
 
