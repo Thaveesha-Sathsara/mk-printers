@@ -27,7 +27,7 @@ export default function AdminProducts() {
 
     // Variants
     const [colors, setColors] = useState([]);
-    const [sizes, setSizes] = useState([]); // { value: 'XL', price: '', imageBase64: '' }
+    const [sizes, setSizes] = useState([]);
     const [customVariants, setCustomVariants] = useState([]); // { title: 'Watt', options: [...] }
     
     // UI States
