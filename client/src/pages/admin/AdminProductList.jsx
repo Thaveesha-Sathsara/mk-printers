@@ -28,7 +28,7 @@ export default function AdminProductList() {
   const toggleAvailability = async (id, currentStatus) => {
     try {
       await API.put(`/products/update/${id}`, { isAvailable: !currentStatus });
-      fetchProducts(); // Refresh list
+      fetchProducts();
     } catch (err) { alert('Failed to update status.', err); }
   };
 
