@@ -8,7 +8,7 @@ const CardHeader = ({ children, className = "" }) => <div className={`p-6 border
 const CardTitle = ({ children }) => <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">{children}</h3>;
 const CardContent = ({ children, className = "" }) => <div className={`p-6 ${className}`}>{children}</div>;
 
-// Standard 12 Colors for the Palette
+// standard 12 colors for the pallette
 const STANDARD_COLORS = ['#EF4444', '#F97316', '#F59E0B', '#EAB308', '#22C55E', '#10B981', '#06B6D4', '#3B82F6', '#6366F1', '#A855F7', '#EC4899', '#000000', '#FFFFFF', '#9CA3AF'];
 
 export default function AdminProducts() {
