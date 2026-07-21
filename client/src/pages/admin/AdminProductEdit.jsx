@@ -256,7 +256,7 @@ export default function AdminProductEdit() {
                     <CardHeader><CardTitle>Variations & Options</CardTitle></CardHeader>
                     <CardContent className="space-y-8">
                         
-                        {/* COLORS */}
+                        {/* colors */}
                         <div>
                             <div className="flex items-center justify-between mb-4">
                                 <h4 className="font-bold text-gray-900 flex items-center gap-2"><Palette className="h-5 w-5 text-pink-500"/> Colors</h4>
