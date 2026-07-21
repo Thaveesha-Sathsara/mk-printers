@@ -28,8 +28,7 @@ export default function AdminProducts() {
     const [colors, setColors] = useState([]);
     const [sizes, setSizes] = useState([]);
     const [customVariants, setCustomVariants] = useState([]);
-    
-    // UI States
+
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
