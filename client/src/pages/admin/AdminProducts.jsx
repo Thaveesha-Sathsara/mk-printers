@@ -14,7 +14,6 @@ const STANDARD_COLORS = ['#EF4444', '#F97316', '#F59E0B', '#EAB308', '#22C55E', 
 export default function AdminProducts() {
     const navigate = useNavigate();
     
-    // Basic Info
     const [prodName, setProdName] = useState('');
     const [prodCat, setProdCat] = useState('');
     const [prodDept, setProdDept] = useState('General');
