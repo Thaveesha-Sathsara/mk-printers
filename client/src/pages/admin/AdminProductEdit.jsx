@@ -350,7 +350,7 @@ export default function AdminProductEdit() {
                     </CardContent>
                 </Card>
 
-                {/* SUBMIT */}
+                {/* submit */}
                 <button type="submit" disabled={isSubmitting} className={`w-full font-black py-4 rounded-xl transition-all shadow-xl flex justify-center items-center gap-2 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700 text-white'}`}>
                     {isSubmitting ? <span className="animate-pulse">Saving Changes & Uploading Media...</span> : <><Save className="h-6 w-6"/> Save Product Updates</>}
                 </button>
