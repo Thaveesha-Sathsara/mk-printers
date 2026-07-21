@@ -333,7 +333,7 @@ export default function AdminProductEdit() {
                     </CardContent>
                 </Card>
 
-                {/* 4. CUSTOMIZER SETTINGS */}
+                {/* customaizer settings */}
                 <Card>
                     <CardHeader><CardTitle>Storefront Features</CardTitle></CardHeader>
                     <CardContent>
