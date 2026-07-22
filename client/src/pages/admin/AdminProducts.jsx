@@ -240,7 +240,7 @@ export default function AdminProducts() {
                             </div>
                         </div>
 
-                        {/* SIZES */}
+                        {/* sizes */}
                         <div className="pt-6 border-t border-gray-100">
                             <div className="flex items-center justify-between mb-4">
                                 <h4 className="font-bold text-gray-900 flex items-center gap-2"><Ruler className="h-5 w-5 text-green-500"/> Sizes</h4>
