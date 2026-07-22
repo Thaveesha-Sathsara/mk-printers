@@ -104,7 +104,7 @@ export default function AdminProducts() {
         setCustomVariants(newCV);
     };
 
-    // --- Submit ---
+    // submit
     const handleCreateProduct = async (e) => {
         e.preventDefault(); 
         if (isSubmitting) return;
