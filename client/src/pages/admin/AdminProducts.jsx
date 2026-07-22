@@ -139,7 +139,7 @@ export default function AdminProducts() {
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3"><Package className="h-8 w-8 text-blue-600" /> Add New Product</h1>
                     <p className="text-gray-500 mt-1">Create a new item with variations, images, and pricing.</p>
                 </div>
-                {/* Future Link to Categories */}
+                {/* future link to categorie */}
                 <Link to="/admin/categories/new" className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-xl transition-all text-sm">
                     + Add New Category
                 </Link>
