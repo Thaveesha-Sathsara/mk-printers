@@ -313,7 +313,7 @@ export default function AdminProducts() {
                     </CardContent>
                 </Card>
 
-                {/* SUBMIT */}
+                {/* submit */}
                 <button type="submit" disabled={isSubmitting} className={`w-full font-black py-4 rounded-xl transition-all shadow-xl flex justify-center items-center gap-2 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900 hover:bg-black text-white'}`}>
                     {isSubmitting ? <span className="animate-pulse">Uploading Media & Generating Product...</span> : <><Plus className="h-6 w-6"/> Publish Product to Store</>}
                 </button>
