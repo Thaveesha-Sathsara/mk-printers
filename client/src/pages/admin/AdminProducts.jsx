@@ -296,7 +296,7 @@ export default function AdminProducts() {
                     </CardContent>
                 </Card>
 
-                {/* 4. CUSTOMIZER SETTINGS */}
+                {/* customizer settings */}
                 <Card>
                     <CardHeader><CardTitle>Storefront Features</CardTitle></CardHeader>
                     <CardContent>
