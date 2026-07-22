@@ -319,7 +319,7 @@ export default function AdminProducts() {
                 </button>
             </form>
 
-            {/* COLOR PICKER MODAL */}
+            {/* color picker modal */}
             {showColorModal && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center animate-in fade-in">
                     <div className="bg-white p-6 rounded-2xl max-w-sm w-full shadow-2xl">
