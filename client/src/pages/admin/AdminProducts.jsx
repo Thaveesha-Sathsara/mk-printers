@@ -43,7 +43,7 @@ export default function AdminProducts() {
         }).catch(() => setLoading(false));
     }, []);
 
-    // --- File Handlers ---
+    // file handlers
     const handleMainImages = (e) => {
         const files = Array.from(e.target.files);
         files.forEach(file => {
