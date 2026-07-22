@@ -150,7 +150,7 @@ export default function AdminProducts() {
 
             <form onSubmit={handleCreateProduct} className="max-w-5xl mx-auto space-y-8">
                 
-                {/* 1. BASIC INFO */}
+                {/* basic info */}
                 <Card>
                     <CardHeader><CardTitle>Basic Information</CardTitle></CardHeader>
                     <CardContent className="space-y-6">
