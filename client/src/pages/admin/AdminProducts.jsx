@@ -133,7 +133,7 @@ export default function AdminProducts() {
 
     return (
         <div className="min-h-full p-4 md:p-8 font-sans text-gray-900 pb-24">
-            {/* Top Navigation */}
+            {/* top navigation */}
             <div className="max-w-5xl mx-auto flex items-center justify-between mb-8 border-b border-gray-200 pb-4">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3"><Package className="h-8 w-8 text-blue-600" /> Add New Product</h1>
