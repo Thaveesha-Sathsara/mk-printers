@@ -261,7 +261,7 @@ export default function AdminProducts() {
                             </div>
                         </div>
 
-                        {/* CUSTOM VARIANTS */}
+                        {/* custom attibutes */}
                         <div className="pt-6 border-t border-gray-100">
                             <div className="flex items-center justify-between mb-4">
                                 <h4 className="font-bold text-gray-900 flex items-center gap-2"><PlusCircle className="h-5 w-5 text-indigo-500"/> Custom Attributes</h4>
