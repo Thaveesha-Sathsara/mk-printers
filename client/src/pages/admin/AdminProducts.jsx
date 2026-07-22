@@ -188,7 +188,7 @@ export default function AdminProducts() {
                     </CardContent>
                 </Card>
 
-                {/* 2. MEDIA (Images & 3D) */}
+                {/* media */}
                 <Card>
                     <CardHeader><CardTitle>Product Media</CardTitle></CardHeader>
                     <CardContent className="space-y-6">
