@@ -214,7 +214,7 @@ export default function AdminProducts() {
                     </CardContent>
                 </Card>
 
-                {/* 3. VARIATIONS MATRIX */}
+                {/* variant metrix */}
                 <Card>
                     <CardHeader><CardTitle>Variations & Options</CardTitle></CardHeader>
                     <CardContent className="space-y-8">
