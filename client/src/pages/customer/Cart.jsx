@@ -13,7 +13,7 @@ export default function Cart() {
     const [isProcessing, setIsProcessing] = useState(false); // Loading state
     const { cart, removeFromCart, getCartTotal, clearCart } = useCart();
 
-    // NEW LOGIC: Save to DB first, then go to WhatsApp
+    // save to db then redirect to whatsapp with order details
     const handleConfirmOrder = async (currentUser = user) => {
         if (!currentUser || !currentUser.email) {
             setShowAuthModal(true);
