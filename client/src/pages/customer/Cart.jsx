@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import AuthModal from '../../components/AuthModal';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import API from '../../utils/api'; // Make sure API is imported
+import API from '../../utils/api';
 
 export default function Cart() {
     const { user } = useAuth();
