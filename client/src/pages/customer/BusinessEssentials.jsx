@@ -14,7 +14,7 @@ export default function BusinessEssentials() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
-      {/* Breadcrumbs */}
+      {/* breadcrumbs */}
       <div className="flex items-center gap-2 text-xs text-gray-500 mb-4 font-medium">
         <Link to="/" className="hover:text-blue-600 transition-colors">Home</Link>
         <ChevronRight className="h-3 w-3" />
