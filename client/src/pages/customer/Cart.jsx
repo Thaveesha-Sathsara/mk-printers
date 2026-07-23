@@ -23,7 +23,7 @@ export default function Cart() {
         setIsProcessing(true);
 
         try {
-            // 1. Send the cart data to your new backend route
+            // send the cart data to server
             const response = await API.post('/orders/create', {
                 items: cart,
                 totalAmount: getCartTotal()
