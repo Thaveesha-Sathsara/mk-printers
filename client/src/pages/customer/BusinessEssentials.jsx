@@ -21,7 +21,7 @@ export default function BusinessEssentials() {
         <span className="text-gray-900">Business Essentials</span>
       </div>
 
-      {/* Compact E-commerce Banner */}
+      {/* e commerce banner */}
       {/* <div className="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-xl p-6 md:p-8 mb-6 text-white shadow-sm relative overflow-hidden flex items-center justify-between">
         <div className="relative z-10 max-w-xl">
           <h1 className="text-2xl md:text-3xl font-black mb-1.5 tracking-tight">Business Essentials</h1>
