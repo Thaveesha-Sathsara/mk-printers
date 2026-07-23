@@ -55,7 +55,7 @@ export default function Cart() {
 
                 alert("Order secured successfully! You can track its status in your Profile. Redirecting to WhatsApp to confirm shipping...");
 
-                // 4. Redirect to WhatsApp
+                // redirect to whatsapp
                 const encodedMessage = encodeURIComponent(message);
                 window.open(`https://wa.me/94757098761?text=${encodedMessage}`, '_blank');
             }
