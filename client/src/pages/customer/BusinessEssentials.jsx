@@ -30,7 +30,7 @@ export default function BusinessEssentials() {
         <Briefcase className="h-32 w-32 text-white/5 absolute -right-6 -bottom-6 md:relative md:right-0 md:bottom-0 md:text-blue-500/20 md:h-20 md:w-20" />
       </div> */}
 
-      {/* Mobile-Optimized Grid (2 columns on mobile) */}
+      {/* mobile optimized grid */}
       {businessProducts.length === 0 ? (
           <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
               <p className="text-sm md:text-base text-gray-500 font-medium">Corporate items are arriving soon.</p>
