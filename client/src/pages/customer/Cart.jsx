@@ -49,7 +49,7 @@ export default function Cart() {
                 message += `*TOTAL: Rs. ${getCartTotal()}*\n\n`;
                 message += `Please confirm my shipping costs and delivery timeline.`;
 
-                // 3. Clear the cart since the order is locked in
+                // clear the cart and reset processing state
                 clearCart();
                 setIsProcessing(false);
 
