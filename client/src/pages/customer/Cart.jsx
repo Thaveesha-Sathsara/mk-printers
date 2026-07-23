@@ -98,7 +98,7 @@ export default function Cart() {
                             <div className="flex-1">
                                 <h3 className="font-bold text-lg text-gray-900">{item.name}</h3>
                                 <p className="text-gray-500 text-sm">Qty: {item.quantity}</p>
-                                {/* Show custom text preview if it exists */}
+                                {/* show custom items if available */}
                                 {item.customText && <p className="text-xs text-blue-600 mt-1">Text: "{item.customText}"</p>}
                             </div>
                             <div className="text-right">
