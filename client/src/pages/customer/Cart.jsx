@@ -32,7 +32,7 @@ export default function Cart() {
             if (response.data.success) {
                 const orderId = response.data.orderId;
 
-                // 2. Build the WhatsApp Message WITH the official Order ID
+                // whatsapp msg layout build
                 let message = `*NEW ORDER CONFIRMATION*\n`;
                 message += `Order ID: *${orderId}*\n\n`;
                 message += `Customer: *${currentUser.name}*\n`;
