@@ -5,7 +5,6 @@ import { Gift, Sparkles, Send, ExternalLink, ArrowRight, Ban } from 'lucide-reac
 
 export default function CustomerView() {
   const { linkId } = useParams();
-  // Added 'cancelled' to view states
   const [viewState, setViewState] = useState('loading'); 
   const [message, setMessage] = useState('');
   
