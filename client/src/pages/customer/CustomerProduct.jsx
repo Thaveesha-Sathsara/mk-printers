@@ -16,7 +16,7 @@ export default function CustomerProduct() {
     const [similarProducts, setSimilarProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     
-    // UI Interaction States
+    // ui interaction states
     const [showToast, setShowToast] = useState(false);
     const [isDescExpanded, setIsDescExpanded] = useState(false);
     const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
