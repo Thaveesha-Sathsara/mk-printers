@@ -62,7 +62,7 @@ export default function CustomerProduct() {
                         cv.options.forEach(opt => opt.image && compiledImages.push(opt.image));
                     });
                     
-                    // Remove duplicates just in case
+                    // Remove duplicates 
                     compiledImages = [...new Set(compiledImages)];
                     setAllGalleryImages(compiledImages);
 
