@@ -54,7 +54,7 @@ export default function CustomerProduct() {
                         setSelectedCustom(initialCustom);
                     }
                     
-                    // Compile all images for the gallery (Main + Colors + Sizes + Custom)
+                    // Compile all images for the gallery 
                     let compiledImages = [...(p.images || [])];
                     p.colors?.forEach(c => c.image && compiledImages.push(c.image));
                     p.sizes?.forEach(s => s.image && compiledImages.push(s.image));
