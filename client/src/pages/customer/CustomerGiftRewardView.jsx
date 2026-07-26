@@ -74,7 +74,7 @@ export default function CustomerView() {
   if (viewState === 'loading') return <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-500 font-medium">Loading your surprise...</div>;
   if (viewState === 'invalid') return <div className="min-h-screen flex items-center justify-center bg-gray-50 text-red-500 font-bold text-xl">{message}</div>;
   
-  // THE FIX: The Cancelled Screen
+  // cancel screen
   if (viewState === 'cancelled') return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6 text-center">
       <div className="bg-gray-200 p-6 rounded-full mb-6">
