@@ -66,7 +66,7 @@ export default function CustomerProduct() {
                     compiledImages = [...new Set(compiledImages)];
                     setAllGalleryImages(compiledImages);
 
-                    // Fetch Similar Products
+                    // Fetch similar poroducrs
                     const allRes = await API.get('/products');
                     if (allRes.data.success) {
                         const similar = allRes.data.products.filter(sim => sim.category?._id === p.category?._id && sim._id !== p._id).slice(0, 6);
