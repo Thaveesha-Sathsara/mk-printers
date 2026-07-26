@@ -22,7 +22,7 @@ export default function CustomerProduct() {
     const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
     const [drawerAction, setDrawerAction] = useState('cart');
     
-    // Dynamic Product States
+    // dynamic product selection states
     const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
     const [quantity, setQuantity] = useState(1);
     
