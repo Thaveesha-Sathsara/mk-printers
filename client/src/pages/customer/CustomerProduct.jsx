@@ -30,7 +30,7 @@ export default function CustomerProduct() {
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedCustom, setSelectedCustom] = useState({}); 
     
-    // Image Gallery State
+    // image gallery states
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [allGalleryImages, setAllGalleryImages] = useState([]);
 
