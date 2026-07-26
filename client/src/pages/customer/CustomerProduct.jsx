@@ -43,7 +43,7 @@ export default function CustomerProduct() {
                     const p = res.data.product;
                     setProduct(p);
                     
-                    // Auto-select first available options
+                    // Auto-select first available options for color, size, and custom variants
                     if (p.colors?.length > 0) setSelectedColor(p.colors[0]);
                     if (p.sizes?.length > 0) setSelectedSize(p.sizes[0]);
                     if (p.customVariants?.length > 0) {
